@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/icon-arrow-left.png</file>
+        <file>icons/icon-arrow-right.png</file>
+        <file>icons/icon-export-l.png</file>
+        <file>icons/icon-highlight.png</file>
+        <file>icons/icon-hotkeys-l.png</file>
+        <file>icons/icon-image.png</file>
+        <file>icons/icon-line.png</file>
+        <file>icons/icon-new.png</file>
+        <file>icons/icon-open-l.png</file>
+        <file>icons/icon-options-l.png</file>
+        <file>icons/icon-pause.png</file>
+        <file>icons/icon-pencil.png</file>
+        <file>icons/icon-play.png</file>
+        <file>icons/icon-record-l.png</file>
+        <file>icons/icon-save-l.png</file>
+        <file>icons/icon-shapes.png</file>
+        <file>icons/icon-text.png</file>
+        <file>icons/icon-upload-l.png</file>
+        <file>icons/logo.png</file>
+        <file>icons/logo-64.png</file>
+        <file>icons/arrow-left.png</file>
+        <file>icons/arrow-right.png</file>
+        <file>icons/cursor32.png</file>
+        <file>icons/LA.png</file>
+        <file>icons/LA2.png</file>
+        <file>icons/LA3.png</file>
+        <file>icons/eraser.png</file>
+        <file>icons/pointer.png</file>
+    </qresource>
+    <qresource prefix="/shaders"/>
+</RCC>

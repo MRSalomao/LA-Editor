@@ -1,0 +1,1601 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024"
+   height="1024"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="icons.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3281">
+      <stop
+         offset="0"
+         style="stop-color:#88aa00;stop-opacity:1"
+         id="stop3283" />
+      <stop
+         offset="1"
+         style="stop-color:#445500;stop-opacity:1"
+         id="stop3285" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3949">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3951" />
+      <stop
+         id="stop3957"
+         offset="0.45683593"
+         style="stop-color:#000000;stop-opacity:0.89600009;" />
+      <stop
+         style="stop-color:#6a6a6a;stop-opacity:0.44705882;"
+         offset="0.73093748"
+         id="stop3959" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3953" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4252">
+      <stop
+         style="stop-color:#333333;stop-opacity:1"
+         offset="0"
+         id="stop4254" />
+      <stop
+         style="stop-color:#666666;stop-opacity:1"
+         offset="1"
+         id="stop4256" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4242">
+      <stop
+         style="stop-color:#d4aa00;stop-opacity:1"
+         offset="0"
+         id="stop4244" />
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:1"
+         offset="1"
+         id="stop4246" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4209">
+      <stop
+         style="stop-color:#2a7fff;stop-opacity:1"
+         offset="0"
+         id="stop4211" />
+      <stop
+         style="stop-color:#2c5aa0;stop-opacity:1"
+         offset="1"
+         id="stop4213" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4199">
+      <stop
+         style="stop-color:#ff2a2a;stop-opacity:1"
+         offset="0"
+         id="stop4201" />
+      <stop
+         style="stop-color:#d40000;stop-opacity:1"
+         offset="1"
+         id="stop4203" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4165">
+      <stop
+         style="stop-color:#88aa00;stop-opacity:1;"
+         offset="0"
+         id="stop4167" />
+      <stop
+         style="stop-color:#aad400;stop-opacity:1"
+         offset="1"
+         id="stop4169" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3877"
+       id="linearGradient3111"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.31436941,0.35096331,-0.35096331,-0.31436941,291.34193,342.52267)"
+       x1="194.94022"
+       y1="262.80154"
+       x2="220.03993"
+       y2="258.81171" />
+    <linearGradient
+       id="linearGradient3877">
+      <stop
+         id="stop3879"
+         style="stop-color:#ffccaa;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3881"
+         style="stop-color:#ff9955;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3773"
+       id="linearGradient3115"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.31436941,0.35096331,-0.35096331,-0.31436941,291.52994,342.69109)"
+       x1="190.91884"
+       y1="402.83411"
+       x2="254.55844"
+       y2="402.83411" />
+    <linearGradient
+       id="linearGradient3773">
+      <stop
+         id="stop3775"
+         style="stop-color:#0593cf;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3777"
+         style="stop-color:#2740ff;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6622"
+       id="linearGradient3119"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.31436941,0.35096331,-0.35096331,-0.31436941,288.66672,340.1264)"
+       x1="190.91884"
+       y1="402.83411"
+       x2="254.55844"
+       y2="402.83411" />
+    <linearGradient
+       id="linearGradient6622">
+      <stop
+         id="stop6624"
+         style="stop-color:#ffcc00;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop6626"
+         style="stop-color:#aa8800;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6670"
+       id="linearGradient3123"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.66720685,0.74487248,-0.74487248,-0.66720685,636.00785,280.10754)"
+       x1="179.99998"
+       y1="462.36218"
+       x2="228.57144"
+       y2="464.50504" />
+    <linearGradient
+       id="linearGradient6670">
+      <stop
+         id="stop6672"
+         style="stop-color:#ffaaaa;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop6674"
+         style="stop-color:#ff5555;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       y2="464.50504"
+       x2="228.57144"
+       y1="462.36218"
+       x1="179.99998"
+       gradientTransform="matrix(-0.31436941,0.35096331,-0.35096331,-0.31436941,291.34193,342.52267)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3156"
+       xlink:href="#linearGradient6670"
+       inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4165"
+       id="linearGradient4171"
+       x1="248.82799"
+       y1="460.66534"
+       x2="249.68231"
+       y2="416.72369"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.3181002,0,0,0.3181002,0.72578094,28.43985)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4199"
+       id="linearGradient4205"
+       x1="225.0065"
+       y1="475.82144"
+       x2="280.82816"
+       y2="456.95709"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4209"
+       id="linearGradient4215"
+       x1="79.828949"
+       y1="370.505"
+       x2="126.55564"
+       y2="370.505"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4242"
+       id="linearGradient4248"
+       x1="71.071426"
+       y1="599.14795"
+       x2="91.533165"
+       y2="577.00507"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.3181002,0,0,0.3181002,-7.5423811,52.613838)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4252"
+       id="linearGradient4258"
+       x1="95.112045"
+       y1="615.19391"
+       x2="118.21429"
+       y2="591.82648"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.3181002,0,0,0.3181002,-7.5423811,52.613838)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3877"
+       id="linearGradient6589"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,77.180634,120.19203)"
+       x1="194.94022"
+       y1="262.80154"
+       x2="220.03993"
+       y2="258.81171" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3773"
+       id="linearGradient6592"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,77.24044,120.2456)"
+       x1="190.91884"
+       y1="402.83411"
+       x2="254.55844"
+       y2="402.83411" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6622"
+       id="linearGradient6595"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,76.329649,119.42978)"
+       x1="190.91884"
+       y1="402.83411"
+       x2="254.55844"
+       y2="402.83411" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6670"
+       id="linearGradient6598"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,77.180634,120.19203)"
+       x1="179.99998"
+       y1="462.36218"
+       x2="228.57144"
+       y2="464.50504" />
+    <linearGradient
+       id="linearGradient3949-6">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3951-2" />
+      <stop
+         id="stop3957-6"
+         offset="0.45683593"
+         style="stop-color:#000000;stop-opacity:0.89600009;" />
+      <stop
+         style="stop-color:#6a6a6a;stop-opacity:0.44705882;"
+         offset="0.73093748"
+         id="stop3959-8" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3953-8" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3949-8">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3951-1" />
+      <stop
+         id="stop3957-9"
+         offset="0.45683593"
+         style="stop-color:#000000;stop-opacity:0.89600009;" />
+      <stop
+         style="stop-color:#6a6a6a;stop-opacity:0.44705882;"
+         offset="0.73093748"
+         id="stop3959-6" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3953-9" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6670-4">
+      <stop
+         id="stop6672-2"
+         style="stop-color:#ffaaaa;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop6674-3"
+         style="stop-color:#ff5555;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6622-9">
+      <stop
+         id="stop6624-7"
+         style="stop-color:#ffcc00;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop6626-2"
+         style="stop-color:#aa8800;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3773-0"
+       id="linearGradient6592-1"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,75.826226,122.5437)"
+       x1="190.91884"
+       y1="402.83411"
+       x2="254.55844"
+       y2="402.83411" />
+    <linearGradient
+       id="linearGradient3773-0">
+      <stop
+         id="stop3775-7"
+         style="stop-color:#decd87;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3777-0"
+         style="stop-color:#c8ab37;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3877-7">
+      <stop
+         id="stop3879-9"
+         style="stop-color:#ffccaa;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3881-4"
+         style="stop-color:#ff9955;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3773-0-3"
+       id="linearGradient6592-1-8"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,77.24044,120.2456)"
+       x1="190.91884"
+       y1="402.83411"
+       x2="254.55844"
+       y2="402.83411" />
+    <linearGradient
+       id="linearGradient3773-0-3">
+      <stop
+         id="stop3775-7-9"
+         style="stop-color:#c8beb7;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3777-0-3"
+         style="stop-color:#808080;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       y2="402.83411"
+       x2="254.55844"
+       y1="402.83411"
+       x1="190.91884"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,66.644832,115.06204)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3262"
+       xlink:href="#linearGradient3281"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="402.83411"
+       x2="254.55844"
+       y1="402.83411"
+       x1="190.91884"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,130.64872,115.07551)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3262-2"
+       xlink:href="#linearGradient3281-5"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient3281-5">
+      <stop
+         offset="0"
+         style="stop-color:#88aa00;stop-opacity:1"
+         id="stop3283-7" />
+      <stop
+         offset="1"
+         style="stop-color:#445500;stop-opacity:1"
+         id="stop3285-1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3773-0-9"
+       id="linearGradient6592-1-2"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,139.83011,122.55717)"
+       x1="190.91884"
+       y1="402.83411"
+       x2="254.55844"
+       y2="402.83411" />
+    <linearGradient
+       id="linearGradient3773-0-9">
+      <stop
+         id="stop3775-7-6"
+         style="stop-color:#decd87;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3777-0-5"
+         style="stop-color:#c8ab37;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3281"
+       id="linearGradient4116"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,66.604185,371.8317)"
+       x1="190.91884"
+       y1="402.83411"
+       x2="254.55844"
+       y2="402.83411" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3773-0"
+       id="linearGradient4119"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,75.785579,379.31336)"
+       x1="190.91884"
+       y1="402.83411"
+       x2="254.55844"
+       y2="402.83411" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.313708"
+     inkscape:cx="6.9593418"
+     inkscape:cy="682.54072"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1879"
+     inkscape:window-height="1054"
+     inkscape:window-x="41"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:snap-global="false"
+     guidetolerance="10000"
+     objecttolerance="20">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3804"
+       empspacing="16"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       spacingx="1px"
+       spacingy="1px"
+       empcolor="#ff0000"
+       empopacity="0.25098039" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-28.36218)">
+    <g
+       id="icon-save-l"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="./icon-save-l.png">
+      <rect
+         style="fill:none;stroke:none"
+         id="background"
+         width="31.762627"
+         height="31.762627"
+         x="0.088582374"
+         y="28.497259"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-save-l.png"
+         inkscape:export-xdpi="28.842972"
+         inkscape:export-ydpi="28.842972" />
+      <path
+         sodipodi:nodetypes="scccccccs"
+         inkscape:connector-curvature="0"
+         id="path3000"
+         d="m 1.27248,32.607822 0.028836,23.797032 c -0.029072,1.333649 1.0086138,2.758918 2.665796,2.78006 l 24.105971,0 c 1.598281,0 2.744436,-1.391089 2.732336,-2.837015 L 30.793969,38.521457 C 30.70855,36.316084 26.776987,29.588556 23.426428,29.588556 L 4.337201,29.465845 c -1.4818937,0.03181 -3.0671286,1.155114 -3.064721,3.141977 z"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.11884469px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-save.png"
+         inkscape:export-xdpi="11.668641"
+         inkscape:export-ydpi="11.668641" />
+      <rect
+         ry="1.8368937"
+         y="32.222698"
+         x="5.6009793"
+         height="9.5408792"
+         width="17.88707"
+         id="rect3002"
+         style="fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-save.png"
+         inkscape:export-xdpi="11.668641"
+         inkscape:export-ydpi="11.668641" />
+      <rect
+         ry="0.57215065"
+         y="33.741196"
+         x="17.924841"
+         height="6.4677906"
+         width="3.4714341"
+         id="rect3004"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-save.png"
+         inkscape:export-xdpi="11.668641"
+         inkscape:export-ydpi="11.668641" />
+      <rect
+         ry="2.1006093"
+         y="45.332268"
+         x="4.8597517"
+         height="10.358412"
+         width="22.364727"
+         id="rect3006"
+         style="fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-save.png"
+         inkscape:export-xdpi="11.668641"
+         inkscape:export-ydpi="11.668641" />
+    </g>
+    <g
+       id="arrow-right"
+       transform="matrix(1,0,0,1.0067294,0,-2.4866686)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3136-6"
+         width="31.81002"
+         height="31.696411"
+         x="0.090017892"
+         y="284.99814" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 15.429322,289.58615 0,22.33216 14.426105,-11.21901 z"
+         id="path4157-7"
+         inkscape:connector-curvature="0" />
+      <rect
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect3958"
+         width="10.764546"
+         height="8.6759024"
+         x="5.7124705"
+         y="296.50842" />
+    </g>
+    <g
+       id="arrow-left"
+       transform="matrix(1.0047409,0,0,1.0079299,-0.60672095,-2.9135654)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3136-6-4"
+         width="31.813265"
+         height="31.699644"
+         x="-96.161522"
+         y="284.99652"
+         transform="scale(-1,1)" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 80.820652,289.58498 0,22.33446 -14.427574,-11.22014 z"
+         id="path4157-7-1"
+         inkscape:connector-curvature="0" />
+      <rect
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect3958-2"
+         width="10.765644"
+         height="8.6767874"
+         x="-90.538498"
+         y="296.50793"
+         transform="scale(-1,1)" />
+    </g>
+    <g
+       id="g6778">
+      <path
+         style="fill:#e6e6e6;stroke:#000000;stroke-width:0.34305051px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 131.44817,286.15407 -0.36756,28.36337 25.66716,0.18376 -0.87981,-22.17607 -7.10594,-6.4323 z"
+         id="path4013"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-new.png"
+         inkscape:export-xdpi="28.903227"
+         inkscape:export-ydpi="28.903227"
+         sodipodi:nodetypes="cccccc" />
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3120-1"
+         width="32.06633"
+         height="31.839035"
+         x="127.9774"
+         y="284.43399"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-new.png"
+         inkscape:export-xdpi="28.903227"
+         inkscape:export-ydpi="28.903227" />
+      <path
+         inkscape:export-ydpi="28.903227"
+         inkscape:export-xdpi="28.903227"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-new.png"
+         inkscape:connector-curvature="0"
+         id="path3869-5"
+         d="m 131.35485,286.76161 0,27.37953 25.30777,0 0,-18.97119 -8.69122,-0.002 -0.0546,-8.43155 z"
+         style="fill:none;stroke:#000000;stroke-width:2.12339234;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:nodetypes="ccccccc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.48118663;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 148.80112,286.90348 7.67974,6.95323"
+         id="path4011"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-new.png"
+         inkscape:export-xdpi="28.903227"
+         inkscape:export-ydpi="28.903227" />
+    </g>
+    <g
+       id="g6784">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3136-6-4-1"
+         width="31.813265"
+         height="31.699644"
+         x="-224.89954"
+         y="285.00134"
+         transform="scale(-1,1)"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-arrow-right.png"
+         inkscape:export-xdpi="14.45014"
+         inkscape:export-ydpi="14.45014" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 219.87412,310.47023 -22.33445,0 11.22015,-18.51742 z"
+         id="path4157-7-1-7"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-arrow-right.png"
+         inkscape:export-xdpi="14.45014"
+         inkscape:export-ydpi="14.45014" />
+    </g>
+    <g
+       id="g6814">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3136-6-4-1-0"
+         width="32.034801"
+         height="31.920393"
+         x="-224.78308"
+         y="-381.29602"
+         transform="scale(-1,-1)"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-arrow-left.png"
+         inkscape:export-xdpi="14.350207"
+         inkscape:export-ydpi="14.350207" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 219.72269,355.6498 -22.48999,0 11.29829,18.6464 z"
+         id="path4157-7-1-7-9"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-arrow-left.png"
+         inkscape:export-xdpi="14.350207"
+         inkscape:export-ydpi="14.350207" />
+    </g>
+    <g
+       id="g6714">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3116"
+         width="31.696411"
+         height="31.81002"
+         x="0.20199561"
+         y="91.672607" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient6598);fill-opacity:1;stroke:none"
+         id="path2987-2-4"
+         d="m 7.1558716,93.112459 c 0.614457,-0.143578 0.7426046,-0.112983 1.2795609,0.283796 l 2.4185165,2.166342 -7.5881324,8.150513 -2.33877097,-2.09492 c -0.299763,-0.51122 -0.27396571,-0.94177 -0.23144494,-1.41665 0.26539259,-3.408366 2.95012461,-6.35662 6.46027091,-7.089081 z" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient6595);fill-opacity:1;stroke:none"
+         id="path2987-2"
+         d="m 10.375484,95.134021 1.036672,0.928582 -7.5881321,8.150507 -0.877182,-0.78572 c 0.2700674,-3.810695 3.9184948,-7.560912 7.4286421,-8.293369 z" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient6592);fill-opacity:1;stroke:none"
+         id="path2987"
+         d="m 11.286276,95.949849 16.347507,14.643001 -7.588131,8.15051 -16.1880176,-14.50014 c 0.2700674,-3.8107 3.9184947,-7.560913 7.4286416,-8.293371 z" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient6589);fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path3003"
+         d="m 27.631426,110.5787 c -4.096934,2.11828 -5.814013,3.83231 -7.605941,8.14405 l 11.389043,2.60912 z" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:#000000;stroke:none"
+         id="path3003-3"
+         d="m 30.355162,118.31739 c 0,0 -1.634625,1.18386 -2.058656,2.31403 l 3.150439,0.72302 z" />
+    </g>
+    <g
+       id="icon-export-l"
+       inkscape:export-xdpi="89.970909"
+       inkscape:export-ydpi="89.970909"
+       transform="translate(-0.0710995,0)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3118"
+         width="32.010345"
+         height="31.998941"
+         x="64.145111"
+         y="92.275467" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.34458256px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 66.416642,97.700492 c -0.144969,-2.189295 1.005376,-1.864714 1.94217,-1.99629 5.300504,0 8.658834,0 13.95934,0 l -2.660811,3.119198 -10.084677,0 0,21.08575 20.756938,0 0,-9.26417 3.398794,-3.08786 0,13.78687 c 0.09921,1.6399 -0.804293,1.8075 -1.820781,1.80914 l -23.670189,0 c -0.880273,0.0422 -1.788262,0.16423 -1.881478,-2.0587 z"
+         id="path3023"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccccccccccc" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.75712365;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 75.691234,109.15262 3.084409,3.48185 12.254278,-10.27977 3.584585,3.89637 0,-11.357448 -10.336943,0 3.667953,4.062168 z"
+         id="path3793"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccccc" />
+    </g>
+    <g
+       id="icon-upload-l"
+       transform="matrix(0.99554565,0,0,1.0044863,0.00404792,0.44192497)"
+       inkscape:export-xdpi="90.61895"
+       inkscape:export-ydpi="90.61895">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3120"
+         width="31.923626"
+         height="31.696411"
+         x="128.60326"
+         y="91.672607" />
+      <rect
+         style="fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="rect3889"
+         width="25.706377"
+         height="22.975075"
+         x="131.66158"
+         y="95.676254"
+         ry="5.3822732"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-upload-l.png"
+         inkscape:export-xdpi="33.622765"
+         inkscape:export-ydpi="33.622765" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.62260288;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 142.28515,115.08496 4.67806,-0.0173 0.0897,-8.68035 5.32255,0.079 -7.72224,-7.51757 -7.5531,7.63104 5.2549,-0.0555 z"
+         id="path3793-7"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccccc"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-upload-l.png"
+         inkscape:export-xdpi="33.622765"
+         inkscape:export-ydpi="33.622765" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:3.66609645;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 131.72501,94.509995 0,25.848985 25.89482,0 0,-25.758285 z"
+         id="path3869"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-upload-l.png"
+         inkscape:export-xdpi="105.92295"
+         inkscape:export-ydpi="105.92295" />
+    </g>
+    <g
+       id="g6699"
+       transform="translate(-0.71099503,0.85319403)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3138"
+         width="31.81002"
+         height="31.696411"
+         x="192.86069"
+         y="91.786224" />
+      <path
+         sodipodi:type="arc"
+         style="fill:#d40000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path4083"
+         sodipodi:cx="537.40112"
+         sodipodi:cy="275.0498"
+         sodipodi:rx="45.456863"
+         sodipodi:ry="45.456863"
+         d="m 582.85799,275.0498 c 0,25.10514 -20.35173,45.45687 -45.45687,45.45687 -25.10513,0 -45.45686,-20.35173 -45.45686,-45.45687 0,-25.10513 20.35173,-45.45686 45.45686,-45.45686 25.10514,0 45.45687,20.35173 45.45687,45.45686 z"
+         transform="matrix(0.3181002,0,0,0.3181002,37.793039,20.019412)"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-record-l.png"
+         inkscape:export-xdpi="31.678385"
+         inkscape:export-ydpi="31.678385" />
+    </g>
+    <g
+       id="g6744">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3136"
+         width="31.81002"
+         height="31.696411"
+         x="192.86069"
+         y="156.43132"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-play.png"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-ydpi="28.799999" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-play.png"
+         inkscape:connector-curvature="0"
+         id="path4157"
+         d="m 196.63213,158.93069 0,27.15212 25.99397,-13.6404 z"
+         style="fill:#88aa00;fill-opacity:1;stroke:none" />
+    </g>
+    <g
+       id="g6732">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3124"
+         width="31.81002"
+         height="31.696411"
+         x="64.345818"
+         y="156.43132"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-shapes.png"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-ydpi="28.799999" />
+      <rect
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-shapes.png"
+         ry="0"
+         y="160.11607"
+         x="67.72303"
+         height="15.905821"
+         width="15.905821"
+         id="rect4163"
+         style="fill:url(#linearGradient4171);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.36783099;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-shapes.png"
+         transform="matrix(0.27253917,0,0,0.27253917,17.912266,44.654937)"
+         d="m 279.30718,466.97879 c 0,15.06308 -12.21103,27.27412 -27.27411,27.27412 -15.06308,0 -27.27412,-12.21104 -27.27412,-27.27412 0,-15.06308 12.21104,-27.27412 27.27412,-27.27412 15.06308,0 27.27411,12.21104 27.27411,27.27412 z"
+         sodipodi:ry="27.274118"
+         sodipodi:rx="27.274118"
+         sodipodi:cy="466.97879"
+         sodipodi:cx="252.03307"
+         id="path4173"
+         style="fill:url(#linearGradient4205);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5.4000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-shapes.png"
+         transform="matrix(0.36525883,-0.01852541,0.01852541,0.36525883,33.144525,44.259048)"
+         inkscape:transform-center-y="-0.13228831"
+         inkscape:transform-center-x="-0.67081081"
+         d="m 108.08632,392.2275 -10.593604,-10.85492 -14.947698,2.57294 7.050037,-13.42947 -7.066103,-13.42102 14.950765,2.55505 10.580603,-10.86759 2.19005,15.00857 13.60527,6.70449 -13.59724,6.72076 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="false"
+         sodipodi:arg2="1.8843572"
+         sodipodi:arg1="1.2560387"
+         sodipodi:r2="11.420198"
+         sodipodi:r1="22.840397"
+         sodipodi:cy="370.50922"
+         sodipodi:cx="101.01525"
+         sodipodi:sides="5"
+         id="path4207"
+         style="fill:url(#linearGradient4215);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3.57389259;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         sodipodi:type="star" />
+    </g>
+    <g
+       id="g6758">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3130"
+         width="31.81002"
+         height="31.696411"
+         x="64.345818"
+         y="220.68877"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-line.png"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-ydpi="28.799999" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-line.png"
+         inkscape:connector-curvature="0"
+         id="path4217"
+         d="M 68.044358,224.37594 92.947411,249.279"
+         style="fill:none;stroke:#000000;stroke-width:2.76747155;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <g
+       id="g6752">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3132"
+         width="31.923626"
+         height="31.81002"
+         x="128.60326"
+         y="220.68877"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-image.png"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-ydpi="28.799999" />
+      <rect
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-image.png"
+         y="224.05463"
+         x="131.82224"
+         height="25.385046"
+         width="25.385046"
+         id="rect4219"
+         style="fill:#aaeeff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.52688098;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-image.png"
+         inkscape:connector-curvature="0"
+         id="path4221"
+         d="m 132.4649,243.97706 8.35456,-6.10527 3.69529,4.01663 7.06926,-7.55125 4.65928,6.10526 0.16066,8.19391 -23.93905,0 z"
+         style="fill:#8dd35f;fill-opacity:1;stroke:none" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-image.png"
+         sodipodi:nodetypes="cccscscccc"
+         inkscape:connector-curvature="0"
+         id="path4223"
+         d="m 132.58539,231.12387 c 1.47064,1.60536 4.18172,1.84221 6.08872,1.84194 2.36087,-0.48901 4.28664,0.32516 6.44727,-3.47616 0.72863,1.01296 1.96943,1.22687 3.03191,1.11492 1.60148,-0.16878 2.5442,-1.37729 2.60747,-1.40868 0.60399,1.72791 1.94711,2.15083 2.84746,2.37099 1.12971,0.27624 2.81968,-0.28235 2.81968,-0.28235 l 0,-6.42659 -23.84251,-0.0402 z"
+         style="fill:#d7f4ee;fill-opacity:1;stroke:none" />
+    </g>
+    <g
+       id="g6748">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3134"
+         width="31.81002"
+         height="31.696411"
+         x="192.86069"
+         y="220.80237"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-text.png"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-ydpi="28.799999" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-text.png"
+         sodipodi:nodetypes="cccccccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path4236"
+         d="m 202.9984,250.23946 0.028,0.91773 12.02398,0 -0.0198,-0.89794 c -1.66189,-0.0222 -3.45798,0.0931 -3.89814,-2.54712 l -0.1351,-22.42675 5.20138,-0.0676 c 2.55114,0.0448 3.29656,2.60207 3.38911,4.93118 l 1.08081,0.0198 -0.0116,-6.90993 -23.3049,0.0676 -0.0676,7.02525 1.08081,-0.0198 c 0.4747,-3.07941 1.64405,-5.02569 3.91793,-5.0465 l 4.59343,-0.0676 0,22.29164 c 0.11019,2.24927 -1.66282,2.80644 -3.87835,2.72999 z"
+         style="fill:#000000;stroke:#000000;stroke-width:0.37828234px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g6762">
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-highlight.png"
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4260"
+         d="m 28.413275,247.71739 1.644796,-1.65169 1.834698,1.47523 -2.263579,0.9623 z"
+         style="fill:#d3bc5f;stroke:none" />
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3128"
+         width="31.81002"
+         height="31.81002"
+         x="0.088388219"
+         y="220.68877"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-highlight.png"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-ydpi="28.799999" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-highlight.png"
+         sodipodi:nodetypes="cscccc"
+         inkscape:connector-curvature="0"
+         id="path4238"
+         d="m 1.1303452,232.17117 c 0,0 -0.1177114,-5.49291 1.5263158,-7.40159 1.5709506,-1.82385 6.7784275,-2.49031 6.7784275,-2.49031 l 19.6373255,16.55949 -8.440205,8.79482 C 9.8136501,239.0789 12.028685,240.73988 1.1303452,232.17117 z"
+         style="fill:url(#linearGradient4248);fill-opacity:1;stroke:none" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-highlight.png"
+         sodipodi:nodetypes="cccsccscc"
+         inkscape:connector-curvature="0"
+         id="path4250"
+         d="m 28.982339,238.82902 -8.406933,8.74775 1.306482,1.13607 c 0,0 1.958499,-1.73233 3.181002,-1.87451 1.142175,-0.13286 3.294612,1.02247 3.294612,1.02247 l 1.874515,-1.87453 c 0,0 -1.257388,-1.75963 -1.306481,-2.78338 -0.05393,-1.12463 1.136071,-3.18099 1.136071,-3.18099 z"
+         style="fill:url(#linearGradient4258);fill-opacity:1;stroke:none" />
+    </g>
+    <g
+       id="g6818">
+      <g
+         id="g6670">
+        <path
+           inkscape:export-ydpi="29.155821"
+           inkscape:export-xdpi="29.155821"
+           inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-open-l.png"
+           sodipodi:nodetypes="ccccccccccc"
+           inkscape:connector-curvature="0"
+           id="path3823"
+           d="m 68.058528,32.77443 c -0.376101,0.126549 -0.786184,0.213821 -0.766743,0.797481 l 0.230023,10.455871 24.382469,-0.08859 0.230031,-10.278654 c 0.03654,-0.04638 -0.244097,-0.45931 -0.613395,-0.974704 l -12.548431,0.05226 -1.07392,-2.329671 c -2.569468,0.0739 -4.142828,-0.0056 -6.593941,0.02442 l -1.1501,2.337883 z"
+           style="fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:2.50792217;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+        <path
+           inkscape:export-ydpi="29.155821"
+           inkscape:export-xdpi="29.155821"
+           inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-open-l.png"
+           inkscape:connector-curvature="0"
+           id="path3825"
+           d="m 75.413383,38.959019 8.504541,-9.80091 8.504549,9.917587 -4.431948,0 0,8.984174 -8.624325,0 0,-8.984174 z"
+           style="fill:none;stroke:none" />
+        <path
+           inkscape:export-ydpi="29.155821"
+           inkscape:export-xdpi="29.155821"
+           inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-open-l.png"
+           sodipodi:nodetypes="ccccccc"
+           inkscape:connector-curvature="0"
+           id="path3821"
+           d="m 65.590747,39.685943 1.916857,18.253475 23.999109,0 2.990296,-18.076257 c -0.06046,-0.855853 -0.737018,-1.177679 -1.610161,-1.329136 l -25.68594,0 c -1.042038,0.0336 -1.590417,0.409476 -1.610161,1.151918 z"
+           style="fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:2.57222795;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      </g>
+      <rect
+         inkscape:export-ydpi="29.155821"
+         inkscape:export-xdpi="29.155821"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-open-l.png"
+         y="28.314386"
+         x="64.148903"
+         height="31.9713"
+         width="31.867378"
+         id="rect3090-1"
+         style="fill:none;stroke:none" />
+    </g>
+    <g
+       id="g6675">
+      <rect
+         style="fill:#e6e6e6;stroke:none"
+         id="rect3112"
+         width="27.701674"
+         height="29.050608"
+         x="130.32802"
+         y="29.672802"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-ydpi="28.697508" />
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3114"
+         width="31.923626"
+         height="30.059341"
+         x="127.99196"
+         y="30.239527"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-ydpi="28.697508" />
+      <rect
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         style="fill:none;stroke:#000000;stroke-width:2.11796069;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect3891"
+         width="27.454086"
+         height="27.682871"
+         x="130.30963"
+         y="30.563457"
+         ry="0"
+         rx="0" />
+      <rect
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         style="fill:none;stroke:#000000;stroke-width:1.98903441;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect3893"
+         width="20.19688"
+         height="18.06776"
+         x="133.92628"
+         y="34.306305"
+         ry="0.49868074" />
+      <path
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         style="fill:none;stroke:#000000;stroke-width:2.16003752;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 130.50361,30.923769 3.68079,3.658318"
+         id="path3895"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <path
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         style="fill:none;stroke:#000000;stroke-width:2.16003752;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 134.25859,52.062217 -3.72614,6.027717"
+         id="path3897"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <path
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         style="fill:none;stroke:#000000;stroke-width:2.16003752;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 153.96808,52.242746 3.60166,5.956857"
+         id="path3899"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <path
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         style="fill:none;stroke:#000000;stroke-width:2.16003752;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 153.81725,34.380989 3.29756,-3.196733"
+         id="path3901"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <path
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         style="fill:#000000;stroke:#000000;stroke-width:3.36902213;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 140.91002,36.435455 0,13.05977"
+         id="path3903"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         style="fill:#000000;stroke:#000000;stroke-width:3.36902213;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 140.91002,42.894245 6.40166,0"
+         id="path3905"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <path
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         style="fill:#000000;stroke:#000000;stroke-width:3.36902213;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 147.09838,36.419226 0,13.085657"
+         id="path3907"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <rect
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
+         y="28.417755"
+         x="128.10556"
+         height="31.881119"
+         width="31.81002"
+         id="rect3142"
+         style="fill:none;stroke:none" />
+    </g>
+    <g
+       id="g6722">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3122"
+         width="31.696411"
+         height="31.81002"
+         x="0.20199561"
+         y="156.43132"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\favicon.png"
+         inkscape:export-xdpi="14.4"
+         inkscape:export-ydpi="14.4" />
+      <rect
+         inkscape:export-ydpi="34.019932"
+         inkscape:export-xdpi="34.019932"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\rect4145.png"
+         style="fill:#d40000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="rect4085"
+         width="26.653982"
+         height="23.775179"
+         x="2.4254062"
+         y="163.08742"
+         ry="2.1601484" />
+      <path
+         inkscape:export-ydpi="34.019932"
+         inkscape:export-xdpi="34.019932"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\rect4145.png"
+         style="fill:#ff5555;fill-opacity:1;stroke:none"
+         d="m 6.6037815,163.12708 0,2.34326 c -0.00872,1.25339 1.8551709,2.53335 3.7190225,2.52011 l 10.7586,-0.0442 c 1.856873,0.0269 3.914694,-0.92823 3.885054,-2.18852 l 0,-2.58643 z"
+         id="path4095"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccccc" />
+      <rect
+         inkscape:export-ydpi="34.019932"
+         inkscape:export-xdpi="34.019932"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\rect4145.png"
+         style="fill:#c87137;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="rect4087"
+         width="3.0549114"
+         height="9.696023"
+         x="14.041825"
+         y="157.31607"
+         ry="1.5274557" />
+      <rect
+         inkscape:export-ydpi="34.019932"
+         inkscape:export-xdpi="34.019932"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\rect4145.png"
+         style="fill:#aad400;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="rect4089"
+         width="10.227311"
+         height="7.3052225"
+         x="15.476307"
+         y="158.3687"
+         ry="1.5274557" />
+      <path
+         inkscape:export-ydpi="34.019932"
+         inkscape:export-xdpi="34.019932"
+         inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\rect4145.png"
+         style="fill:#c87137;fill-opacity:1;stroke:none"
+         d="m 17.005425,158.33217 0,3.05491 c -0.386597,0.90021 -0.963959,0.85591 -1.793103,0.66411 l 0,-3.55299 z"
+         id="path4093"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <rect
+         inkscape:export-ydpi="34.019932"
+         inkscape:export-xdpi="34.019932"
+         ry="0.96629852"
+         y="165.737"
+         x="12.281932"
+         height="1.932597"
+         width="6.1762342"
+         id="rect4145"
+         style="fill:#ff5555;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+      <rect
+         inkscape:export-ydpi="14.4"
+         inkscape:export-xdpi="14.4"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\favicon.png"
+         y="156.43132"
+         x="0.088388219"
+         height="31.81002"
+         width="31.81002"
+         id="rect3144"
+         style="fill:none;stroke:none" />
+    </g>
+    <g
+       id="g6738">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3126"
+         width="31.81002"
+         height="31.582806"
+         x="128.60326"
+         y="156.54494" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-pause.png"
+         inkscape:connector-curvature="0"
+         id="path4159"
+         d="m 138.24883,183.89447 0,-23.13574"
+         style="fill:none;stroke:#000000;stroke-width:4.93055344;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-pause.png"
+         inkscape:connector-curvature="0"
+         id="path4161"
+         d="m 150.94135,160.75873 0,23.29641"
+         style="fill:none;stroke:#000000;stroke-width:4.93055344;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         inkscape:export-ydpi="28.799999"
+         inkscape:export-xdpi="28.799999"
+         inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-pause.png"
+         y="156.65855"
+         x="128.60326"
+         height="31.582806"
+         width="31.81002"
+         id="rect3146"
+         style="fill:none;stroke:none" />
+    </g>
+    <g
+       id="g6689">
+      <rect
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         style="fill:none;stroke:none"
+         id="rect3140"
+         width="31.923626"
+         height="31.740629"
+         x="192.74707"
+         y="28.487148" />
+      <path
+         transform="matrix(0.20545219,0,0,0.20545219,102.49458,19.533169)"
+         d="m 558.21426,120.57648 c 0,22.28863 -18.06851,40.35714 -40.35714,40.35714 -22.28864,0 -40.35715,-18.06851 -40.35715,-40.35714 0,-22.288638 18.06851,-40.357146 40.35715,-40.357146 22.28863,0 40.35714,18.068508 40.35714,40.357146 z"
+         sodipodi:ry="40.357143"
+         sodipodi:rx="40.357143"
+         sodipodi:cy="120.57648"
+         sodipodi:cx="517.85712"
+         id="path3941"
+         style="fill:none;stroke:#000000;stroke-width:33.93951797;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         sodipodi:type="arc"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-ydpi="28.697508" />
+      <rect
+         ry="0.53933716"
+         y="29.970566"
+         x="205.55948"
+         height="6.7614374"
+         width="6.5625715"
+         id="rect3943-4"
+         style="fill:#000000;stroke:#000000;stroke-width:0.55682439"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-ydpi="28.697508" />
+      <use
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(-0.07398567,21.899812)"
+         id="use4077"
+         xlink:href="#rect3943-4"
+         y="0"
+         x="0" />
+      <use
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="matrix(0.53232284,0.84654143,-0.84654143,0.53232284,135.22951,-155.89438)"
+         id="use4079"
+         xlink:href="#rect3943-4"
+         y="0"
+         x="0" />
+      <use
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="matrix(0.53232284,0.84654143,-0.84654143,0.53232284,135.22951,-155.89438)"
+         id="use4081"
+         xlink:href="#use4077"
+         y="0"
+         x="0" />
+      <use
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="matrix(0.48031568,-0.87709569,0.87709569,0.48031568,69.729679,206.31148)"
+         id="use4083"
+         xlink:href="#rect3943-4"
+         y="0"
+         x="0" />
+      <use
+         inkscape:export-ydpi="28.697508"
+         inkscape:export-xdpi="28.697508"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="matrix(0.48031568,-0.87709569,0.87709569,0.48031568,69.729679,206.31148)"
+         id="use4085"
+         xlink:href="#use4077"
+         y="0"
+         x="0" />
+    </g>
+    <g
+       id="g6803">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3136-6-4-1-0-1"
+         width="32.034801"
+         height="31.920393"
+         x="-160.52567"
+         y="-381.06879"
+         transform="scale(-1,-1)"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         inkscape:export-xdpi="28.597918"
+         inkscape:export-ydpi="28.597918" />
+      <rect
+         inkscape:export-ydpi="28.597918"
+         inkscape:export-xdpi="28.597918"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         style="fill:none;stroke:none"
+         id="rect3140-1"
+         width="31.570412"
+         height="31.6915"
+         x="128.75566"
+         y="349.28464" />
+      <path
+         inkscape:connector-curvature="0"
+         inkscape:export-ydpi="28.597918"
+         inkscape:export-xdpi="28.597918"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         id="path4138"
+         d="m 144.55797,352.37877 -11.05399,6.38188 0,12.77372 11.05399,6.38188 11.05398,-6.38188 0,-12.77372 -11.05398,-6.38188 z m -0.0696,7.42566 c 2.89673,0 5.24866,2.35193 5.24866,5.24865 0,2.89673 -2.35193,5.23871 -5.24866,5.23871 -2.89672,0 -5.23871,-2.34198 -5.23871,-5.23871 0,-2.89672 2.34199,-5.24865 5.23871,-5.24865 z"
+         style="stroke-width:18.86100006;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         inkscape:export-ydpi="28.597918"
+         inkscape:export-xdpi="28.597918"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4172"
+         d="m 140.92872,356.67546 7.19503,0 -0.54133,-6.07848 -6.11237,0 z"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.31810021px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <use
+         inkscape:export-ydpi="28.597918"
+         inkscape:export-xdpi="28.597918"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="matrix(-1,0,0,-1,289.11971,730.22903)"
+         id="use4174"
+         xlink:href="#path4172"
+         y="0"
+         x="0" />
+      <use
+         inkscape:export-ydpi="28.597918"
+         inkscape:export-xdpi="28.597918"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="matrix(0.53064253,-0.84759572,0.84759572,0.53064253,-241.61923,293.89752)"
+         id="use4176"
+         xlink:href="#path4172"
+         y="0"
+         x="0" />
+      <use
+         inkscape:export-ydpi="28.597918"
+         inkscape:export-xdpi="28.597918"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="matrix(0.53064253,-0.84759572,0.84759572,0.53064253,-241.61923,293.89752)"
+         id="use4178"
+         xlink:href="#use4174"
+         y="0"
+         x="0" />
+      <use
+         inkscape:export-ydpi="28.597918"
+         inkscape:export-xdpi="28.597918"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="matrix(0.4992956,0.86643171,-0.86643171,0.4992956,388.72854,57.563196)"
+         id="use4180"
+         xlink:href="#path4172"
+         y="0"
+         x="0" />
+      <use
+         inkscape:export-ydpi="28.597918"
+         inkscape:export-xdpi="28.597918"
+         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
+         height="1052.3622"
+         width="744.09448"
+         transform="matrix(0.4992956,0.86643171,-0.86643171,0.4992956,388.72854,57.563196)"
+         id="use4182"
+         xlink:href="#use4174"
+         y="0"
+         x="0" />
+    </g>
+    <g
+       id="arrow-right-5"
+       transform="matrix(1,0,0,1.0067294,0.02915092,45.514742)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/eraser.png">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3136-6-6"
+         width="31.81002"
+         height="31.696411"
+         x="0.090017892"
+         y="300.89117"
+         inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/LA2.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+    </g>
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/eraser.png"
+       y="348.44226"
+       x="0.16134819"
+       height="31.81002"
+       width="31.696411"
+       id="rect3116-7"
+       style="fill:none;stroke:none" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/eraser.png"
+       sodipodi:nodetypes="ccccc"
+       d="m 13.301847,351.02221 16.347507,14.643 c 3.346407,3.36339 -7.974921,14.77313 -11.058563,12.14591 L 2.4027734,363.31098 C 0.99346209,362.10774 12.266574,349.9427 13.301847,351.02221 z"
+       id="path2987-3"
+       style="fill:url(#linearGradient4119);fill-opacity:1;stroke:none"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/eraser.png"
+       sodipodi:nodetypes="ccccc"
+       d="m 15.948579,353.33742 7.909927,7.00211 c 3.346407,3.36339 -8.234724,14.74031 -11.318366,12.11309 l -7.5062601,-6.7483 c -1.409311,-1.20324 9.8794261,-13.4464 10.9146991,-12.3669 z"
+       id="path2987-3-3"
+       style="fill:url(#linearGradient4116);fill-opacity:1;stroke:none"
+       inkscape:connector-curvature="0" />
+    <g
+       inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/pointer.png"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       transform="matrix(1,0,0,1.0067294,64.03304,45.52821)"
+       id="arrow-right-5-9">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/LA2.png"
+         y="300.89117"
+         x="0.090017892"
+         height="31.696411"
+         width="31.81002"
+         id="rect3136-6-6-5"
+         style="fill:none;stroke:none" />
+    </g>
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/pointer.png"
+       y="348.45572"
+       x="64.165237"
+       height="31.81002"
+       width="31.696411"
+       id="rect3116-7-7"
+       style="fill:none;stroke:none" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/pointer.png"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:connector-curvature="0"
+       id="path3341"
+       d="m 85.089421,374.39123 -4.61508,1.9432 -2.328928,-5.67294 -5.169739,3.44113 -0.0399,-22.24763 15.841629,15.58007 -6.028314,1.36709 z"
+       style="fill:#e6e6e6;stroke:#000000;stroke-width:1.58500004;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+  </g>
+</svg>
