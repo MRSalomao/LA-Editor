@@ -102,8 +102,11 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Droid Sans</family>
-          <pointsize>10</pointsize>
+          <family>Arial</family>
+          <pointsize>13</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
         </property>
         <property name="focusPolicy">
@@ -149,8 +152,11 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Droid Sans</family>
-          <pointsize>10</pointsize>
+          <family>Arial</family>
+          <pointsize>13</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
         </property>
         <property name="focusPolicy">
@@ -178,8 +184,11 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Droid Sans</family>
-          <pointsize>10</pointsize>
+          <family>Arial</family>
+          <pointsize>13</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
         </property>
         <property name="focusPolicy">
@@ -207,8 +216,11 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Droid Sans</family>
-          <pointsize>10</pointsize>
+          <family>Arial</family>
+          <pointsize>13</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
         </property>
         <property name="focusPolicy">
@@ -236,8 +248,11 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Droid Sans</family>
-          <pointsize>10</pointsize>
+          <family>Arial</family>
+          <pointsize>13</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
         </property>
         <property name="focusPolicy">
@@ -265,8 +280,11 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Droid Sans</family>
-          <pointsize>10</pointsize>
+          <family>Arial</family>
+          <pointsize>13</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
         </property>
         <property name="focusPolicy">
@@ -314,8 +332,11 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Droid Sans</family>
-          <pointsize>10</pointsize>
+          <family>Arial</family>
+          <pointsize>13</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
         </property>
         <property name="focusPolicy">
@@ -1220,8 +1241,11 @@ background-color: rgba(150, 150, 150, 56);
             </property>
             <property name="font">
              <font>
-              <family>Droid Sans</family>
-              <pointsize>10</pointsize>
+              <family>Arial</family>
+              <pointsize>13</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="focusPolicy">
@@ -1258,8 +1282,11 @@ background-color: rgba(150, 150, 150, 56);
             </property>
             <property name="font">
              <font>
-              <family>Droid Sans</family>
-              <pointsize>10</pointsize>
+              <family>Arial</family>
+              <pointsize>13</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="focusPolicy">

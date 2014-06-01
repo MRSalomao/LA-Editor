@@ -2,7 +2,12 @@
 #define CONFIGS_H
 
 
-#define EXEC_FOLDER QString("./../AkademioEditor/")
+#if QT_VERSION < 0x050000
+    #define EXEC_FOLDER QString("./../AkademioEditor/")
+#else
+    #define EXEC_FOLDER QString("/Users/marcellosalomao/Projects/AkademioEditor/")
+#endif
+
 
 
 #endif

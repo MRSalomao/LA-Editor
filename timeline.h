@@ -3,16 +3,23 @@
 
 #include <QWidget>
 #include <QByteArray>
-#include <QtMultimediaKit/QAudioInput>
-#include <QtMultimediaKit/QAudioOutput>
+#include <QAudioInput>
+#include <QAudioOutput>
 #include <QFile>
 #include <QTime>
+#include <QThread>
 #include "events.h"
 
 #if QT_VERSION < 0x050000
     #define setSampleRate(sr) setFrequency(sr);
     #define setChannelCount(cc) setChannels(cc);
 #endif
+
+class PlayerThread : public QThread
+{
+    Q_OBJECT
+    void run();
+};
 
 class Timeline : public QWidget
 {
@@ -55,10 +62,11 @@ class Timeline : public QWidget
 public:
 
     // Objects used for audio sampling
+    PlayerThread pt;
     QAudioFormat format;
     QAudioInput *audioInput;
     QAudioOutput *audioOutput;
-    QIODevice *inputDevice;
+    QIODevice* inputDevice;
     QByteArray audioTempBuffer;
 
     // Final output file

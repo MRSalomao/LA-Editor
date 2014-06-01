@@ -36,7 +36,11 @@ Timeline::Timeline(QWidget *parent) :
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(ShowContextMenu(const QPoint&)));
 
     // Create and open audio file
-    rawAudioFile = new QFile("./rawAudioFile.raw");
+#if QT_VERSION < 0x050000
+    rawAudioFile = new QFile("rawAudioFile.raw");
+#else
+    rawAudioFile = new QFile("./../../../rawAudioFile.raw");
+#endif
     rawAudioFile->open(QIODevice::ReadWrite | QIODevice::Truncate);
 
     // Start up audio
@@ -47,6 +51,9 @@ Timeline::~Timeline()
 {
     // Delete event objects
     qDeleteAll(events);
+
+    audioInput->stop();
+    rawAudioFile->close();
 }
 
 
@@ -56,7 +63,7 @@ void Timeline::initializeAudio()
     format.setSampleRate(samplingFrequency);
     format.setChannelCount(1);
     format.setSampleSize(8 * sampleSize);
-    format.setSampleType(QAudioFormat::UnSignedInt);
+    format.setSampleType(QAudioFormat::SignedInt);
     format.setByteOrder(QAudioFormat::LittleEndian);
     format.setCodec("audio/pcm");
 
@@ -71,8 +78,6 @@ void Timeline::initializeAudio()
              if (deviceInfo.deviceName() == QSettings().value("audioInputDevice").toString())
              {
                  infoIn = deviceInfo;
-
-                 qDebug() << "Using audio input source: " + infoIn.deviceName();
              }
         }
     }
@@ -80,6 +85,7 @@ void Timeline::initializeAudio()
     {
         infoIn = QAudioDeviceInfo::defaultInputDevice();
     }
+
 
     // Get final input format
     if (!infoIn.isFormatSupported(format))
@@ -91,9 +97,11 @@ void Timeline::initializeAudio()
        sampleSize = format.sampleSize() / 8;
        samplingFrequency = format.sampleRate();
 
-       qWarning() << "Audio Input: default format not supported. Getting the nearest:";
+       qWarning() << "Audio Input: Requested format not supported. Getting the nearest:";
        qWarning() << "Sample rate:" << samplingFrequency << "samples / second";
        qWarning() << "Sample size:" << sampleSize << "bytes / sample";
+       qWarning() << "Sample type:" << format.sampleType();
+       qWarning() << "Byte order:" << format.byteOrder();
     }
 
     // Create audio input
@@ -110,8 +118,6 @@ void Timeline::initializeAudio()
              if (deviceInfo.deviceName() == QSettings().value("audioOutputDevice").toString())
              {
                  infoOut = deviceInfo;
-
-                 qDebug() << "Using audio output source: " + infoOut.deviceName();
              }
         }
     }
@@ -119,6 +125,9 @@ void Timeline::initializeAudio()
     {
         infoOut = QAudioDeviceInfo::defaultOutputDevice();
     }
+
+    qDebug() << "Using audio input device: " + infoIn.deviceName();
+    qDebug() << "Using audio output device: " + infoOut.deviceName();
 
     // Get final output format
     if (!infoOut.isFormatSupported(format))
@@ -130,13 +139,25 @@ void Timeline::initializeAudio()
        sampleSize = format.sampleSize() / 8;
        samplingFrequency = format.sampleRate();
 
-       qWarning() << "Audio Output: default format not supported. Getting the nearest:";
+       qWarning() << "Audio Output: Requested format not supported. Getting the nearest:";
        qWarning() << "Sample rate:" << samplingFrequency << "samples / second";
        qWarning() << "Sample size:" << sampleSize << "bytes / sample";
     }
 
     // Create audio output
     audioOutput = new QAudioOutput(infoOut, format, this);
+
+    samplingInterval = 1.0 / samplingFrequency;
+    barsPerMSec = samplingFrequency / (samplesPerBar * 1000.0);
+    pixelsPerBar = samplesPerBar * samplingInterval * pixelsPerSecond;
+
+    inputDevice = audioInput->start();
+
+    connect(inputDevice, SIGNAL(readyRead()), this, SLOT(readAudioFromMic()));
+
+    connect(audioInput, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
+
+    audioInput->suspend();
 }
 
 
@@ -155,11 +176,7 @@ void Timeline::startRecording()
     rawAudioFile->seek(seekPos);
     isRecording = true;
 
-    inputDevice = audioInput->start();
-
-    connect(inputDevice, SIGNAL(readyRead()), this, SLOT(readAudioFromMic()));
-
-    connect(audioInput, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
+    audioInput->resume();
 
     timer.start();
 }
@@ -169,7 +186,7 @@ void Timeline::pauseRecording()
 {
     isRecording = false;
 
-    audioInput->stop();
+    audioInput->suspend();
 
     totalTimeRecorded = rawAudioFile->size() / sampleSize / samplingFrequency * 1000.0;
 }
@@ -177,7 +194,7 @@ void Timeline::pauseRecording()
 
 void Timeline::startPlaying()
 {
-    isPlaying = true; // Buffer underflow when window is not focused. Why?
+    isPlaying = true;
 
     if (timeCursorMSec > totalTimeRecorded - 100)
     {
@@ -191,11 +208,9 @@ void Timeline::startPlaying()
         lastRecordStartLocalTime = timeCursorMSec;
     }
 
-    audioOutput->start(rawAudioFile);
-
     timer.start();
 
-    connect(audioOutput, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
+    pt.start();
 
     Canvas::si->redrawRequested = true;
 }
@@ -205,16 +220,16 @@ void Timeline::stopPlaying()
 {
     isPlaying = false;
 
-    audioOutput->suspend();
+    pt.exit();
 }
-
 
 void Timeline::readAudioFromMic()
 {
     if(!audioInput || !isRecording) return;
 
-    int totalSamplesRead;
-    if((totalSamplesRead = inputDevice->read( audioTempBuffer.data(), audioInput->bytesReady() ) / sampleSize) > 0)
+    QByteArray audioTempBuffer(inputDevice->readAll());
+    int totalSamplesRead = audioTempBuffer.size() / sampleSize;
+    if (totalSamplesRead > 0)
     {
         int barsToAdd = (totalSamplesRead + accumulatedSamples) / samplesPerBar;
 
@@ -786,12 +801,20 @@ void Timeline::stateChanged(QAudio::State newState)
     case QAudio::StoppedState:
         if (audioInput->error() != QAudio::NoError)
         {
-            qDebug() << "Audio error.";
-        }
-        else
-        {
             qDebug() << "Audio error:" << audioInput->error();
         }
         break;
     }
+}
+
+void PlayerThread::run()
+{
+    QAudioOutput* audioOutput = new QAudioOutput(QAudioDeviceInfo::defaultOutputDevice(), Timeline::si->format);
+
+    audioOutput->start(Timeline::si->rawAudioFile);
+
+    QEventLoop loop;
+    loop.exec();
+
+    audioOutput->stop();
 }

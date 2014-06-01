@@ -20,6 +20,8 @@ Canvas::Canvas(QWidget *parent)
 {
     si = this;
 
+    this->makeCurrent();
+
     setCursor(QCursor(QPixmap(":/icons/icons/cursor32.png")));
 
 //    connect(&fpsTimer, SIGNAL(timeout()), this, SLOT(updateGL()));
@@ -54,6 +56,10 @@ void Canvas::initializeGL()
 
     glEnable(GL_POINT_SPRITE);
     glPointSize(3);
+
+    int ib[2];
+    glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, ib);
+    qDebug() << "Framebuffer max size: " << ib[0] << ib[1];
 
     strokeRenderer.init();
 }
@@ -111,6 +117,7 @@ void Canvas::tabletEvent(QTabletEvent *event)
     switch (event->type())
     {
         case QEvent::TabletPress:
+            if (deviceDown) return;
             deviceDown = true;
             pbo = strokeRenderer.addPoint(penPos);
             Timeline::si->addPointerEndEvent();
@@ -119,6 +126,7 @@ void Canvas::tabletEvent(QTabletEvent *event)
 
 
         case QEvent::TabletRelease:
+            if (!deviceDown) return;
             deviceDown = false;
             Timeline::si->addStrokeEndEvent();
             Timeline::si->addPointerBeginEvent(penPos);
@@ -140,12 +148,14 @@ void Canvas::tabletEvent(QTabletEvent *event)
         default:
             break;
     }
+    event->accept(); qDebug() << event->posF();
 
     lastPenPos = penPos;
 }
 
 void Canvas::mousePressEvent(QMouseEvent *event)
 {
+    if (deviceDown) return;
     penPos = event->pos();
     deviceDown = true;
 
@@ -158,6 +168,7 @@ void Canvas::mousePressEvent(QMouseEvent *event)
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)
 {
+    if (!deviceDown) return;
     penPos = event->pos();
     deviceDown = false;
 
@@ -226,10 +237,6 @@ void Canvas::resizeGL(int w, int h)
     {
         qDebug("Canvas framebuffer not created.");
     }
-
-    int ib[2];
-    glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, ib);
-    qDebug() << "Framebuffer max size: " << ib[0] << ib[1];
 
     glBindTexture(GL_TEXTURE_2D, 0);
 

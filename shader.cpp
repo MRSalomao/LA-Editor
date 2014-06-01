@@ -12,6 +12,7 @@ Shader::Shader()
 {
 
 }
+
 void Shader::init(QString shader, QVector<QString> attributes)
 {
     QString vertexShaderFilename(EXEC_FOLDER + "shaders/" + shader + ".vsh");

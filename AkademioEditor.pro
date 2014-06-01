@@ -1,16 +1,20 @@
 TARGET = AkademioEditor
 TEMPLATE = app
 
-QMAKE_CXXFLAGS += -std=c++0x
+equals(QT_MAJOR_VERSION, 4) {
+    CONFIG          +=  mobility
+    MOBILITY         =  multimedia
+    QMAKE_CXXFLAGS  += -std=c++0x
+}
 
-CONFIG      +=  mobility
-MOBILITY     =  multimedia
+equals(QT_MAJOR_VERSION, 5) {
+    QMAKE_CXXFLAGS  += -stdlib=libc++
+    QMAKE_CXXFLAGS  += -std=c++11
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
+    QT              += widgets multimedia
+}
 
-#INCLUDEPATH += /usr/include/QtMultimediaKit
-#INCLUDEPATH += /usr/include/QtMobility
-#QT += multimedia
-
-QT          +=  core gui opengl widgets
+QT          +=  core gui opengl
 
 SOURCES     +=  main.cpp\
                 mainwindow.cpp \
@@ -18,7 +22,7 @@ SOURCES     +=  main.cpp\
                 strokerenderer.cpp \
                 shader.cpp \
                 timeline.cpp \
-    options.cpp
+                options.cpp
 
 HEADERS     +=  mainwindow.h \
                 canvas.h \
@@ -27,10 +31,10 @@ HEADERS     +=  mainwindow.h \
                 configs.h \
                 timeline.h \
                 events.h \
-    options.h
+                options.h
 
 FORMS       +=  mainwindow.ui \
-    options.ui
+                options.ui
 
 RESOURCES   +=  resources.qrc
 

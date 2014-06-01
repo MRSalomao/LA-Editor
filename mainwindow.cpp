@@ -292,7 +292,7 @@ void MainWindow::on_openButton_clicked()
 void MainWindow::on_saveButton_clicked()
 {
     fileDialogOpen = true;
-    QString file = QFileDialog::getSaveFileName( this,tr("Select project to save"),
+    QString file = QFileDialog::getSaveFileName( this,tr("Save project as"),
                                                 QDir::homePath() + "/untitled.vvf", tr("LA-video (*.vvf)") );
     fileDialogOpen = false;
 }

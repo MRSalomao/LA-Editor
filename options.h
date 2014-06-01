@@ -4,9 +4,7 @@
 #include <QDialog>
 #include <QAudioDeviceInfo>
 
-namespace Ui {
-class Options;
-}
+namespace Ui { class Options; }
 
 class Options : public QDialog
 {
@@ -25,4 +23,4 @@ private:
     Ui::Options *ui;
 };
 
-#endif // OPTIONS_H
+#endif

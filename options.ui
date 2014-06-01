@@ -102,10 +102,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>Night Theme</string>
+       <string>Dark Theme</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>311</x>
@@ -173,7 +173,7 @@
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -269,34 +269,76 @@
        <string>Software</string>
       </property>
      </widget>
-     <zorder>label_6</zorder>
-     <zorder>radioButton_4</zorder>
-     <zorder>radioButton_4</zorder>
-     <zorder>radioButton_5</zorder>
     </widget>
-    <zorder>frame</zorder>
     <zorder>frame_2</zorder>
-    <zorder>checkBox</zorder>
-    <zorder>radioButton</zorder>
-    <zorder>radioButton_3</zorder>
-    <zorder>radioButton_3</zorder>
-    <zorder>radioButton</zorder>
-    <zorder>radioButton_2</zorder>
     <zorder>frame_3</zorder>
-    <zorder>label_3</zorder>
-    <zorder></zorder>
-    <zorder>audioInputComboBox</zorder>
-    <zorder>label_4</zorder>
-    <zorder></zorder>
-    <zorder>label_6</zorder>
-    <zorder></zorder>
-    <zorder>label_3</zorder>
-    <zorder></zorder>
+    <zorder>frame</zorder>
    </widget>
    <widget class="QWidget" name="tab2">
     <attribute name="title">
      <string>Advanced</string>
     </attribute>
+    <widget class="QFrame" name="frame_4">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>601</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>141</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Audio quality</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_6">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>62</y>
+        <width>111</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Best available</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_7">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>62</y>
+        <width>131</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>System default</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>
