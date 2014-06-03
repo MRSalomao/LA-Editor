@@ -6,6 +6,10 @@
 #include "timeline.h"
 #include "events.h"
 
+#ifndef GL_POINT_SPRITE
+#define GL_POINT_SPRITE 0x8861
+#endif
+
 Canvas* Canvas::si;
 
 QGLFormat desiredFormat()
@@ -20,7 +24,9 @@ Canvas::Canvas(QWidget *parent)
 {
     si = this;
 
+#ifdef Q_OS_MAC //needed on linux?
     this->makeCurrent();
+#endif
 
     setCursor(QCursor(QPixmap(":/icons/icons/cursor32.png")));
 
@@ -148,7 +154,7 @@ void Canvas::tabletEvent(QTabletEvent *event)
         default:
             break;
     }
-    event->accept(); qDebug() << event->posF();
+    event->accept();
 
     lastPenPos = penPos;
 }

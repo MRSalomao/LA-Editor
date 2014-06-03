@@ -8,9 +8,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-#if QT_VERSION >= 0x050000
     QApplication::setStyle(QStyleFactory::create("fusion"));
-#endif
 
     QCoreApplication::setOrganizationName("LiberaAkademio");
     QCoreApplication::setOrganizationDomain("LiberaAkademio.com");

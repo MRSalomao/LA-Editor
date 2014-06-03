@@ -102,11 +102,7 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>13</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="focusPolicy">
@@ -152,11 +148,7 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>13</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="focusPolicy">
@@ -184,11 +176,7 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>13</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="focusPolicy">
@@ -216,11 +204,7 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>13</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="focusPolicy">
@@ -248,11 +232,7 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>13</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="focusPolicy">
@@ -280,11 +260,7 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>13</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="focusPolicy">
@@ -332,11 +308,7 @@ background-color: rgba(150, 150, 150, 56);
         </property>
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>13</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="focusPolicy">
@@ -1241,11 +1213,7 @@ background-color: rgba(150, 150, 150, 56);
             </property>
             <property name="font">
              <font>
-              <family>Arial</family>
-              <pointsize>13</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
+              <pointsize>11</pointsize>
              </font>
             </property>
             <property name="focusPolicy">
@@ -1282,11 +1250,7 @@ background-color: rgba(150, 150, 150, 56);
             </property>
             <property name="font">
              <font>
-              <family>Arial</family>
-              <pointsize>13</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
+              <pointsize>11</pointsize>
              </font>
             </property>
             <property name="focusPolicy">

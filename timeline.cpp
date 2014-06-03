@@ -36,7 +36,7 @@ Timeline::Timeline(QWidget *parent) :
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(ShowContextMenu(const QPoint&)));
 
     // Create and open audio file
-#if QT_VERSION < 0x050000
+#ifndef Q_OS_MAC
     rawAudioFile = new QFile("rawAudioFile.raw");
 #else
     rawAudioFile = new QFile("./../../../rawAudioFile.raw");
@@ -151,6 +151,7 @@ void Timeline::initializeAudio()
     barsPerMSec = samplingFrequency / (samplesPerBar * 1000.0);
     pixelsPerBar = samplesPerBar * samplingInterval * pixelsPerSecond;
 
+#ifdef Q_OS_MAC
     inputDevice = audioInput->start();
 
     connect(inputDevice, SIGNAL(readyRead()), this, SLOT(readAudioFromMic()));
@@ -158,6 +159,7 @@ void Timeline::initializeAudio()
     connect(audioInput, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
 
     audioInput->suspend();
+#endif
 }
 
 
@@ -176,7 +178,15 @@ void Timeline::startRecording()
     rawAudioFile->seek(seekPos);
     isRecording = true;
 
+#ifdef Q_OS_MAC
     audioInput->resume();
+#else
+    inputDevice = audioInput->start();
+
+    connect(inputDevice, SIGNAL(readyRead()), this, SLOT(readAudioFromMic()));
+
+    connect(audioInput, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
+#endif
 
     timer.start();
 }
@@ -186,7 +196,11 @@ void Timeline::pauseRecording()
 {
     isRecording = false;
 
+#ifdef Q_OS_MAC
     audioInput->suspend();
+#else
+    audioInput->stop();
+#endif
 
     totalTimeRecorded = rawAudioFile->size() / sampleSize / samplingFrequency * 1000.0;
 }
@@ -229,6 +243,7 @@ void Timeline::readAudioFromMic()
 
     QByteArray audioTempBuffer(inputDevice->readAll());
     int totalSamplesRead = audioTempBuffer.size() / sampleSize;
+    qDebug() << totalSamplesRead;
     if (totalSamplesRead > 0)
     {
         int barsToAdd = (totalSamplesRead + accumulatedSamples) / samplesPerBar;
