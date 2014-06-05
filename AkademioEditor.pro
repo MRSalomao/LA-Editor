@@ -2,10 +2,10 @@ TARGET = AkademioEditor
 TEMPLATE = app
 
 # Use qt4 version of qt-sdk
-linux-g++ {
+unix:!macx {
+    QMAKE_CXXFLAGS  += -std=c++0x
     CONFIG          += mobility
     MOBILITY         = multimedia
-    QMAKE_CXXFLAGS  += -std=c++0x
 }
 
 # Use qt 4.8.5 - MinGW4.8 (4.8.6 has wacom bugs) (need to build from source)
@@ -31,7 +31,10 @@ SOURCES     +=  main.cpp\
                 strokerenderer.cpp \
                 shader.cpp \
                 timeline.cpp \
-                options.cpp
+                options.cpp \
+    newproject.cpp \
+    upload.cpp \
+    hotkeys.cpp
 
 HEADERS     +=  mainwindow.h \
                 canvas.h \
@@ -40,10 +43,16 @@ HEADERS     +=  mainwindow.h \
                 configs.h \
                 timeline.h \
                 events.h \
-                options.h
+                options.h \
+    newproject.h \
+    upload.h \
+    hotkeys.h
 
 FORMS       +=  mainwindow.ui \
-                options.ui
+                options.ui \
+    newproject.ui \
+    upload.ui \
+    hotkeys.ui
 
 RESOURCES   +=  resources.qrc
 

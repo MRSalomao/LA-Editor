@@ -28,6 +28,7 @@
         <file>icons/LA3.png</file>
         <file>icons/eraser.png</file>
         <file>icons/pointer.png</file>
+        <file>icons/YouTube-logo-full_color.png</file>
     </qresource>
     <qresource prefix="/shaders"/>
 </RCC>

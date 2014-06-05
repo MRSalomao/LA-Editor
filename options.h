@@ -15,7 +15,7 @@ public:
     ~Options();
 
 private slots:
-    void on_comboBox_activated(const QString &arg1);
+    void on_audioInputComboBox_activated(const QString &arg1);
 
     void on_audioOutputComboBox_activated(const QString &arg1);
 

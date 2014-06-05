@@ -29,8 +29,9 @@ class Timeline : public QWidget
     int mSecsBetweenMarks = 10000;
     int markSubdivisions = 10;
     int mSecsBetweenSubdivisions = mSecsBetweenMarks / markSubdivisions;
-    int windowStartMSec = 0;
     int windowEndMSec = 40000;
+    int windowStartMSec = 0;
+    float timelineStartPos = 0;
 
     // Pixmap sampling variables
     float pixelsPerSecond = 20.0;
@@ -47,17 +48,33 @@ class Timeline : public QWidget
     float pixelsPerSubmark = pixelsPerMSec * mSecsBetweenSubdivisions;
 
     // Cosmetic details
-    QColor timelineColor = QColor(202,202,202);
+    const QColor timelineColor = QColor(202,202,202);
+    const QColor selectionColor = QColor(103,169,217, 70);
     const int audioOpacity = 6;
-    const int videolineRealHeight = 1;
-    const int audiolineRealHeight = 34;
     QPolygon pointerTriangle, scaleArrowRight, scaleArrowLeft;
+    QPolygon scaleArrowLeftTmp, scaleArrowRightTmp;
+    float audioScaleArrowAlpha = 0;
+    float videoScaleArrowAlpha = 0;
+    const float targetAlpha = 139;
+    const float arrowFadeIn = 0.07;
+    const float arrowFadeOut = 0.04;
+
+    // Event manipulation
+    QRect videoSelectionRect;
+    QRect audioSelectionRect;
+    QPolygon scaleArrowLeftAudio;
+    QPolygon scaleArrowRightAudio;
+    QPolygon scaleArrowLeftVideo;
+    QPolygon scaleArrowRightVideo;
 
     // Timeline sizing and positioning
     const int videoTimelineStart = 0;
     const int videoTimelineHeight = 34;
     const int audioTimelineStart = 40;
     const int audioTimelineHeight = 34;
+    const int videolineRealHeight = 1;
+    const int audiolineRealHeight = 34;
+    const int timeRulerStart = audioTimelineStart + audioTimelineHeight;
 
 public:
 
@@ -86,9 +103,9 @@ public:
     // Mouse Tracking
     QPoint mousePos;
     bool mouseOver = false;
-    bool selecting = false;
-    bool mouseLeftDown = false;
-    bool mouseRightDown = false;
+    bool audioSelected = false, videoSelected = false;
+    bool mouseLeftDownSetPos = false;
+    bool mouseLeftDownSelect = false;
     bool mouseMiddleDown = false;
     int dragStartX, lastWindowStartMSec;
     int selectionStart, selectionEnd;
@@ -118,6 +135,7 @@ public:
     void deleteSelectedVideo();
     void scaleAndMoveSelectedVideo(float scale, int timeShiftMSec);
     void selectVideo();
+    void selectAudio();
     int selectionStartIdx, selectionEndIdx;
 
     // Constructor & destructor

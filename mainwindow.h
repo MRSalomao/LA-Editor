@@ -5,6 +5,9 @@
 
 #include "canvas.h"
 #include "options.h"
+#include "newproject.h"
+#include "upload.h"
+#include "hotkeys.h"
 
 #include <QPushButton>
 #include <QScrollBar>
@@ -78,6 +81,14 @@ private slots:
 
     void on_optionsButton_clicked();
 
+    void on_newButton_clicked();
+
+    void on_uploadButton_clicked();
+
+    void on_hotkeysButton_clicked();
+
+    void on_exportButton_clicked();
+
 protected:
 
     void keyPressEvent( QKeyEvent * event );
@@ -86,6 +97,9 @@ private:
     Ui::MainWindow *ui;
 
     Options* optionsWindow;
+    NewProject* newProject;
+    Upload* upload;
+    Hotkeys* hotkeys;
 
     QVector<QPushButton*> colorButtons;
     QVector<QString> cbStyleSheets;

@@ -10,6 +10,7 @@
 #include "timeline.h"
 
 static int subeventToDrawIdx = 0;
+static QPointF cursorPos;
 
 class Event
 {
@@ -39,7 +40,7 @@ public:
         return subeventToDrawIdx;
     }
 
-    virtual QPointF getPos(int time) {return QPointF(100,100);}
+    virtual QPointF getCursorPos(int time) {return QPointF(100,100);}
 
     virtual void timeShift(int time) {}
 
@@ -56,12 +57,12 @@ public:
     float ptSize = 3;
 
     QMatrix4x4 transform;
-
+public:
     struct Subevent
     {
-        int t, x, y, pbIdx;
+        int t,pbIdx; float x,y;
         Subevent() {}
-        Subevent(int t, int x, int y, int pbIdx) : t(t), x(x), y(y), pbIdx(pbIdx) {}
+        Subevent(int t, float x, float y, int pbIdx) : t(t), x(x), y(y), pbIdx(pbIdx) {}
     };
 
     QVector<Subevent> subevents;
@@ -82,7 +83,7 @@ public:
         endTime = endT;
     }
 
-    void addStrokeEvent(int t, int x, int y, int pbo)
+    void addStrokeEvent(int t, float x, float y, int pbo)
     {
         subevents << Subevent(t, x, y, pbo);
     }
@@ -99,9 +100,9 @@ public:
         startTime += timeShiftMSec;
     }
 
-    QPointF getPos(int time)
+    QPointF getCursorPos(int time)
     {
-        return QPointF(subevents[subeventToDrawIdx].x, subevents[subeventToDrawIdx].y);
+        return cursorPos;
     }
 
     void timeShift(int time)
@@ -164,6 +165,9 @@ public:
             {
                 // Decrease the index, as we want the subevent right before going over the limitTime and get its pointBuffer index
                 to = subevents[subeventToDrawIdx].pbIdx;
+
+                // Update the cursor pos
+                cursorPos = QPointF(subevents[subeventToDrawIdx].x, subevents[subeventToDrawIdx].y);
             }
             else
             {
@@ -179,19 +183,24 @@ public:
         if (subeventToDrawIdx == subevents.size())
         {
             // If this event is closed (complete) and we reached the last index
-            if (endTime != -1)
+            if (endTime >= 0)
             {
                 // Reset subeventIndex
                 subeventToDrawIdx = 0;
 
                 // Finish drawing the whole event
                 to = subevents.back().pbIdx;
+
+                // Update the cursor pos
+                cursorPos = QPointF(subevents.back().x, subevents.back().y);
             }
             else
             {
+                // Else, it's still being drawn, and therefore we hit the timecursor
                 reachedLimit = true;
             }
         }
+
         if ( !(to == from) ) StrokeRenderer::si->drawStrokeSpritesRange(from, to, r, g, b, ptSize, transform);
 
         return reachedLimit;
@@ -217,9 +226,9 @@ public:
 
     struct Subevent
     {
-        int t, x, y;
+        int t; float x,y;
         Subevent() {}
-        Subevent(int t, int x, int y) : t(t), x(x), y(y) {}
+        Subevent(int t, float x, float y) : t(t), x(x), y(y) {}
     };
 
     QVector<Subevent> subevents;
@@ -251,7 +260,7 @@ public:
         }
     }
 
-    QPointF getPos(int time)
+    QPointF getCursorPos(int time)
     {
         for (int i = subevents.size()-1; i >= 0; i--)
         {
@@ -262,7 +271,7 @@ public:
         }
     }
 
-    void addPointerEvent(int t, int x, int y)
+    void addPointerEvent(int t, float x, float y)
     {
         subevents << Subevent(t, x, y);
     }

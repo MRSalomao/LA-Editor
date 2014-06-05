@@ -100,11 +100,6 @@ background-color: rgba(150, 150, 150, 56);
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -146,11 +141,6 @@ background-color: rgba(150, 150, 150, 56);
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -173,11 +163,6 @@ background-color: rgba(150, 150, 150, 56);
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
         </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
@@ -202,11 +187,6 @@ background-color: rgba(150, 150, 150, 56);
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -230,11 +210,6 @@ background-color: rgba(150, 150, 150, 56);
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -257,11 +232,6 @@ background-color: rgba(150, 150, 150, 56);
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
         </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
@@ -305,11 +275,6 @@ background-color: rgba(150, 150, 150, 56);
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
         </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
@@ -1211,11 +1176,6 @@ background-color: rgba(150, 150, 150, 56);
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="font">
-             <font>
-              <pointsize>11</pointsize>
-             </font>
-            </property>
             <property name="focusPolicy">
              <enum>Qt::NoFocus</enum>
             </property>
@@ -1247,11 +1207,6 @@ background-color: rgba(150, 150, 150, 56);
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>11</pointsize>
-             </font>
             </property>
             <property name="focusPolicy">
              <enum>Qt::NoFocus</enum>

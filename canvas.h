@@ -31,7 +31,7 @@ public:
     Canvas(QWidget* parent);
     ~Canvas();
 
-    int w, h;
+    int w, h, totalH;
 
     static Canvas* si;
 
@@ -45,7 +45,7 @@ public:
 private:
     QTimer fpsTimer;
     QTime time;
-    int frames;
+    int frames = 0;
 
     bool deviceDown = false;
 
@@ -54,6 +54,8 @@ private:
 
     GLuint canvasFramebufferID = -1;
     GLuint canvasTextureID = -1;
+
+    void rescalePenPos();
 
 protected:
     void paintGL ();

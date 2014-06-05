@@ -17,6 +17,26 @@ MainWindow::MainWindow(QWidget *parent) :
 
     si = this;
 
+    QFont* font;
+
+#ifdef Q_OS_LINUX
+    font = new QFont("Ubuntu", 10);
+#elif Q_OS_WIN
+    font.setFamily("Arial",6);
+#elif Q_OS_MAC
+    font.setFamily("Arial",6);
+#endif
+
+    ui->newButton->setFont(*font);
+    ui->openButton->setFont(*font);
+    ui->saveButton->setFont(*font);
+    ui->exportButton->setFont(*font);
+    ui->uploadButton->setFont(*font);
+    ui->optionsButton->setFont(*font);
+    ui->hotkeysButton->setFont(*font);
+    ui->playPauseButton->setFont(*font);
+    ui->recButton->setFont(*font);
+
     settings = new QSettings("LiberaAkademio", "LiberaAkademioEditor");
 
     activeColorButton = ui->foregroundColor;
@@ -24,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     activeToolButton = ui->pen;
     toggleToolButton(ui->pen);
+    ui->canvas->setCursor(QCursor(QPixmap(":/icons/icons/cursor32.png")));
 
     colorButtons << ui->foregroundColor << ui->backgroundColor << ui->greyLight   << ui->greyDark <<
                     ui->greenDark       << ui->greenLight      << ui->blueLight   << ui->blueDark  <<
@@ -234,6 +255,8 @@ void MainWindow::on_pen_clicked()
     toggleToolButton(ui->pen);
 
     activeTool = PEN_TOOL;
+
+    ui->canvas->setCursor(QCursor(QPixmap(":/icons/icons/cursor32.png")));
 }
 
 void MainWindow::on_eraser_clicked()
@@ -262,6 +285,8 @@ void MainWindow::on_text_clicked()
     toggleToolButton(ui->text);
 
     activeTool = TEXT_TOOL;
+
+    ui->canvas->setCursor(QCursor(Qt::IBeamCursor));
 }
 
 void MainWindow::on_pointer_clicked()
@@ -269,16 +294,18 @@ void MainWindow::on_pointer_clicked()
     toggleToolButton(ui->pointer);
 
     activeTool = POINTER_TOOL;
+
+    ui->canvas->setCursor(QCursor(Qt::ArrowCursor));
 }
 
 void MainWindow::on_canvasScrollBar_sliderMoved(int position)
 {
-    StrokeRenderer::si->setViewportYCenter(position);
+    StrokeRenderer::si->setViewportYStart(position);
 }
 
 void MainWindow::on_canvasScrollBar_valueChanged(int value)
 {
-    StrokeRenderer::si->setViewportYCenter(value);
+    StrokeRenderer::si->setViewportYStart(value);
 }
 
 void MainWindow::on_openButton_clicked()
@@ -338,5 +365,46 @@ void MainWindow::on_optionsButton_clicked()
 
     optionsWindow->exec();
 
+    fileDialogOpen = false;
+}
+
+void MainWindow::on_newButton_clicked()
+{
+    fileDialogOpen = true;
+
+    newProject = new NewProject(0);
+
+    newProject->exec();
+
+    fileDialogOpen = false;
+}
+
+void MainWindow::on_uploadButton_clicked()
+{
+    fileDialogOpen = true;
+
+    upload = new Upload(0);
+
+    upload->exec();
+
+    fileDialogOpen = false;
+}
+
+void MainWindow::on_hotkeysButton_clicked()
+{
+    fileDialogOpen = true;
+
+    hotkeys = new Hotkeys(0);
+
+    hotkeys->exec();
+
+    fileDialogOpen = false;
+}
+
+void MainWindow::on_exportButton_clicked()
+{
+    fileDialogOpen = true;
+    QString file = QFileDialog::getSaveFileName( this,tr("Export video to"),
+                                                QDir::homePath() + "/untitled", tr("Portable Network Graphics (*.png);; Joint Photographic Experts Group (*.jpg);; MPEG-4 (.mp4)") );
     fileDialogOpen = false;
 }

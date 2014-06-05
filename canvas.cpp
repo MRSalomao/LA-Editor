@@ -7,43 +7,18 @@
 #include "events.h"
 
 #ifndef GL_POINT_SPRITE
-#define GL_POINT_SPRITE 0x8861
+#define GL_POINT_SPRITE 0x8861 // Still needed?
 #endif
 
 Canvas* Canvas::si;
 
-QGLFormat desiredFormat()
-{
-    QGLFormat fmt;
-//    fmt.setSwapInterval(1);
-    return fmt;
-}
-
-Canvas::Canvas(QWidget *parent)
-    : QGLWidget(/*desiredFormat(),*/ parent), frames(0)
+Canvas::Canvas(QWidget *parent) : QGLWidget(parent)
 {
     si = this;
 
-#ifdef Q_OS_MAC //needed on linux?
+#ifdef Q_OS_MAC
     this->makeCurrent();
 #endif
-
-    setCursor(QCursor(QPixmap(":/icons/icons/cursor32.png")));
-
-//    connect(&fpsTimer, SIGNAL(timeout()), this, SLOT(updateGL()));
-//    if(format().swapInterval() == -1)
-//    {
-//        qDebug() << "V_blank synchronization not available (tearing might be noticed)";
-//        qDebug() << "Refresh at approx 60fps.";
-//        fpsTimer.setInterval(17);
-//    }
-//    else
-//    {
-//        qDebug() << "V_blank synchronization available";
-//        qDebug() << "Swap interval = " << format().swapInterval();
-//        fpsTimer.setInterval(0);
-//    }
-//    fpsTimer.start();
 }
 
 void Canvas::initializeGL()
@@ -63,9 +38,9 @@ void Canvas::initializeGL()
     glEnable(GL_POINT_SPRITE);
     glPointSize(3);
 
-    int ib[2];
+    int ib[1];
     glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, ib);
-    qDebug() << "Framebuffer max size: " << ib[0] << ib[1];
+    qDebug() << "Framebuffer max dimension: " << ib[0];
 
     strokeRenderer.init();
 }
@@ -99,7 +74,7 @@ void Canvas::paintGL()
 
     //Draw the fbo
     glBindTexture(GL_TEXTURE_2D, canvasTextureID);
-    strokeRenderer.drawTexturedRect(0,0,1,1);
+    strokeRenderer.drawTexturedRect(-1.0, 1.0, 2.0, -2.0);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     //If playing the video, draw a cursor:
@@ -115,8 +90,7 @@ void Canvas::paintGL()
 void Canvas::tabletEvent(QTabletEvent *event)
 {
     penPos = EVENT_POSF;
-
-//    penPos = ;
+    rescalePenPos();
 
     int pbo;
 
@@ -162,7 +136,10 @@ void Canvas::tabletEvent(QTabletEvent *event)
 void Canvas::mousePressEvent(QMouseEvent *event)
 {
     if (deviceDown) return;
+
     penPos = event->pos();
+    rescalePenPos();
+
     deviceDown = true;
 
     int pbo = strokeRenderer.addPoint(penPos);
@@ -175,7 +152,10 @@ void Canvas::mousePressEvent(QMouseEvent *event)
 void Canvas::mouseReleaseEvent(QMouseEvent *event)
 {
     if (!deviceDown) return;
+
     penPos = event->pos();
+    rescalePenPos();
+
     deviceDown = false;
 
     lastPenPos = penPos;
@@ -187,6 +167,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event)
 void Canvas::mouseMoveEvent(QMouseEvent *event)
 {
     penPos = event->pos();
+    rescalePenPos();
 
     if (deviceDown)
     {
@@ -199,6 +180,12 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         Timeline::si->addPointerMoveEvent(penPos);
     }
     lastPenPos = penPos;
+}
+
+void Canvas::rescalePenPos()
+{
+    penPos.setX(penPos.x() / w * 2.0f - 1.0f);
+    penPos.setY( (penPos.y() / totalH + strokeRenderer.viewportYStart) * -2.0f + 1.0f);
 }
 
 #define scrollSensitivity 40
@@ -215,6 +202,7 @@ void Canvas::resizeGL(int w, int h)
 {
     this->w = w;
     this->h = h;
+    this->totalH = w * strokeRenderer.canvasRatio;
 
     strokeRenderer.windowSizeChanged(w,h);
 

@@ -3,10 +3,11 @@
 #include <QApplication>
 #include <QSettings>
 #include <QStyleFactory>
+#include <QFont>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
 
     QApplication::setStyle(QStyleFactory::create("fusion"));
 
@@ -14,9 +15,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("LiberaAkademio.com");
     QCoreApplication::setApplicationName("LiberaAkademioEditor");
 
-    MainWindow w;
-    w.move(QApplication::desktop()->screen()->rect().center() - w.rect().center());
-    w.show();
+    MainWindow window;
+    window.move(QApplication::desktop()->screen()->rect().center() - window.rect().center());
+    window.show();
 
-    return a.exec();
+    return app.exec();
 }

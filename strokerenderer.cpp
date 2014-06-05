@@ -22,26 +22,26 @@ void StrokeRenderer::windowSizeChanged(int width, int height)
     canvasSize.setX(width);
     canvasSize.setY(height);
 
-    canvasViewportRatio = canvasSize.y() / canvasSize.x();
-
-    yMultiplier = canvasViewportRatio / canvasRatio;
+    zoom = canvasRatio * canvasSize.x() / canvasSize.y();
+    scroll = viewportYStart * zoom * 2.0f;
 
     strokeShader.shaderProgram.bind();
-    strokeShader.shaderProgram.setUniformValue(strokeSPLoc, 1.0 / yMultiplier, viewportYCenter);
+    strokeShader.shaderProgram.setUniformValue(zoomAndScrollLoc, zoom, scroll);
 
-    MainWindow::si->getCanvasScrollBar()->setMaximum(99 - 99 * yMultiplier);
-    MainWindow::si->getCanvasScrollBar()->setMinimum(0);
-    MainWindow::si->getCanvasScrollBar()->setPageStep(99 * yMultiplier);
+    scrollBar->setPageStep(scrollBarSize / zoom);
+    scrollBar->setRange(0, scrollBarSize - scrollBar->pageStep());
 
     Canvas::si->redrawRequested = true;
 }
 
-void StrokeRenderer::setViewportYCenter(float value)
+void StrokeRenderer::setViewportYStart(float value)
 {
-    viewportYCenter = value * (1.0f / yMultiplier - 1.0f) / MainWindow::si->getCanvasScrollBar()->maximum() ;
+    viewportYStart = value / scrollBarSize;
+
+    scroll = viewportYStart * zoom * 2.0f;
 
     strokeShader.shaderProgram.bind();
-    strokeShader.shaderProgram.setUniformValue(strokeSPLoc, 1.0 / yMultiplier, viewportYCenter);
+    strokeShader.shaderProgram.setUniformValue(zoomAndScrollLoc, zoom, scroll);
 
     Canvas::si->redrawRequested = true;
 }
@@ -58,7 +58,7 @@ void StrokeRenderer::init()
 
     strokeShader.shaderProgram.bind();
     strokeColorLoc = strokeShader.shaderProgram.uniformLocation("strokeColor");
-    strokeSPLoc = strokeShader.shaderProgram.uniformLocation("scrollProperties");
+    zoomAndScrollLoc = strokeShader.shaderProgram.uniformLocation("zoomAndScroll");
 
     strokeShader.shaderProgram.setUniformValue(strokeColorLoc, 0.0, 0.0, 0.0);
 
@@ -82,6 +82,8 @@ void StrokeRenderer::init()
 
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+
+    scrollBar = MainWindow::si->getCanvasScrollBar();
 }
 
 int StrokeRenderer::addStroke(const QLineF &strokeLine)
@@ -89,13 +91,13 @@ int StrokeRenderer::addStroke(const QLineF &strokeLine)
     float w = strokeLine.x2() - strokeLine.x1();
     float h = strokeLine.y2() - strokeLine.y1();
 
-    float dist = sqrt(h*h + w*w);
+    float dist = sqrt(h*h * canvasRatioSquared + w*w);
 
     float i;
-    for (i=extraDist; i<dist; i++)
+    for (i=extraDist; i<dist; i+=spriteSpacing)
     {
         addStrokeSprite(strokeLine.x1() + w / dist * i,
-                        strokeLine.y1() + h / dist * i);
+                        strokeLine.y1() + h / dist * i );
     }
     extraDist = i-dist;
 
@@ -106,6 +108,8 @@ int StrokeRenderer::addStroke(const QLineF &strokeLine)
 int StrokeRenderer::addPoint(const QPointF &strokePoint)
 {
     addStrokeSprite(strokePoint.x(), strokePoint.y());
+
+    extraDist = spriteSpacing;
 
     return spriteCounter;
 }
@@ -119,16 +123,11 @@ int StrokeRenderer::getCurrentSpriteCounter()
 
 void StrokeRenderer::addStrokeSprite(float x, float y)
 {
-    x /= canvasSize.x();
-    y /= canvasSize.y();
-    y += viewportYCenter * 0.5f;
-    y *= yMultiplier;
-
-    if (x < 0.0 || x > 1.0 || y < 0.0 || y > 1.0) return;
+    if (x < -1.0 || x > 1.0 || y < -1.0 || y > 1.0) return;
 
     if(spriteCounter < N_SPRITES)
     {
-        GLushort posArray[] = {(GLushort)(x * USHRT_MAX), (GLushort)(y * USHRT_MAX)};
+        GLushort posArray[] = {(GLshort)(x * SHRT_MAX), (GLshort)(y * SHRT_MAX)};
 
         glBindBuffer(GL_ARRAY_BUFFER, verticesId);
         glBufferSubData(GL_ARRAY_BUFFER, spriteCounter*VERTEX_COORD_SIZE, VERTEX_COORD_SIZE, posArray);
@@ -154,10 +153,10 @@ void StrokeRenderer::addStrokeSprite(float x, float y)
 void StrokeRenderer::drawCursor()
 {
     glBindTexture(GL_TEXTURE_2D, cursorTexture);
-    drawTexturedRect(Timeline::si->cursorPosition.x() / canvasSize.x() - 32.0 / 2 / canvasSize.x(),
-                     Timeline::si->cursorPosition.y() / canvasSize.y() - 32.0 / 2 / canvasSize.y(),
-                     32.0/ canvasSize.x(),
-                     32.0/ canvasSize.y() );
+    drawTexturedRect( Timeline::si->cursorPosition.x() - 32 / canvasSize.x(),
+                     (Timeline::si->cursorPosition.y() * zoom - zoom + 1.0 + scroll) - 32 / canvasSize.y(),
+                     64.0 / canvasSize.x(),
+                     64.0 / canvasSize.y() );
 }
 
 
@@ -169,7 +168,7 @@ void StrokeRenderer::drawStrokeSpritesRange(int from, int to, float r, float g, 
     strokeShader.shaderProgram.setUniformValue(strokeColorLoc, r, g, b);
 
     glBindBuffer(GL_ARRAY_BUFFER, verticesId);
-    glVertexAttribPointer(0, 2, GL_UNSIGNED_SHORT, true, VERTEX_COORD_SIZE, 0);
+    glVertexAttribPointer(0, 2, GL_SHORT, true, VERTEX_COORD_SIZE, 0);
 
     glEnableVertexAttribArray(0);
 

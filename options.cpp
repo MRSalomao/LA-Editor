@@ -62,7 +62,7 @@ Options::~Options()
     delete ui;
 }
 
-void Options::on_comboBox_activated(const QString &arg1)
+void Options::on_audioInputComboBox_activated(const QString &arg1)
 {
     QSettings().setValue("audioInputDevice", arg1);
 }
