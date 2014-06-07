@@ -153,15 +153,12 @@ void Timeline::initializeAudio()
     barsPerMSec = samplingFrequency / (samplesPerBar * 1000.0);
     pixelsPerBar = samplesPerBar * samplingInterval * pixelsPerSecond;
 
-//#ifdef Q_OS_MAC
+    // Start audio capture device
     inputDevice = audioInput->start();
 
     connect(inputDevice, SIGNAL(readyRead()), this, SLOT(readAudioFromMic()));
 
     connect(audioInput, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
-
-    audioInput->suspend();
-//#endif
 }
 
 
@@ -181,28 +178,12 @@ void Timeline::startRecording()
     rawAudioFile->seek(seekPos);
     isRecording = true;
 
-//#ifdef Q_OS_MAC
-//    audioInput->resume();
-//#else
-//    inputDevice = audioInput->start();
-
-//    connect(inputDevice, SIGNAL(readyRead()), this, SLOT(readAudioFromMic()));
-
-//    connect(audioInput, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
-//#endif
-
     timer.start();
 }
 
 
 void Timeline::pauseRecording()
 {
-#ifdef Q_OS_MAC
-//    audioInput->suspend();
-#else
-//    audioInput->stop();
-#endif
-
     addPointerEndEvent();
 
     isRecording = false;
@@ -433,7 +414,7 @@ void Timeline::paintEvent(QPaintEvent *event)
      painter.drawLine((int)cursorPos, 0, (int)cursorPos, height());
 
      // Draw timeline pointer triangle
-     if (mouseOver)
+     if ( mouseOver && !(isRecording || isPlaying) )
      {
          painter.setPen(QPen(QColor(0,0,0, 150)));
          painter.setBrush(QBrush(QColor(0,0,0, 40)));

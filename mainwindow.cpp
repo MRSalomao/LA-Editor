@@ -21,10 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 #ifdef Q_OS_LINUX
     font = new QFont("Ubuntu", 10);
-#elif Q_OS_WIN
-    font.setFamily("Arial",6);
-#elif Q_OS_MAC
-    font.setFamily("Arial",6);
+#elif defined(Q_OS_WIN)
+    font = new QFont("Tahoma", 10);
+#elif defined(Q_OS_MAC)
+    font = new QFont("Lucida Grande UI", 12);
 #endif
 
     ui->newButton->setFont(*font);

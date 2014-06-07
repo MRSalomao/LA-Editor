@@ -127,7 +127,7 @@ void StrokeRenderer::addStrokeSprite(float x, float y)
 
     if(spriteCounter < N_SPRITES)
     {
-        GLushort posArray[] = {(GLshort)(x * SHRT_MAX), (GLshort)(y * SHRT_MAX)};
+        GLshort posArray[] = {(GLshort)(x * SHRT_MAX), (GLshort)(y * SHRT_MAX)};
 
         glBindBuffer(GL_ARRAY_BUFFER, verticesId);
         glBufferSubData(GL_ARRAY_BUFFER, spriteCounter*VERTEX_COORD_SIZE, VERTEX_COORD_SIZE, posArray);

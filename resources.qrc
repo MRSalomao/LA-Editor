@@ -29,7 +29,6 @@
         <file>icons/eraser.png</file>
         <file>icons/pointer.png</file>
         <file>icons/YouTube-logo-full_color.png</file>
-        <file>icons/C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-new2.png</file>
     </qresource>
     <qresource prefix="/shaders"/>
 </RCC>

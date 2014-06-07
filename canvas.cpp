@@ -6,10 +6,6 @@
 #include "timeline.h"
 #include "events.h"
 
-#ifndef GL_POINT_SPRITE
-#define GL_POINT_SPRITE 0x8861 // Still needed?
-#endif
-
 Canvas* Canvas::si;
 
 Canvas::Canvas(QWidget *parent) : QGLWidget(parent)
