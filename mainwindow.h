@@ -37,7 +37,7 @@ public:
     enum {PEN_TOOL, ERASER_TOOL, IMAGE_TOOL, LINE_TOOL, TEXT_TOOL, POINTER_TOOL};
     int activeTool = PEN_TOOL;
 
-    bool fileDialogOpen = false;
+    bool childWindowOpen = false;
 
     void stopPlaying();
 

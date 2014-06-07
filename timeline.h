@@ -49,8 +49,11 @@ class Timeline : public QWidget
 
     // Cosmetic details
     const QColor timelineColor = QColor(202,202,202);
-    const QColor selectionColor = QColor(103,169,217, 70);
-    const int audioOpacity = 6;
+    const QColor selectionColorNormal = QColor(103,169,217,70);
+    const QColor selectionColorCollision = QColor(217,169,103,110);
+    const QColor selectionColorNoCollision = QColor(80,200,139,110);
+    QColor selectionColor = selectionColorNormal;
+    const QColor audioColor = QColor(0,0,0,6);
     QPolygon pointerTriangle, scaleArrowRight, scaleArrowLeft;
     QPolygon scaleArrowLeftTmp, scaleArrowRightTmp;
     float audioScaleArrowAlpha = 0;
@@ -62,24 +65,37 @@ class Timeline : public QWidget
     // Event manipulation
     QRect videoSelectionRect;
     QRect audioSelectionRect;
-    QPolygon scaleArrowLeftAudio;
-    QPolygon scaleArrowRightAudio;
-    QPolygon scaleArrowLeftVideo;
-    QPolygon scaleArrowRightVideo;
+    QPolygon audioLeftScaleArrow;
+    QPolygon audioRightScaleArrow;
+    QPolygon videoLeftScaleArrow;
+    QPolygon videoRightScaleArrow;
+    bool draggingEvents = false;
+    bool scalingEventsLeft = false;
+    bool scalingEventsRight = false;
+    bool eventModified = false;
+    int eventTimeShiftMSec = 0;
+    float eventScaling = 1;
+    void checkForCollision();
+    QPixmap tmpVideo;
+    QPixmap tmpAudio;
+
+    // Handle dragging and scaling both video and audio
+    void handleSelectionPressed(QRect &selectionRect, QPolygon &leftArrow, QPolygon &rightArrow);
 
     // Timeline sizing and positioning
     const int videoTimelineStart = 0;
     const int videoTimelineHeight = 34;
     const int audioTimelineStart = 40;
-    const int audioTimelineHeight = 34;
-    const int videolineRealHeight = 1;
-    const int audiolineRealHeight = 34;
-    const int timeRulerStart = audioTimelineStart + audioTimelineHeight;
+    const int audioPixmapHeight = 34;
+    const int videoPixmapHeight = 1;
+    const int audioPixmapRealHeight = 34;
+    const int timeRulerStart = audioTimelineStart + audioPixmapHeight;
+
 
 public:
 
     // Objects used for audio sampling
-    PlayerThread pt;
+    PlayerThread playerThread;
     QAudioFormat format;
     QAudioInput *audioInput;
     QAudioOutput *audioOutput;
@@ -99,16 +115,18 @@ public:
     // Audio variables
     int accumulatedSamples=0;
     int barCursor=0;
+    int lastAudioPixelX=0;
 
     // Mouse Tracking
     QPoint mousePos;
     bool mouseOver = false;
     bool audioSelected = false, videoSelected = false;
-    bool mouseLeftDownSetPos = false;
-    bool mouseLeftDownSelect = false;
+    bool isSettingCursor = false;
+    bool isSelecting = false;
     bool mouseMiddleDown = false;
-    int dragStartX, lastWindowStartMSec;
-    int selectionStart, selectionEnd;
+    int mouseDragStartX, lastWindowStartMSec;
+    int selectionStartPos, selectionEndPos;
+    int selectionStartTime, selectionEndTime;
 
     // The vector of events
     QVector<Event*> events;
@@ -131,8 +149,12 @@ public:
 
     // Video handling methods
     void copyVideo();
+    void copyAudio();
+    QByteArray audioClipboard;
     void pasteVideo(int atTimeMSec);
+    void pasteAudio(int atTimeMSec);
     void deleteSelectedVideo();
+    void deleteSelectedAudio();
     void scaleAndMoveSelectedVideo(float scale, int timeShiftMSec);
     void selectVideo();
     void selectAudio();

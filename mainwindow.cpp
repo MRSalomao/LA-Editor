@@ -310,18 +310,18 @@ void MainWindow::on_canvasScrollBar_valueChanged(int value)
 
 void MainWindow::on_openButton_clicked()
 {
-    fileDialogOpen = true;
+    childWindowOpen = true;
     QString file = QFileDialog::getOpenFileName( this,tr("Select project to open"),
                                                 QDir::homePath(), tr("LA-video (*.vvf)") );
-    fileDialogOpen = false;
+    childWindowOpen = false;
 }
 
 void MainWindow::on_saveButton_clicked()
 {
-    fileDialogOpen = true;
+    childWindowOpen = true;
     QString file = QFileDialog::getSaveFileName( this,tr("Save project as"),
                                                 QDir::homePath() + "/untitled.vvf", tr("LA-video (*.vvf)") );
-    fileDialogOpen = false;
+    childWindowOpen = false;
 }
 
 
@@ -359,52 +359,52 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::on_optionsButton_clicked()
 {
-    fileDialogOpen = true;
+    childWindowOpen = true;
 
     optionsWindow = new Options(0);
 
     optionsWindow->exec();
 
-    fileDialogOpen = false;
+    childWindowOpen = false;
 }
 
 void MainWindow::on_newButton_clicked()
 {
-    fileDialogOpen = true;
+    childWindowOpen = true;
 
     newProject = new NewProject(0);
 
     newProject->exec();
 
-    fileDialogOpen = false;
+    childWindowOpen = false;
 }
 
 void MainWindow::on_uploadButton_clicked()
 {
-    fileDialogOpen = true;
+    childWindowOpen = true;
 
     upload = new Upload(0);
 
     upload->exec();
 
-    fileDialogOpen = false;
+    childWindowOpen = false;
 }
 
 void MainWindow::on_hotkeysButton_clicked()
 {
-    fileDialogOpen = true;
+    childWindowOpen = true;
 
     hotkeys = new Hotkeys(0);
 
     hotkeys->exec();
 
-    fileDialogOpen = false;
+    childWindowOpen = false;
 }
 
 void MainWindow::on_exportButton_clicked()
 {
-    fileDialogOpen = true;
+    childWindowOpen = true;
     QString file = QFileDialog::getSaveFileName( this,tr("Export video to"),
                                                 QDir::homePath() + "/untitled", tr("Portable Network Graphics (*.png);; Joint Photographic Experts Group (*.jpg);; MPEG-4 (.mp4)") );
-    fileDialogOpen = false;
+    childWindowOpen = false;
 }

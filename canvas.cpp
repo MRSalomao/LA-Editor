@@ -84,7 +84,7 @@ void Canvas::paintGL()
     }
 
 //    updateFPS();
-    if (!MainWindow::si->fileDialogOpen) update();
+    if (!MainWindow::si->childWindowOpen) update();
 }
 
 void Canvas::tabletEvent(QTabletEvent *event)
