@@ -6,6 +6,11 @@
 #include "timeline.h"
 #include "events.h"
 
+// Needed for Windows - probably a bug in QT
+#ifndef GL_POINT_SPRITE
+#define GL_POINT_SPRITE 0x8861
+#endif
+
 Canvas* Canvas::si;
 
 Canvas::Canvas(QWidget *parent) : QGLWidget(parent)

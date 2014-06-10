@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Libera Akademio - Editor</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
@@ -480,6 +480,9 @@ background-color: rgba(150, 150, 150, 56);
             </item>
             <item>
              <widget class="QPushButton" name="text">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>

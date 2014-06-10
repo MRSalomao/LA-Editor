@@ -21,6 +21,41 @@ class PlayerThread : public QThread
     void run();
 };
 
+struct chunk
+{
+    char        id[4];
+    quint32     size;
+};
+
+struct RIFFHeader
+{
+    chunk       descriptor;     // "RIFF"
+    char        type[4];        // "WAVE"
+};
+
+struct WAVEHeader
+{
+    chunk       descriptor;
+    quint16     audioFormat;
+    quint16     numChannels;
+    quint32     sampleRate;
+    quint32     byteRate;
+    quint16     blockAlign;
+    quint16     bitsPerSample;
+};
+
+struct DATAHeader
+{
+    chunk       descriptor;
+};
+
+struct CombinedHeader
+{
+    RIFFHeader  riff;
+    WAVEHeader  wave;
+    DATAHeader  data;
+};
+
 class Timeline : public QWidget
 {
     Q_OBJECT
@@ -34,16 +69,16 @@ class Timeline : public QWidget
     float timelineStartPos = 0;
 
     // Pixmap sampling variables
-    float pixelsPerSecond = 20.0;
-    float pixelsPerMSec = 20.0 / 1000.0;
-    float mSecsPerPixel = 1.0 / pixelsPerMSec;
+    double pixelsPerSecond = 20.0;
+    double pixelsPerMSec = 20.0 / 1000.0;
+    double mSecsPerPixel = 1.0 / pixelsPerMSec;
     float pixmapLenght = 30.0 * 60.0 * 1000.0 * pixelsPerMSec;
     float samplingFrequency = 40000.0;
     float sampleSize = 2.0;
     float samplingInterval = 1.0 / samplingFrequency;
     float samplesPerBar = 10.0;
-    float barsPerMSec = samplingFrequency / (samplesPerBar * 1000.0);
-    float pixelsPerBar = samplesPerBar * samplingInterval * pixelsPerSecond;
+    double barsPerMSec = samplingFrequency / (samplesPerBar * 1000.0);
+    double pixelsPerBar = samplesPerBar * samplingInterval * pixelsPerSecond;
     float pixelsPerMark = pixelsPerMSec * mSecsBetweenMarks;
     float pixelsPerSubmark = pixelsPerMSec * mSecsBetweenSubdivisions;
 
@@ -60,7 +95,7 @@ class Timeline : public QWidget
     float videoScaleArrowAlpha = 0;
     const float targetAlpha = 139;
     const float arrowFadeIn = 0.07;
-    const float arrowFadeOut = 0.04;
+    const float arrowFadeOut = 0.06;
 
     // Event manipulation
     QRect videoSelectionRect;
@@ -74,13 +109,14 @@ class Timeline : public QWidget
     bool scalingEventsRight = false;
     bool eventModified = false;
     int eventTimeShiftMSec = 0;
-    float eventScaling = 1;
+    int eventTimeExpansionLeftMSec = 0;
+    int eventTimeExpansionRightMSec = 0;
     void checkForCollision();
     QPixmap tmpVideo;
     QPixmap tmpAudio;
 
     // Handle dragging and scaling both video and audio
-    void handleSelectionPressed(QRect &selectionRect, QPolygon &leftArrow, QPolygon &rightArrow);
+    void handleSelectionPressed(QRect &selectionRect, QPolygon &leftArrow, QPolygon &rightArrow, bool videoSelection);
 
     // Timeline sizing and positioning
     const int videoTimelineStart = 0;
@@ -91,7 +127,8 @@ class Timeline : public QWidget
     const int audioPixmapRealHeight = 34;
     const int timeRulerStart = audioTimelineStart + audioPixmapHeight;
 
-
+    // Write wav header
+    bool writeWavHeader();
 public:
 
     // Objects used for audio sampling
@@ -127,6 +164,8 @@ public:
     int mouseDragStartX, lastWindowStartMSec;
     int selectionStartPos, selectionEndPos;
     int selectionStartTime, selectionEndTime;
+    int lastSelectionStartPos, lastSelectionEndPos;
+    int lastSelectionStartTime, lastSelectionEndTime;
 
     // The vector of events
     QVector<Event*> events;
@@ -155,7 +194,10 @@ public:
     void pasteAudio(int atTimeMSec);
     void deleteSelectedVideo();
     void deleteSelectedAudio();
+    void eraseVideoSelection();
+    void eraseAudioSelection();
     void scaleAndMoveSelectedVideo(float scale, int timeShiftMSec);
+    bool shiftPressed = false;
     void selectVideo();
     void selectAudio();
     int selectionStartIdx, selectionEndIdx;
@@ -214,6 +256,10 @@ protected:
     void mouseMoveEvent( QMouseEvent * event );
     void mousePressEvent( QMouseEvent * event );
     void mouseReleaseEvent( QMouseEvent * event );
+    void keyPressEvent( QKeyEvent * event );
+    void keyReleaseEvent( QKeyEvent * event );
+    void enterEvent( QEvent * event );
+    void leaveEvent( QEvent * event );
     void wheelEvent( QWheelEvent * event);
 
 public slots:
