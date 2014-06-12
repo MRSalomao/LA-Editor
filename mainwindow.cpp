@@ -331,7 +331,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_Delete:
         qDebug() << "deleting...";
-        Timeline::si->deleteSelectedVideo();
+//        Timeline::si->deleteSelectedVideo();
         break;
 
     case Qt::Key_C:
@@ -351,6 +351,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_T:
         Timeline::si->scaleAndMoveSelectedVideo(3.0, 0);
         break; // test
+
+
+    case Qt::Key_Shift:
+        Timeline::si->shiftPressed = true;
 
     default:
         break;
@@ -407,4 +411,10 @@ void MainWindow::on_exportButton_clicked()
     QString file = QFileDialog::getSaveFileName( this,tr("Export video to"),
                                                 QDir::homePath() + "/untitled", tr("Portable Network Graphics (*.png);; Joint Photographic Experts Group (*.jpg);; MPEG-4 (.mp4)") );
     childWindowOpen = false;
+}
+
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Shift) Timeline::si->shiftPressed = false;
 }

@@ -390,7 +390,7 @@ void Timeline::ShowContextMenu(const QPoint& pos)
         if (selectedItem->text() == "Cut")
         {
             copyVideo();
-            deleteSelectedVideo();
+            deleteSelectedVideo(selectionStartTime, selectionEndTime);
         }
         else if (selectedItem->text() == "Paste")
         {
@@ -439,7 +439,7 @@ bool endTimeLessThan(const Event* e1, const Event* e2)
 
 void Timeline::selectVideo()
 {
-    Event value(selectionStartPos * mSecsPerPixel);
+    Event value(selectionStartTime);
 
     QVector<Event*>::iterator i = qLowerBound(events.begin(), events.end(), &value, startTimeLessThan);
 
@@ -452,7 +452,7 @@ void Timeline::selectVideo()
         return;
     }
 
-    value.endTime = selectionEndPos * mSecsPerPixel;
+    value.endTime = selectionEndTime;
     i = qUpperBound(events.begin(), events.end(), &value, endTimeLessThan);
 
     selectionEndIdx = i - events.begin() - 1;
@@ -464,16 +464,15 @@ void Timeline::selectVideo()
         return;
     }
 
-    qDebug() << shiftPressed;
     if (shiftPressed)
     {
-        selectionStartTime = events[selectionStartIdx]->startTime;
-        selectionEndTime = events[selectionEndIdx]->endTime;
-        selectionStartPos = selectionStartTime * pixelsPerMSec;
-        selectionEndPos = selectionEndTime * pixelsPerMSec;
+        selectionStartTime = selectionStartPos * mSecsPerPixel;
+        selectionEndTime = selectionEndPos * mSecsPerPixel;
     }
     else
     {
+        selectionStartTime = events[selectionStartIdx]->startTime;
+        selectionEndTime = events[selectionEndIdx]->endTime;
         selectionStartPos = selectionStartTime * pixelsPerMSec;
         selectionEndPos = selectionEndTime * pixelsPerMSec;
     }
@@ -492,15 +491,18 @@ void Timeline::selectAudio()
     if (selectionStartTime < 0) selectionStartTime = 0;
     if (selectionStartTime == selectionEndTime) audioSelected = false;
 
+    selectionStartTime = events[selectionStartIdx]->startTime;
+    selectionEndTime = events[selectionEndIdx]->endTime;
+
     if (shiftPressed && videoSelected)
     {
-        selectionStartTime = events[selectionStartIdx]->startTime;
-        selectionEndTime = events[selectionEndIdx]->endTime;
-        selectionStartPos = selectionStartTime * pixelsPerMSec;
-        selectionEndPos = selectionEndTime * pixelsPerMSec;
+        selectionStartTime = selectionStartPos * mSecsPerPixel;
+        selectionEndTime = selectionEndPos * mSecsPerPixel;
     }
     else
     {
+        selectionStartTime = events[selectionStartIdx]->startTime;
+        selectionEndTime = events[selectionEndIdx]->endTime;
         selectionStartPos = selectionStartTime * pixelsPerMSec;
         selectionEndPos = selectionEndTime * pixelsPerMSec;
     }
@@ -575,12 +577,54 @@ void Timeline::checkForCollision()
 }
 
 
-void Timeline::deleteSelectedVideo()
+void Timeline::deleteSelectedVideo(int fromTime, int toTime)
 {
+    Event value(fromTime);
+
+    QVector<Event*>::iterator i = qLowerBound(events.begin(), events.end(), &value, startTimeLessThan);
+
+    selectionStartIdx = i - events.begin();
+    if (selectionStartIdx == events.size())
+    {
+        audioSelected = false;
+        videoSelected = false;
+        selectionEndPos = selectionStartPos;
+        return;
+    }
+
+    value.endTime = toTime;
+    i = qUpperBound(events.begin(), events.end(), &value, endTimeLessThan);
+
+    selectionEndIdx = i - events.begin() - 1;
+    if (selectionEndIdx == events.size() || selectionStartIdx > selectionEndIdx || selectionStartIdx == -1)
+    {
+        audioSelected = false;
+        videoSelected = false;
+        selectionEndPos = selectionStartPos;
+        return;
+    }
+
+
+    if (selectionStartIdx > 0)
+        if (selectionStartTime >= events[selectionStartIdx - 1]->startTime &&
+            selectionStartTime <= events[selectionStartIdx - 1]->endTime)
+        {
+            events[selectionStartIdx - 1]->trimFrom(selectionStartTime);
+        }
+
+    if (selectionEndIdx < events.size() - 1)
+        if (selectionEndTime >= events[selectionEndIdx + 1]->startTime &&
+            selectionEndTime <= events[selectionEndIdx + 1]->endTime)
+        {
+            events[selectionStartIdx + 1]->trimUntil(selectionStartTime);
+        }
+        else
+        {
+            events.remove(selectionEndIdx + 1);
+        }
+
     //TODO: delete
     events.erase(events.begin() + selectionStartIdx, events.begin() + selectionEndIdx + 1);
-
-
 
     Canvas::si->redrawRequested = true;
 }
@@ -611,8 +655,8 @@ void Timeline::eraseVideoSelection()
 
 void Timeline::eraseAudioSelection()
 {
-    int x1 = events[selectionStartIdx]->startTime * pixelsPerMSec - 1;
-    int x2 = events[selectionEndIdx]->endTime * pixelsPerMSec + 1;
+    int x1 = lastSelectionStartPos - 1;
+    int x2 = lastSelectionEndPos + 1;
 
     QPainter painter(audioPixmap);
     painter.fillRect(x1, 0, x2-x1, audioPixmapHeight, timelineColor);
@@ -1212,16 +1256,6 @@ void Timeline::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void Timeline::keyPressEvent(QKeyEvent *event)
-{
-    if (event->key() == Qt::Key_Shift) shiftPressed = true;
-}
-
-void Timeline::keyReleaseEvent(QKeyEvent *event)
-{
-    if (event->key() == Qt::Key_Shift) shiftPressed = false;
-}
-
 
 void Timeline::handleSelectionPressed(QRect& selectionRect, QPolygon& leftArrow, QPolygon& rightArrow, bool videoSelected)
 {
@@ -1256,7 +1290,7 @@ void Timeline::handleSelectionPressed(QRect& selectionRect, QPolygon& leftArrow,
             if (videoSelected)
             {
                 copyVideo();
-                deleteSelectedVideo();
+                deleteSelectedVideo(selectionStartTime, selectionEndTime);
                 eraseVideoSelection();
             }
             else
@@ -1302,7 +1336,7 @@ void Timeline::handleSelectionPressed(QRect& selectionRect, QPolygon& leftArrow,
             if (videoSelected)
             {
                 copyVideo();
-                deleteSelectedVideo();
+                deleteSelectedVideo(selectionStartTime, selectionEndTime);
                 eraseVideoSelection();
             }
             else
@@ -1348,7 +1382,7 @@ void Timeline::handleSelectionPressed(QRect& selectionRect, QPolygon& leftArrow,
             if (videoSelected)
             {
                 copyVideo();
-                deleteSelectedVideo();
+                deleteSelectedVideo(selectionStartTime, selectionEndTime);
                 eraseVideoSelection();
             }
             else

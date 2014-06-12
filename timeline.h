@@ -192,7 +192,7 @@ public:
     QByteArray audioClipboard;
     void pasteVideo(int atTimeMSec);
     void pasteAudio(int atTimeMSec);
-    void deleteSelectedVideo();
+    void deleteSelectedVideo(int fromTime, int toTime);
     void deleteSelectedAudio();
     void eraseVideoSelection();
     void eraseAudioSelection();
@@ -256,8 +256,6 @@ protected:
     void mouseMoveEvent( QMouseEvent * event );
     void mousePressEvent( QMouseEvent * event );
     void mouseReleaseEvent( QMouseEvent * event );
-    void keyPressEvent( QKeyEvent * event );
-    void keyReleaseEvent( QKeyEvent * event );
     void enterEvent( QEvent * event );
     void leaveEvent( QEvent * event );
     void wheelEvent( QWheelEvent * event);

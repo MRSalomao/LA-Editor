@@ -46,6 +46,10 @@ public:
 
     virtual void scale(float scale, int timeShiftMSec) {}
 
+    virtual void trimFrom(int time) {}
+
+    virtual void trimUntil(int time) {}
+
     virtual ~Event() {}
 };
 
@@ -116,6 +120,35 @@ public:
         }
     }
 
+    static bool timeLessThan(const Subevent se1, const Subevent se2)
+    {
+        return se1.t < se2.t;
+    }
+
+    void trimFrom(int time)
+    {
+        Subevent value(time, 0, 0, 0);
+
+        QVector<Subevent>::iterator i =
+                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan);
+
+        subevents.erase(i, subevents.end());
+
+        endTime = subevents.last().t;
+    }
+
+    void trimUntil(int time)
+    {
+        Subevent value(time, 0, 0, 0);
+
+        QVector<Subevent>::iterator i =
+                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan);
+
+        subevents.erase(subevents.begin(), i);
+
+        startTime = subevents.first().t;
+    }
+
     bool drawUntil(int time)
     {
         bool reachedTimeCursor = false;
@@ -154,7 +187,7 @@ public:
         // Draw from the index before where we stopped or from the start index, if refering to the first index
         int from = subeventToDrawIdx == 0 ? pbStart : subevents[subeventToDrawIdx-1].pbIdx;
 
-        // In principle, we don't draw anything
+        // Starting off, we don't draw anything
         int to = from;
 
         // From the current subevent and on...
