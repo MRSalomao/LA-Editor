@@ -44,7 +44,7 @@ public:
 
     virtual void timeShift(int time) {}
 
-    virtual void scale(float scale, int timeShiftMSec) {}
+    virtual void scaleAndMove(float scale, int timeShiftMSec) {}
 
     virtual void trimFrom(int time) {}
 
@@ -92,7 +92,7 @@ public:
         subevents << Subevent(t, x, y, pbo);
     }
 
-    void scale(float scale, int timeShiftMSec)
+    void scaleAndMove(float scale, int timeShiftMSec)
     {
         endTime = (endTime - startTime) * scale + startTime + timeShiftMSec;
 
@@ -272,14 +272,16 @@ public:
         type = POINTER_MOVEMENT_EVENT;
     }
 
-    void scale(float value)
+    void scaleAndMove(float scale, int timeShiftMSec)
     {
-        endTime *= value;
+        endTime = (endTime - startTime) * scale + startTime + timeShiftMSec;
 
         for (Subevent& se : subevents)
         {
-            se.t *= value;
+            se.t = (se.t - startTime) * scale + startTime + timeShiftMSec;
         }
+
+        startTime += timeShiftMSec;
     }
 
     void timeShift(int time)

@@ -459,7 +459,7 @@
        xlink:href="#linearGradient3281"
        id="linearGradient4116"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,66.604185,371.8317)"
+       gradientTransform="matrix(-0.10943621,0.12217504,-0.12217504,-0.10943621,71.163818,372.21319)"
        x1="190.91884"
        y1="402.83411"
        x2="254.55844"
@@ -469,7 +469,7 @@
        xlink:href="#linearGradient3773-0"
        id="linearGradient4119"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-0.10000097,0.1116415,-0.1116415,-0.10000097,75.785579,379.31336)"
+       gradientTransform="matrix(-0.10943621,0.12217504,-0.12217504,-0.10943621,81.211489,380.40075)"
        x1="190.91884"
        y1="402.83411"
        x2="254.55844"
@@ -482,18 +482,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="11.313708"
-     inkscape:cx="6.9593418"
-     inkscape:cy="682.54072"
+     inkscape:zoom="3.3007812"
+     inkscape:cx="14.97797"
+     inkscape:cy="724.10241"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1879"
-     inkscape:window-height="1054"
-     inkscape:window-x="41"
-     inkscape:window-y="0"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
      inkscape:snap-global="false"
      guidetolerance="10000"
@@ -547,7 +547,7 @@
          inkscape:connector-curvature="0"
          id="path3000"
          d="m 1.27248,32.607822 0.028836,23.797032 c -0.029072,1.333649 1.0086138,2.758918 2.665796,2.78006 l 24.105971,0 c 1.598281,0 2.744436,-1.391089 2.732336,-2.837015 L 30.793969,38.521457 C 30.70855,36.316084 26.776987,29.588556 23.426428,29.588556 L 4.337201,29.465845 c -1.4818937,0.03181 -3.0671286,1.155114 -3.064721,3.141977 z"
-         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.11884469px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         style="fill:#333333;fill-opacity:1;stroke:#000000;stroke-width:0.11884469000000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-save.png"
          inkscape:export-xdpi="11.668641"
          inkscape:export-ydpi="11.668641" />
@@ -569,7 +569,7 @@
          height="6.4677906"
          width="3.4714341"
          id="rect3004"
-         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         style="fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none"
          inkscape:export-filename="C:\Users\Marcello\workspace2\LAEditor\resources\icons\icon-save.png"
          inkscape:export-xdpi="11.668641"
          inkscape:export-ydpi="11.668641" />
@@ -644,9 +644,9 @@
          d="m 131.44817,286.15407 -0.36756,28.36337 25.66716,0.18376 -0.87981,-22.17607 -7.10594,-6.4323 z"
          id="path4013"
          inkscape:connector-curvature="0"
-         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-new.png"
-         inkscape:export-xdpi="28.903227"
-         inkscape:export-ydpi="28.903227"
+         inkscape:export-filename="/home/marcello/Projects/AkademioEditor/icons/icon-new.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90"
          sodipodi:nodetypes="cccccc" />
       <rect
          style="fill:none;stroke:none"
@@ -655,27 +655,27 @@
          height="31.839035"
          x="127.9774"
          y="284.43399"
-         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-new.png"
-         inkscape:export-xdpi="28.903227"
-         inkscape:export-ydpi="28.903227" />
+         inkscape:export-filename="/home/marcello/Projects/AkademioEditor/icons/icon-new.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
       <path
-         inkscape:export-ydpi="28.903227"
-         inkscape:export-xdpi="28.903227"
-         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-new.png"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/marcello/Projects/AkademioEditor/icons/icon-new.png"
          inkscape:connector-curvature="0"
          id="path3869-5"
          d="m 131.35485,286.76161 0,27.37953 25.30777,0 0,-18.97119 -8.69122,-0.002 -0.0546,-8.43155 z"
-         style="fill:none;stroke:#000000;stroke-width:2.12339234;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:none;stroke:#333333;stroke-width:2.12339234000000010;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          sodipodi:nodetypes="ccccccc" />
       <path
-         style="fill:none;stroke:#000000;stroke-width:2.48118663;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:none;stroke:#333333;stroke-width:2.48118662999999984;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 148.80112,286.90348 7.67974,6.95323"
          id="path4011"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cc"
-         inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-new.png"
-         inkscape:export-xdpi="28.903227"
-         inkscape:export-ydpi="28.903227" />
+         inkscape:export-filename="/home/marcello/Projects/AkademioEditor/icons/icon-new.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
     </g>
     <g
        id="g6784">
@@ -769,13 +769,13 @@
          x="64.145111"
          y="92.275467" />
       <path
-         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.34458256px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0.34458255999999998px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          d="m 66.416642,97.700492 c -0.144969,-2.189295 1.005376,-1.864714 1.94217,-1.99629 5.300504,0 8.658834,0 13.95934,0 l -2.660811,3.119198 -10.084677,0 0,21.08575 20.756938,0 0,-9.26417 3.398794,-3.08786 0,13.78687 c 0.09921,1.6399 -0.804293,1.8075 -1.820781,1.80914 l -23.670189,0 c -0.880273,0.0422 -1.788262,0.16423 -1.881478,-2.0587 z"
          id="path3023"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cccccccccccccc" />
       <path
-         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.75712365;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0.75712365000000004;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 75.691234,109.15262 3.084409,3.48185 12.254278,-10.27977 3.584585,3.89637 0,-11.357448 -10.336943,0 3.667953,4.062168 z"
          id="path3793"
          inkscape:connector-curvature="0"
@@ -805,7 +805,7 @@
          inkscape:export-xdpi="33.622765"
          inkscape:export-ydpi="33.622765" />
       <path
-         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.62260288;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0.62260287999999997;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 142.28515,115.08496 4.67806,-0.0173 0.0897,-8.68035 5.32255,0.079 -7.72224,-7.51757 -7.5531,7.63104 5.2549,-0.0555 z"
          id="path3793-7"
          inkscape:connector-curvature="0"
@@ -814,7 +814,7 @@
          inkscape:export-xdpi="33.622765"
          inkscape:export-ydpi="33.622765" />
       <path
-         style="fill:none;stroke:#000000;stroke-width:3.66609645;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:none;stroke:#333333;stroke-width:3.66609644999999995;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 131.72501,94.509995 0,25.848985 25.89482,0 0,-25.758285 z"
          id="path3869"
          inkscape:connector-curvature="0"
@@ -947,7 +947,11 @@
          style="fill:none;stroke:#000000;stroke-width:2.76747155;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
     <g
-       id="g6752">
+       id="g6752"
+       inkscape:export-filename="/home/marcello/Projects/AkademioEditor/icons/icon-image.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       transform="matrix(1.0070221,0,0,1.0036069,-1.5507062,-1.0140377)">
       <rect
          style="fill:none;stroke:none"
          id="rect3132"
@@ -962,20 +966,21 @@
          inkscape:export-ydpi="28.799999"
          inkscape:export-xdpi="28.799999"
          inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-image.png"
-         y="224.05463"
-         x="131.82224"
-         height="25.385046"
-         width="25.385046"
+         y="222.72173"
+         x="130.70552"
+         height="27.730629"
+         width="27.831207"
          id="rect4219"
-         style="fill:#aaeeff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.52688098;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+         style="fill:#aaeeff;fill-opacity:1;fill-rule:nonzero;stroke:#916f6f;stroke-width:1.67510011000000003;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
       <path
          inkscape:export-ydpi="28.799999"
          inkscape:export-xdpi="28.799999"
          inkscape:export-filename="C:\Users\Marcello\workspace\LA-editor\resources\icons\icon-image.png"
          inkscape:connector-curvature="0"
          id="path4221"
-         d="m 132.4649,243.97706 8.35456,-6.10527 3.69529,4.01663 7.06926,-7.55125 4.65928,6.10526 0.16066,8.19391 -23.93905,0 z"
-         style="fill:#8dd35f;fill-opacity:1;stroke:none" />
+         d="m 131.56045,244.52356 9.09481,-6.62221 4.02271,4.35672 7.69563,-8.19062 5.2427,6.58443 0.004,8.92546 -26.06015,0 z"
+         style="fill:#8dd35f;fill-opacity:1;stroke:none"
+         sodipodi:nodetypes="cccccccc" />
       <path
          inkscape:export-ydpi="28.799999"
          inkscape:export-xdpi="28.799999"
@@ -983,7 +988,7 @@
          sodipodi:nodetypes="cccscscccc"
          inkscape:connector-curvature="0"
          id="path4223"
-         d="m 132.58539,231.12387 c 1.47064,1.60536 4.18172,1.84221 6.08872,1.84194 2.36087,-0.48901 4.28664,0.32516 6.44727,-3.47616 0.72863,1.01296 1.96943,1.22687 3.03191,1.11492 1.60148,-0.16878 2.5442,-1.37729 2.60747,-1.40868 0.60399,1.72791 1.94711,2.15083 2.84746,2.37099 1.12971,0.27624 2.81968,-0.28235 2.81968,-0.28235 l 0,-6.42659 -23.84251,-0.0402 z"
+         d="m 131.63476,230.48766 c 1.60095,1.74129 4.55224,1.99819 6.62821,1.9979 2.57005,-0.53042 4.66645,0.35269 7.01853,-3.77049 0.79319,1.09873 2.14393,1.33075 3.30055,1.20932 1.74338,-0.18307 2.76962,-1.4939 2.8385,-1.52795 0.65751,1.87421 2.11963,2.33294 3.09976,2.57174 1.22981,0.29963 3.06952,-0.30626 3.06952,-0.30626 l 0,-6.97073 -25.95507,-0.0436 z"
          style="fill:#d7f4ee;fill-opacity:1;stroke:none" />
     </g>
     <g
@@ -1049,9 +1054,13 @@
          style="fill:url(#linearGradient4258);fill-opacity:1;stroke:none" />
     </g>
     <g
-       id="g6818">
+       id="g6818"
+       inkscape:export-filename="/home/marcello/Projects/AkademioEditor/icons/icon-open-l.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <g
-         id="g6670">
+         id="g6670"
+         style="stroke:#333333">
         <path
            inkscape:export-ydpi="29.155821"
            inkscape:export-xdpi="29.155821"
@@ -1060,15 +1069,7 @@
            inkscape:connector-curvature="0"
            id="path3823"
            d="m 68.058528,32.77443 c -0.376101,0.126549 -0.786184,0.213821 -0.766743,0.797481 l 0.230023,10.455871 24.382469,-0.08859 0.230031,-10.278654 c 0.03654,-0.04638 -0.244097,-0.45931 -0.613395,-0.974704 l -12.548431,0.05226 -1.07392,-2.329671 c -2.569468,0.0739 -4.142828,-0.0056 -6.593941,0.02442 l -1.1501,2.337883 z"
-           style="fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:2.50792217;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-        <path
-           inkscape:export-ydpi="29.155821"
-           inkscape:export-xdpi="29.155821"
-           inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-open-l.png"
-           inkscape:connector-curvature="0"
-           id="path3825"
-           d="m 75.413383,38.959019 8.504541,-9.80091 8.504549,9.917587 -4.431948,0 0,8.984174 -8.624325,0 0,-8.984174 z"
-           style="fill:none;stroke:none" />
+           style="fill:#e6e6e6;fill-opacity:1;stroke:#333333;stroke-width:2.50792217000000006;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
         <path
            inkscape:export-ydpi="29.155821"
            inkscape:export-xdpi="29.155821"
@@ -1077,7 +1078,7 @@
            inkscape:connector-curvature="0"
            id="path3821"
            d="m 65.590747,39.685943 1.916857,18.253475 23.999109,0 2.990296,-18.076257 c -0.06046,-0.855853 -0.737018,-1.177679 -1.610161,-1.329136 l -25.68594,0 c -1.042038,0.0336 -1.590417,0.409476 -1.610161,1.151918 z"
-           style="fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:2.57222795;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+           style="fill:#e6e6e6;fill-opacity:1;stroke:#333333;stroke-width:2.57222794999999982;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       </g>
       <rect
          inkscape:export-ydpi="29.155821"
@@ -1091,7 +1092,10 @@
          style="fill:none;stroke:none" />
     </g>
     <g
-       id="g6675">
+       id="g6675"
+       inkscape:export-filename="/home/marcello/Projects/AkademioEditor/icons/icon-hotkeys-l.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          style="fill:#e6e6e6;stroke:none"
          id="rect3112"
@@ -1116,7 +1120,7 @@
          inkscape:export-ydpi="28.697508"
          inkscape:export-xdpi="28.697508"
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
-         style="fill:none;stroke:#000000;stroke-width:2.11796069;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         style="fill:none;stroke:#333333;stroke-width:2.11796068999999987;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
          id="rect3891"
          width="27.454086"
          height="27.682871"
@@ -1128,7 +1132,7 @@
          inkscape:export-ydpi="28.697508"
          inkscape:export-xdpi="28.697508"
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
-         style="fill:none;stroke:#000000;stroke-width:1.98903441;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         style="fill:none;stroke:#333333;stroke-width:1.98903440999999992;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
          id="rect3893"
          width="20.19688"
          height="18.06776"
@@ -1139,7 +1143,7 @@
          inkscape:export-ydpi="28.697508"
          inkscape:export-xdpi="28.697508"
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
-         style="fill:none;stroke:#000000;stroke-width:2.16003752;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:none;stroke:#333333;stroke-width:2.16003751999999993;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 130.50361,30.923769 3.68079,3.658318"
          id="path3895"
          inkscape:connector-curvature="0"
@@ -1148,7 +1152,7 @@
          inkscape:export-ydpi="28.697508"
          inkscape:export-xdpi="28.697508"
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
-         style="fill:none;stroke:#000000;stroke-width:2.16003752;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:none;stroke:#333333;stroke-width:2.16003751999999993;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 134.25859,52.062217 -3.72614,6.027717"
          id="path3897"
          inkscape:connector-curvature="0"
@@ -1157,7 +1161,7 @@
          inkscape:export-ydpi="28.697508"
          inkscape:export-xdpi="28.697508"
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
-         style="fill:none;stroke:#000000;stroke-width:2.16003752;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:none;stroke:#333333;stroke-width:2.16003751999999993;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 153.96808,52.242746 3.60166,5.956857"
          id="path3899"
          inkscape:connector-curvature="0"
@@ -1166,7 +1170,7 @@
          inkscape:export-ydpi="28.697508"
          inkscape:export-xdpi="28.697508"
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
-         style="fill:none;stroke:#000000;stroke-width:2.16003752;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:none;stroke:#333333;stroke-width:2.16003751999999993;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 153.81725,34.380989 3.29756,-3.196733"
          id="path3901"
          inkscape:connector-curvature="0"
@@ -1175,7 +1179,7 @@
          inkscape:export-ydpi="28.697508"
          inkscape:export-xdpi="28.697508"
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
-         style="fill:#000000;stroke:#000000;stroke-width:3.36902213;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:#000000;stroke:#333333;stroke-width:3.36902212999999984;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 140.91002,36.435455 0,13.05977"
          id="path3903"
          inkscape:connector-curvature="0" />
@@ -1183,7 +1187,7 @@
          inkscape:export-ydpi="28.697508"
          inkscape:export-xdpi="28.697508"
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
-         style="fill:#000000;stroke:#000000;stroke-width:3.36902213;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:#000000;stroke:#333333;stroke-width:3.36902212999999984;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 140.91002,42.894245 6.40166,0"
          id="path3905"
          inkscape:connector-curvature="0"
@@ -1192,7 +1196,7 @@
          inkscape:export-ydpi="28.697508"
          inkscape:export-xdpi="28.697508"
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-hotkeys-l.png"
-         style="fill:#000000;stroke:#000000;stroke-width:3.36902213;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:#333333;stroke:#333333;stroke-width:3.36902212999999984;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          d="m 147.09838,36.419226 0,13.085657"
          id="path3907"
          inkscape:connector-curvature="0"
@@ -1421,7 +1425,10 @@
          x="0" />
     </g>
     <g
-       id="g6803">
+       id="g6803"
+       inkscape:export-filename="/home/marcello/Projects/AkademioEditor/icons/icon-options-l.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          style="fill:none;stroke:none"
          id="rect3136-6-4-1-0-1"
@@ -1450,7 +1457,7 @@
          inkscape:export-filename="C:\Users\Marcello\Dropbox\git\laeditor\LA-editor\resources\icons\icon-options-l.png"
          id="path4138"
          d="m 144.55797,352.37877 -11.05399,6.38188 0,12.77372 11.05399,6.38188 11.05398,-6.38188 0,-12.77372 -11.05398,-6.38188 z m -0.0696,7.42566 c 2.89673,0 5.24866,2.35193 5.24866,5.24865 0,2.89673 -2.35193,5.23871 -5.24866,5.23871 -2.89672,0 -5.23871,-2.34198 -5.23871,-5.23871 0,-2.89672 2.34199,-5.24865 5.23871,-5.24865 z"
-         style="stroke-width:18.86100006;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke-width:18.86100005999999851;stroke-miterlimit:4;stroke-dasharray:none;fill:#333333" />
       <path
          inkscape:export-ydpi="28.597918"
          inkscape:export-xdpi="28.597918"
@@ -1459,7 +1466,7 @@
          inkscape:connector-curvature="0"
          id="path4172"
          d="m 140.92872,356.67546 7.19503,0 -0.54133,-6.07848 -6.11237,0 z"
-         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.31810021px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0.31810020999999999px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <use
          inkscape:export-ydpi="28.597918"
          inkscape:export-xdpi="28.597918"
@@ -1470,7 +1477,8 @@
          id="use4174"
          xlink:href="#path4172"
          y="0"
-         x="0" />
+         x="0"
+         style="fill:#333333;stroke:#333333" />
       <use
          inkscape:export-ydpi="28.597918"
          inkscape:export-xdpi="28.597918"
@@ -1481,7 +1489,8 @@
          id="use4176"
          xlink:href="#path4172"
          y="0"
-         x="0" />
+         x="0"
+         style="fill:#333333;stroke:#333333" />
       <use
          inkscape:export-ydpi="28.597918"
          inkscape:export-xdpi="28.597918"
@@ -1492,7 +1501,8 @@
          id="use4178"
          xlink:href="#use4174"
          y="0"
-         x="0" />
+         x="0"
+         style="fill:#333333;stroke:#333333" />
       <use
          inkscape:export-ydpi="28.597918"
          inkscape:export-xdpi="28.597918"
@@ -1503,7 +1513,8 @@
          id="use4180"
          xlink:href="#path4172"
          y="0"
-         x="0" />
+         x="0"
+         style="fill:#333333;stroke:#333333" />
       <use
          inkscape:export-ydpi="28.597918"
          inkscape:export-xdpi="28.597918"
@@ -1514,7 +1525,8 @@
          id="use4182"
          xlink:href="#use4174"
          y="0"
-         x="0" />
+         x="0"
+         style="fill:#333333;stroke:#333333" />
     </g>
     <g
        id="arrow-right-5"
@@ -1548,7 +1560,7 @@
        inkscape:export-xdpi="90"
        inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/eraser.png"
        sodipodi:nodetypes="ccccc"
-       d="m 13.301847,351.02221 16.347507,14.643 c 3.346407,3.36339 -7.974921,14.77313 -11.058563,12.14591 L 2.4027734,363.31098 C 0.99346209,362.10774 12.266574,349.9427 13.301847,351.02221 z"
+       d="m 12.832326,349.44029 17.889918,16.02459 c 3.662146,3.68073 -8.727366,16.167 -12.101954,13.2919 L 0.90490907,362.88853 C -0.63737279,361.57176 11.699374,348.25893 12.832326,349.44029 z"
        id="path2987-3"
        style="fill:url(#linearGradient4119);fill-opacity:1;stroke:none"
        inkscape:connector-curvature="0" />
@@ -1557,7 +1569,7 @@
        inkscape:export-xdpi="90"
        inkscape:export-filename="/home/marcello/Dropbox/qtprojects/AkademioEditor/icons/eraser.png"
        sodipodi:nodetypes="ccccc"
-       d="m 15.948579,353.33742 7.909927,7.00211 c 3.346407,3.36339 -8.234724,14.74031 -11.318366,12.11309 l -7.5062601,-6.7483 c -1.409311,-1.20324 9.8794261,-13.4464 10.9146991,-12.3669 z"
+       d="m 15.728781,351.97395 8.65624,7.66277 c 3.662146,3.68073 -9.011682,16.13108 -12.38627,13.25598 L 3.7842644,365.50768 C 2.2419828,364.19092 14.595829,350.7926 15.728781,351.97395 z"
        id="path2987-3-3"
        style="fill:url(#linearGradient4116);fill-opacity:1;stroke:none"
        inkscape:connector-curvature="0" />

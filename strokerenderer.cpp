@@ -162,7 +162,7 @@ void StrokeRenderer::drawCursor()
 
 void StrokeRenderer::drawStrokeSpritesRange(int from, int to, float r, float g, float b, float ptSize, QMatrix4x4 transform)
 {
-    glPointSize(ptSize);
+    glPointSize(ptSize * (canvasSize.x() / 542.0f));
 
     glUseProgram(strokeShader.pId);
     strokeShader.shaderProgram.setUniformValue(strokeColorLoc, r, g, b);

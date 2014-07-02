@@ -330,27 +330,47 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     switch (event->key())
     {
     case Qt::Key_Delete:
-        qDebug() << "deleting...";
-//        Timeline::si->deleteSelectedVideo();
+        Timeline::si->erase();
+        break;
+
+    case Qt::Key_X:
+        if (event->modifiers().testFlag(Qt::ControlModifier))
+        {
+            Timeline::si->cut();
+        }
         break;
 
     case Qt::Key_C:
         if (event->modifiers().testFlag(Qt::ControlModifier))
         {
-            Timeline::si->copyVideo();
+            Timeline::si->copy();
         }
         break;
 
     case Qt::Key_V:
         if (event->modifiers().testFlag(Qt::ControlModifier))
         {
-            Timeline::si->pasteVideo(Timeline::si->timeCursorMSec);
+            Timeline::si->paste();
         }
         break;
 
-    case Qt::Key_T:
-        Timeline::si->scaleAndMoveSelectedVideo(3.0, 0);
-        break; // test
+    case Qt::Key_Z:
+        if (event->modifiers().testFlag(Qt::ControlModifier) && event->modifiers().testFlag(Qt::ShiftModifier))
+        {
+            Timeline::si->redo();
+        }
+        else if (event->modifiers().testFlag(Qt::ControlModifier))
+        {
+            Timeline::si->undo();
+        }
+        break;
+
+    case Qt::Key_Y:
+        if (event->modifiers().testFlag(Qt::ControlModifier))
+        {
+            Timeline::si->redo();
+        }
+        break;
 
 
     case Qt::Key_Shift:

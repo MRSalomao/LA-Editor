@@ -48,7 +48,7 @@
     <attribute name="title">
      <string>General</string>
     </attribute>
-    <widget class="QFrame" name="frame">
+    <widget class="QGroupBox" name="groupBox">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -57,33 +57,14 @@
        <height>101</height>
       </rect>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+     <property name="title">
+      <string>User Interface</string>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>141</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>User Interface</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
         <x>420</x>
-        <y>30</y>
+        <y>18</y>
         <width>50</width>
         <height>22</height>
        </rect>
@@ -96,7 +77,7 @@
       <property name="geometry">
        <rect>
         <x>11</x>
-        <y>62</y>
+        <y>50</y>
         <width>119</width>
         <height>22</height>
        </rect>
@@ -109,7 +90,7 @@
       <property name="geometry">
        <rect>
         <x>311</x>
-        <y>61</y>
+        <y>50</y>
         <width>281</width>
         <height>24</height>
        </rect>
@@ -142,7 +123,7 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QFrame" name="frame_2">
+    <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -151,33 +132,14 @@
        <height>131</height>
       </rect>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+     <property name="title">
+      <string>Audio</string>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>141</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Audio</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
+        <y>40</y>
         <width>581</width>
         <height>62</height>
        </rect>
@@ -209,7 +171,7 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QFrame" name="frame_3">
+    <widget class="QGroupBox" name="groupBox_3">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -218,33 +180,14 @@
        <height>101</height>
       </rect>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+     <property name="title">
+      <string>Rendering Mode</string>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLabel" name="label_6">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>141</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Rendering Mode</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
      <widget class="QRadioButton" name="radioButton_4">
       <property name="geometry">
        <rect>
         <x>12</x>
-        <y>62</y>
+        <y>40</y>
         <width>97</width>
         <height>22</height>
        </rect>
@@ -260,7 +203,7 @@
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>62</y>
+        <y>40</y>
         <width>93</width>
         <height>22</height>
        </rect>
@@ -270,15 +213,15 @@
       </property>
      </widget>
     </widget>
-    <zorder>frame_2</zorder>
-    <zorder>frame_3</zorder>
-    <zorder>frame</zorder>
+    <zorder>groupBox_2</zorder>
+    <zorder>groupBox_3</zorder>
+    <zorder>groupBox</zorder>
    </widget>
    <widget class="QWidget" name="tab2">
     <attribute name="title">
      <string>Misc</string>
     </attribute>
-    <widget class="QFrame" name="frame_4">
+    <widget class="QGroupBox" name="groupBox_4">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -287,33 +230,14 @@
        <height>101</height>
       </rect>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+     <property name="title">
+      <string>Audio quality</string>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLabel" name="label_7">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>141</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Audio quality</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
      <widget class="QRadioButton" name="radioButton_6">
       <property name="geometry">
        <rect>
         <x>12</x>
-        <y>62</y>
+        <y>40</y>
         <width>141</width>
         <height>22</height>
        </rect>
@@ -329,7 +253,7 @@
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>62</y>
+        <y>40</y>
         <width>161</width>
         <height>22</height>
        </rect>
@@ -339,7 +263,7 @@
       </property>
      </widget>
     </widget>
-    <widget class="QFrame" name="frame_6">
+    <widget class="QGroupBox" name="groupBox_6">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -348,33 +272,14 @@
        <height>101</height>
       </rect>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+     <property name="title">
+      <string>Details</string>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLabel" name="label_12">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>141</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Details</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="checkBox_2">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>60</y>
+        <y>40</y>
         <width>181</width>
         <height>22</height>
        </rect>
@@ -389,7 +294,7 @@
     <attribute name="title">
      <string>About</string>
     </attribute>
-    <widget class="QFrame" name="frame_5">
+    <widget class="QGroupBox" name="groupBox_5">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -398,17 +303,14 @@
        <height>131</height>
       </rect>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <property name="title">
+      <string>About</string>
      </property>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>20</y>
+        <y>40</y>
         <width>495</width>
         <height>88</height>
        </rect>

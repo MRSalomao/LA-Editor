@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QTime>
 #include <QThread>
+
 #include "events.h"
 
 #if QT_VERSION < 0x050000
@@ -116,7 +117,7 @@ class Timeline : public QWidget
     QPixmap tmpAudio;
 
     // Handle dragging and scaling both video and audio
-    void handleSelectionPressed(QRect &selectionRect, QPolygon &leftArrow, QPolygon &rightArrow, bool videoSelection);
+    bool handleSelectionPressed(QRect &selectionRect, QPolygon &leftArrow, QPolygon &rightArrow);
 
     // Timeline sizing and positioning
     const int videoTimelineStart = 0;
@@ -183,7 +184,6 @@ public:
 
     // Draw the video part of the timeline
     void paintVideoPixmap();
-    void paintVideoPixmapRange();
 
     // Sets the cursor at a given position in widget coordinates - must redraw the scene
     void setCursorAt(int x);
@@ -192,13 +192,12 @@ public:
     void copyVideo();
     void copyAudio();
     QByteArray audioClipboard;
-    void pasteVideo(int atTimeMSec);
-    void pasteAudio(int atTimeMSec);
-    void deleteSelectedVideo(int fromTime, int toTime);
-    void deleteSelectedAudio();
-    void eraseVideoSelection();
-    void eraseAudioSelection();
-    void scaleAndMoveSelectedVideo(float scale, int timeShiftMSec);
+    void pasteVideo();
+    void pasteAudio();
+    void deleteVideo(int fromTime, int toTime);
+    void deleteAudio(int fromTime, int toTime);
+    void scaleAndMoveSelectedVideo();
+    void scaleAndMoveSelectedAudio();
     bool shiftPressed = false;
     void selectVideo();
     void selectAudio();
@@ -248,12 +247,21 @@ public:
     // The current position of the cursor in the video being played
     QPointF cursorPosition;
 
+    // Basic operations
+    void paste();
+    void apply();
+    void erase();
+    void cut();
+    void copy();
+    void recordToSlot();
+    void redo();
+    void undo();
+    void unselect();
 
 protected:
 
     // Overrides
     void paintEvent(QPaintEvent *event);
-    void resizeEvent(QResizeEvent *event);
 
     void mouseMoveEvent( QMouseEvent * event );
     void mousePressEvent( QMouseEvent * event );

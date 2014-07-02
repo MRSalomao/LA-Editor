@@ -34,7 +34,9 @@ SOURCES     +=  main.cpp\
                 options.cpp \
     newproject.cpp \
     upload.cpp \
-    hotkeys.cpp
+    hotkeys.cpp \
+    timelineInput.cpp \
+    timelineAudio.cpp
 
 HEADERS     +=  mainwindow.h \
                 canvas.h \

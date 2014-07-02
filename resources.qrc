@@ -9,7 +9,6 @@
         <file>icons/icon-line.png</file>
         <file>icons/icon-new.png</file>
         <file>icons/icon-open-l.png</file>
-        <file>icons/icon-options-l.png</file>
         <file>icons/icon-pause.png</file>
         <file>icons/icon-pencil.png</file>
         <file>icons/icon-play.png</file>
@@ -29,6 +28,7 @@
         <file>icons/eraser.png</file>
         <file>icons/pointer.png</file>
         <file>icons/YouTube-logo-full_color.png</file>
+        <file>icons/icon-options-l.png</file>
     </qresource>
     <qresource prefix="/shaders"/>
 </RCC>
