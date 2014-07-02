@@ -134,6 +134,8 @@ public:
     // Objects used for audio sampling
     PlayerThread playerThread;
     QAudioFormat format;
+    QAudioDeviceInfo infoIn;
+    QAudioDeviceInfo infoOut;
     QAudioInput *audioInput;
     QAudioOutput *audioOutput;
     QIODevice* inputDevice;

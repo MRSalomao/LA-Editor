@@ -90,7 +90,7 @@ bool Timeline::writeWavHeader()
 Timeline::~Timeline()
 {
     // Delete event objects
-//    qDeleteAll(events);
+//    qDeleteAll(events); //TODO
 
     // Delete audio objects
     audioInput->stop();
@@ -119,9 +119,7 @@ void Timeline::initializeAudio()
     format.setCodec("audio/pcm");
 
 
-    // Get input format source information
-    QAudioDeviceInfo infoIn;
-
+    // Get input device information
     if(QSettings().value("audioInputDevice").isValid())
     {
         for(const QAudioDeviceInfo& deviceInfo : QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
@@ -138,30 +136,7 @@ void Timeline::initializeAudio()
     }
 
 
-    // Get final input format
-    if (!infoIn.isFormatSupported(format))
-    {
-       // Get the best available format, if the one requested isn't possible
-       format = infoIn.nearestFormat(format);
-
-       if (format.sampleSize() % 8 != 0) format.setSampleSize(8);
-       sampleSize = format.sampleSize() / 8;
-       samplingFrequency = format.sampleRate();
-
-       qWarning() << "Audio Input: Requested format not supported. Getting the nearest:";
-       qWarning() << "Sample rate:" << samplingFrequency << "samples / second";
-       qWarning() << "Sample size:" << sampleSize << "bytes / sample";
-       qWarning() << "Sample type:" << format.sampleType();
-       qWarning() << "Byte order:" << format.byteOrder();
-    }
-
-    // Create audio input
-    audioInput = new QAudioInput(infoIn, format, this);
-
-
-    // Get output format source information
-    QAudioDeviceInfo infoOut;
-
+    // Get output device information
     if(QSettings().value("audioOutputDevice").isValid())
     {
         for(const QAudioDeviceInfo& deviceInfo : QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
@@ -177,13 +152,34 @@ void Timeline::initializeAudio()
         infoOut = QAudioDeviceInfo::defaultOutputDevice();
     }
 
+
+    // Log devices actually being used
     qDebug() << "Using audio input device: " + infoIn.deviceName();
     qDebug() << "Using audio output device: " + infoOut.deviceName();
+
+
+    // Get final input format
+    if (!infoIn.isFormatSupported(format))
+    {
+       // Get the best available format, if the one requested isn't available
+       format = infoIn.nearestFormat(format);
+
+       if (format.sampleSize() % 8 != 0) format.setSampleSize(8);
+       sampleSize = format.sampleSize() / 8;
+       samplingFrequency = format.sampleRate();
+
+       qWarning() << "Audio Input: Requested format not supported. Getting the nearest:";
+       qWarning() << "Sample rate:" << samplingFrequency << "samples / second";
+       qWarning() << "Sample size:" << sampleSize << "bytes / sample";
+       qWarning() << "Sample type:" << format.sampleType();
+       qWarning() << "Byte order: " << format.byteOrder();
+    }
+
 
     // Get final output format
     if (!infoOut.isFormatSupported(format))
     {
-       // Get the best available format, if the one requested isn't possible
+       // Get the best available format, if the one requested isn't available
        format = infoOut.nearestFormat(format);
 
        if (format.sampleSize() % 8 != 0) format.setSampleSize(8);
@@ -195,18 +191,21 @@ void Timeline::initializeAudio()
        qWarning() << "Sample size:" << sampleSize << "bytes / sample";
     }
 
-    // Create audio output
+
+    // Create audio input and output
+    audioInput = new QAudioInput(infoIn, format, this);
     audioOutput = new QAudioOutput(infoOut, format, this);
 
+
+    // Update the samplingInterval dependent variables
     samplingInterval = 1.0 / samplingFrequency;
     barsPerMSec = samplingFrequency / (samplesPerBar * 1000.0);
     pixelsPerBar = samplesPerBar * samplingInterval * pixelsPerSecond;
 
-    // Start audio capture device
+
+    // Start audio capture device and connect to apropriate SLOTs
     inputDevice = audioInput->start();
-
     connect(inputDevice, SIGNAL(readyRead()), this, SLOT(readAudioFromMic()));
-
     connect(audioInput, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
 }
 
@@ -230,6 +229,8 @@ void Timeline::startRecording()
     isRecording = true;
 
     timer.start();
+
+    Canvas::si->redrawRequested = true;
 }
 
 
@@ -242,10 +243,9 @@ void Timeline::pauseRecording()
     // Update video upper limit
     totalTimeRecorded = rawAudioFile->size() / sampleSize / samplingFrequency * 1000.0;
 
-    // If recording over
+    // Fill the 1-2 pixels gap after recording to the middle of an existing audio piece
     if (rawAudioFile->pos() != rawAudioFile->size())
     {
-        // Fill the 1-2 pixels gap after recording to the middle of an existing audio piece
         float x = barCursor * pixelsPerBar - 1;
         QPixmap tmpPixmap = audioPixmap->copy(x, 0, 1, audioPixmapRealHeight);
 
@@ -259,6 +259,7 @@ void Timeline::startPlaying()
 {
     isPlaying = true;
 
+    // Reset timecursor if the video is about to end
     if (timeCursorMSec > totalTimeRecorded - 100)
     {
         rawAudioFile->seek(0);
@@ -291,45 +292,42 @@ void Timeline::readAudioFromMic()
     if(!audioInput) return;
 
     QByteArray audioTempBuffer(inputDevice->readAll());
-
-    if(!isRecording) return;
-
     int totalSamplesRead = audioTempBuffer.size() / sampleSize;
 
-    if (totalSamplesRead > 0)
+    if (!isRecording || totalSamplesRead <= 0) return;
+
+    int barsToAdd = (totalSamplesRead + accumulatedSamples) / samplesPerBar;
+
+    short* resultingData = (short*) audioTempBuffer.data(); //TODO: support char data (8bit samples)
+
+    QPainter painter(audioPixmap);
+    painter.setPen(QPen(audioColor));
+
+    for (int i = 0; i < barsToAdd; i++)
     {
-        int barsToAdd = (totalSamplesRead + accumulatedSamples) / samplesPerBar;
+        int index = i * samplesPerBar - accumulatedSamples;
 
-        short* resultingData = (short*) audioTempBuffer.data();
+        int barIntensity = abs( resultingData[index] * audioPixmapRealHeight / SHRT_MAX );
 
-        QPainter painter(audioPixmap);
-        painter.setPen(QPen(audioColor));
+        float x = (i + barCursor) * pixelsPerBar;
+        lastAudioPixelX = floor(x);
 
-        for (int i = 0; i < barsToAdd; i++)
+        if (x > lastAudioPixelX)
         {
-            int index = i * samplesPerBar - accumulatedSamples;
-
-            int barIntensity = abs( resultingData[index] * audioPixmapRealHeight / SHRT_MAX );
-
-            float x = (i + barCursor) * pixelsPerBar;
-            lastAudioPixelX = floor(x);
-
-            if (x > lastAudioPixelX)
-            {
-                painter.setPen(QPen(timelineColor));
-                painter.drawLine(x+1, audioPixmapRealHeight, x+1, 0);
-                painter.setPen(QPen(audioColor));
-            }
-
-            painter.drawLine(x, audioPixmapRealHeight, x, audioPixmapRealHeight - barIntensity);
+            painter.setPen(QPen(timelineColor));
+            painter.drawLine(x+1, audioPixmapRealHeight, x+1, 0);
+            painter.setPen(QPen(audioColor));
         }
 
-        barCursor += barsToAdd;
-
-        accumulatedSamples = totalSamplesRead + accumulatedSamples - barsToAdd * samplesPerBar;
-
-        rawAudioFile->write( audioTempBuffer, totalSamplesRead * sampleSize );
+        painter.drawLine(x, audioPixmapRealHeight, x, audioPixmapRealHeight - barIntensity);
     }
+
+    barCursor += barsToAdd;
+
+    accumulatedSamples = totalSamplesRead + accumulatedSamples - barsToAdd * samplesPerBar;
+
+    rawAudioFile->write( audioTempBuffer, totalSamplesRead * sampleSize );
+
 }
 
 
@@ -418,7 +416,7 @@ void Timeline::paintVideoPixmap()
     painter.drawLine(x1, 0, x2, 0);
 }
 
-
+//?
 void Timeline::paintVideoPixmapRange()
 {
 
@@ -676,8 +674,8 @@ void Timeline::scaleAndMoveSelectedVideo(float scale, int timeShiftMSec)
 
 void Timeline::copyVideo()
 {
-    tmpVideo = videoPixmap->copy(selectionStartPos, 0,
-                                 selectionEndPos - selectionStartPos, 1);
+    tmpVideo = videoPixmap->copy(selectionStartPos + 1, 0,
+                                 selectionEndPos - selectionStartPos-1, 1);
 
     for (int i = selectionStartIdx; i < selectionEndIdx + 1; i++)
     {
@@ -947,6 +945,8 @@ void Timeline::paintEvent(QPaintEvent *event)
          audioSelectionRect.setRect(selectionStartPos - timelineStartPos,    audioTimelineStart,
                                     selectionEndPos - selectionStartPos + 1, audioPixmapHeight);
 
+         //TODO: event modified
+
          painter.setPen(QPen(Qt::transparent));
          painter.setBrush(QBrush(selectionColor));
          painter.drawRect(audioSelectionRect);
@@ -1055,7 +1055,7 @@ void Timeline::mousePressEvent(QMouseEvent *event)
         // Return if already handled the left button press
         if (draggingEvents || scalingEventsLeft || scalingEventsRight) return;
 
-        // Apply modifications if any was made
+        // Cancel modifications
         if (eventModified)
         {
             // Reset event modification variables
@@ -1064,7 +1064,7 @@ void Timeline::mousePressEvent(QMouseEvent *event)
             scalingEventsLeft = false;
             scalingEventsRight = false;
 
-            // Revert selection to it's original place if changes weren't applied
+            // Revert selection to it's original place
             selectionStartPos = lastSelectionStartPos;
             selectionEndPos = lastSelectionEndPos;
             pasteVideo(lastSelectionStartTime);
@@ -1077,8 +1077,10 @@ void Timeline::mousePressEvent(QMouseEvent *event)
         selectionColor = selectionColorNormal;
 
         // Setup initial selection limits
-        selectionStartPos = mousePos.x();
-        selectionEndPos = mousePos.x();
+        selectionStartPos = mousePos.x() + timelineStartPos;
+        selectionEndPos = mousePos.x() + timelineStartPos;
+        selectionStartTime = selectionStartPos * mSecsPerPixel;
+        selectionEndTime = selectionEndPos * mSecsPerPixel;
 
         // Selecting just the audio
         if (mousePos.y() > audioTimelineStart)
@@ -1162,7 +1164,7 @@ void Timeline::mouseMoveEvent(QMouseEvent *event)
 
     else if (isSelecting)
     {
-        selectionEndPos = mousePos.x();
+        selectionEndPos = mousePos.x() + timelineStartPos;
     }
 }
 
@@ -1194,7 +1196,7 @@ void Timeline::mouseReleaseEvent(QMouseEvent *event)
         {
             isSelecting = false;
 
-            selectionEndPos = mousePos.x();
+            selectionEndPos = mousePos.x() + timelineStartPos;
             selectionEndTime = selectionEndPos * mSecsPerPixel;
 
             // If nothing was selected, disable selection mode
