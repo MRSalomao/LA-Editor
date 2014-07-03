@@ -53,8 +53,8 @@ void Timeline::paintEvent(QPaintEvent *event)
     QRectF videoTimelineSource(timelineStartPos, 0,                  width(), videoPixmapHeight);
 
     // Get audio pixmap source and target coords
-    QRectF audioTimelineTarget(0,                audioTimelineStart, width(), audioPixmapHeight);
-    QRectF audioTimelineSource(timelineStartPos, 0,                  width(), audioPixmapRealHeight);
+    QRectF audioTimelineTarget(0,                audioTimelineStart, width(), audioTimelineHeight);
+    QRectF audioTimelineSource(timelineStartPos, 0,                  width(), audioPixmapHeight);
 
     // Draw both video and audio pixmaps
     painter.drawPixmap(videoTimelineTarget, *videoPixmap, videoTimelineSource);
@@ -71,7 +71,7 @@ void Timeline::paintEvent(QPaintEvent *event)
             int x1 = selectionStartPos;
             int x2 = selectionEndPos + 1;
 
-            QRect target(x1 - timelineStartPos, 0, x2-x1, videoTimelineHeight);
+            QRect target(x1 - timelineStartPos, videoTimelineStart, x2-x1, videoTimelineHeight);
 
             painter.drawPixmap(target, tmpVideo, tmpVideo.rect());
         }
@@ -111,7 +111,15 @@ void Timeline::paintEvent(QPaintEvent *event)
         audioSelectionRect.setRect(selectionStartPos - timelineStartPos,    audioTimelineStart,
                                    selectionEndPos - selectionStartPos + 1, audioPixmapHeight);
 
-        // TODO: event modified
+        if (eventModified)
+        {
+            int x1 = selectionStartPos;
+            int x2 = selectionEndPos + 1;
+
+            QRect target(x1 - timelineStartPos, audioTimelineStart, x2-x1, audioTimelineHeight);
+
+            painter.drawPixmap(target, tmpAudio, tmpAudio.rect());
+        }
 
         painter.setPen(QPen(Qt::transparent));
         painter.setBrush(QBrush(selectionColor));
@@ -125,7 +133,7 @@ void Timeline::paintEvent(QPaintEvent *event)
             if ( (audioSelectionRect.contains(mousePos) ||
                   audioLeftScaleArrow.containsPoint(mousePos, Qt::OddEvenFill) ||
                   audioRightScaleArrow.containsPoint(mousePos, Qt::OddEvenFill)) &&
-                 !(draggingEvents || scalingEventsLeft || scalingEventsRight) )
+                 !(draggingEvents || scalingEventsLeft || scalingEventsRight || !mouseOver) )
             {
                 audioScaleArrowAlpha += (targetAlpha - audioScaleArrowAlpha) * arrowFadeIn;
             }
@@ -224,36 +232,40 @@ void Timeline::checkForCollision()
         selectionEndPos     = selectionEndTime * pixelsPerMSec;
     }
 
-    Event value(selectionStartTime);
-    QVector<Event*>::iterator i = qLowerBound(events.begin(), events.end(), &value, startTimeLessThan);
-    int newSelectionStartIdx = i - events.begin() - 1;
-    if (newSelectionStartIdx >= events.size())
+    // If video is selected, check for collision with other stroke events
+    if (videoSelected)
     {
-        return;
-    }
-    if (newSelectionStartIdx < 0)
-    {
-        newSelectionStartIdx = 0;
-    }
-
-    value.endTime = selectionEndTime;
-    i = qLowerBound(events.begin(), events.end(), &value, endTimeLessThan);
-    int newSelectionEndIdx = i - events.begin() + 1;
-    if (newSelectionEndIdx >= events.size())
-    {
-        newSelectionEndIdx = events.size() - 1;
-    }
-    if (newSelectionEndIdx < 0)
-    {
-        return;
-    }
-
-    for (int i=newSelectionStartIdx; i<newSelectionEndIdx; i++)
-    {
-        if (events[i]->type != Event::POINTER_MOVEMENT_EVENT)
+        Event value(selectionStartTime);
+        QVector<Event*>::iterator i = qLowerBound(events.begin(), events.end(), &value, startTimeLessThan);
+        int newSelectionStartIdx = i - events.begin() - 1;
+        if (newSelectionStartIdx >= events.size())
         {
-            selectionColor = selectionColorCollision;
             return;
+        }
+        if (newSelectionStartIdx < 0)
+        {
+            newSelectionStartIdx = 0;
+        }
+
+        value.endTime = selectionEndTime;
+        i = qLowerBound(events.begin(), events.end(), &value, endTimeLessThan);
+        int newSelectionEndIdx = i - events.begin() + 1;
+        if (newSelectionEndIdx >= events.size())
+        {
+            newSelectionEndIdx = events.size() - 1;
+        }
+        if (newSelectionEndIdx < 0)
+        {
+            return;
+        }
+
+        for (int i=newSelectionStartIdx; i<newSelectionEndIdx; i++)
+        {
+            if (events[i]->type != Event::POINTER_MOVEMENT_EVENT)
+            {
+                selectionColor = selectionColorCollision;
+                return;
+            }
         }
     }
 
@@ -315,22 +327,8 @@ void Timeline::selectAudio()
     if (selectionStartTime < 0) selectionStartTime = 0;
     if (selectionStartTime == selectionEndTime) audioSelected = false;
 
-    selectionStartTime = events[selectionStartIdx]->startTime;
-    selectionEndTime = events[selectionEndIdx]->endTime;
-
-    if (shiftPressed && videoSelected)
-    {
-        selectionStartTime = selectionStartPos * mSecsPerPixel;
-        selectionEndTime = selectionEndPos * mSecsPerPixel;
-    }
-    else
-    {
-        selectionStartTime = events[selectionStartIdx]->startTime;
-        selectionEndTime = events[selectionEndIdx]->endTime;
-        selectionStartPos = selectionStartTime * pixelsPerMSec;
-        selectionEndPos = selectionEndTime * pixelsPerMSec;
-    }
-
+    selectionStartPos = selectionStartTime * pixelsPerMSec;
+    selectionEndPos = selectionEndTime * pixelsPerMSec;
     lastSelectionStartTime = selectionStartTime;
     lastSelectionEndTime = selectionEndTime;
     lastSelectionStartPos = selectionStartPos;
@@ -383,10 +381,10 @@ void Timeline::deleteVideo(int fromTime, int toTime)
         {
             events[deleteSelectionStartIdx + 1]->trimUntil(toTime);
         }
-        else
-        {
+//        else
+//        {
 //            events.remove(deleteSelectionEndIdx + 1);
-        }
+//        }
     }
 
     //TODO: delete
@@ -404,15 +402,17 @@ void Timeline::deleteVideo(int fromTime, int toTime)
 
 void Timeline::deleteAudio(int fromTime, int toTime)//TODO
 {
+    int deletionSizeBytes = sampleSize * samplingFrequency * (toTime - fromTime) / 1000.0;
+    int selectionStart = sampleSize * samplingFrequency * fromTime / 1000.0;
+    QByteArray zeros(deletionSizeBytes, 0);
+
+    // Write zeros to the specified range
     int oldSeekPos = rawAudioFile->pos();
-    int selectionTime = events[selectionEndIdx]->endTime - events[selectionStartIdx]->startTime;
-    int deletionSize = sampleSize * samplingFrequency * selectionTime / 1000.0;
-    int selectionStart = sampleSize * samplingFrequency * events[selectionStartIdx]->startTime / 1000.0;
-    QByteArray zeros(deletionSize, 0);
     rawAudioFile->seek(selectionStart);
-    while (deletionSize != 0) deletionSize -= rawAudioFile->write(zeros);
+    while (deletionSizeBytes != 0) deletionSizeBytes -= rawAudioFile->write(zeros);
     rawAudioFile->seek(oldSeekPos);
 
+    // Erase the specified range of the audio pixmap
     int x1 = lastSelectionStartPos - 1;
     int x2 = lastSelectionEndPos + 1;
 
@@ -430,7 +430,7 @@ void Timeline::scaleAndMoveSelectedVideo()
     {
         timeShiftMSec = selectionStartTime - lastSelectionStartTime;
 
-        scale = (selectionEndTime - selectionStartTime) / (lastSelectionEndTime - lastSelectionStartTime);
+        scale = (float)(selectionEndTime - selectionStartTime) / (float)(lastSelectionEndTime - lastSelectionStartTime);
     }
     else
     {
@@ -458,47 +458,83 @@ void Timeline::scaleAndMoveSelectedVideo()
 
 void Timeline::scaleAndMoveSelectedAudio()
 {
+    if (eventModified)
+    {
+        audioSelectionStart = selectionStartTime;
+        audioSelectionSize = selectionEndTime - selectionStartTime;
+        audioScaling = float(audioSelectionSize) / (float)(lastSelectionEndTime - lastSelectionStartTime);
+    }
+    else
+    {
+        audioSelectionStart = sampleSize * samplingFrequency * timeCursorMSec / 1000.0;
+    }
 
+    // Run SoundStretch utility to scale the audio, if needed
+    if (fabs(audioScaling - 1.0f) > 0.01f) scaleAudio();
 }
 
 
 void Timeline::copyVideo()
 {
+    // Copy the selected video pixmap
     tmpVideo = videoPixmap->copy(selectionStartPos + 1, 0,
-                                 selectionEndPos - selectionStartPos-1, 1);
+                                 selectionEndPos - selectionStartPos - 1, videoPixmapHeight);
 
+    // Empty clipboard
     eventsClipboard.clear();
 
+    // Clone the selected events and move their clones to the clipboard
     for (int i = selectionStartIdx; i <= selectionEndIdx; i++)
     {
-        eventsClipboard << events[i];
+        eventsClipboard << events[i]->clone();
     }
 }
 
 
 void Timeline::copyAudio()
 {
-    tmpAudio.copy(selectionStartPos - 1, 0,
-                  selectionEndPos - selectionStartPos, 1);
+    // Copy the selected audio pixmap
+    tmpAudio = audioPixmap->copy(selectionStartPos + 1, 0,
+                                 selectionEndPos - selectionStartPos - 1, audioPixmapHeight);
 
-    int oldSeekPos = rawAudioFile->pos();
-    int selectionTime = events[selectionEndIdx]->endTime - events[selectionStartIdx]->startTime;
-    int copySize = sampleSize * samplingFrequency * selectionTime / 1000.0;
-    int selectionStart = sampleSize * samplingFrequency * events[selectionStartIdx]->startTime / 1000.0;
+    // Empty clipboard
+    audioClipboard.clear();
+
+    int bytesToRead = sampleSize * samplingFrequency * (selectionEndTime - selectionStartTime) / 1000.0;
+    int selectionStart = sampleSize * samplingFrequency * selectionStartTime / 1000.0;
     QByteArray tmpArray;
+
+    // Fill audioClipboard with selection
+    int oldSeekPos = rawAudioFile->pos();
     rawAudioFile->seek(selectionStart);
-    while (copySize != 0)
+    while (bytesToRead != 0)
     {
-        tmpArray = rawAudioFile->read(copySize);
-        copySize -= tmpArray.size();
+        tmpArray = rawAudioFile->read(bytesToRead);
+        bytesToRead -= tmpArray.size();
         audioClipboard.append(tmpArray);
     }
     rawAudioFile->seek(oldSeekPos);
+
+    // Reset variables
+    audioSelectionStart = selectionStartTime;
+    audioSelectionSize = selectionEndTime - selectionStartTime;
+    audioScaling = 1.0f;
 }
 
 
+// Simply pastes the content of the clipboard to the startTime of its first event
 void Timeline::pasteVideo()
 {
+    // Open some space before pasting the video
+    if (eventModified)
+    {
+        deleteVideo(selectionStartPos, selectionEndPos);
+    }
+    else
+    {
+        deleteVideo(timeCursorMSec, selectionEndPos - selectionStartPos);
+    }
+
     int atTimeMSec = eventsClipboard.first()->startTime;
     int timeLength = eventsClipboard.last()->endTime - atTimeMSec;
 
@@ -506,6 +542,7 @@ void Timeline::pasteVideo()
 
     int insertIdx = qLowerBound(events.begin(), events.end(), &value, startTimeLessThan) - events.begin();
 
+    // Paste pixmap
     QPainter painter(videoPixmap);
     painter.drawPixmap(atTimeMSec * pixelsPerMSec, 0, timeLength * pixelsPerMSec, videoPixmapHeight, tmpVideo);
 
@@ -517,21 +554,20 @@ void Timeline::pasteVideo()
 }
 
 
-void Timeline::pasteAudio() //TODO - imitate video pasting
+void Timeline::pasteAudio()
 {
-//    int timeShiftMSec = atTimeMSec - eventsClipboard.first()->startTime;
+    // Paste pixmap
+    QPainter painter(audioPixmap);
+    painter.drawPixmap(audioSelectionStart * pixelsPerMSec, 0, audioSelectionSize * pixelsPerMSec, audioPixmapHeight, tmpAudio);
 
-//    QPainter painter(audioPixmap);
-//    painter.drawPixmap(selectionStartPos, 0, selectionEndPos - selectionStartPos, audioPixmapHeight, tmpAudio);
+    int pasteSizeBytes = audioClipboard.size();
+    int selectionStart = sampleSize * samplingFrequency * audioSelectionStart / 1000.0;
 
-//    int oldSeekPos = rawAudioFile->pos();
-//    int selectionTime = events[selectionEndIdx]->endTime - events[selectionStartIdx]->startTime;
-//    int deletionSize = sampleSize * samplingFrequency * selectionTime / 1000.0;
-//    int selectionStart = sampleSize * samplingFrequency * events[selectionStartIdx]->startTime / 1000.0;
-//    QByteArray zeros(deletionSize, 0);
-//    rawAudioFile->seek(selectionStart);
-//    while (deletionSize != 0) deletionSize -= rawAudioFile->write(zeros);
-//    rawAudioFile->seek(oldSeekPos);
+    // Write clipboard's content to the audio file
+    int oldSeekPos = rawAudioFile->pos();
+    rawAudioFile->seek(selectionStart);
+    while (pasteSizeBytes != 0) pasteSizeBytes -= rawAudioFile->write(audioClipboard);
+    rawAudioFile->seek(oldSeekPos);
 }
 
 
@@ -553,6 +589,9 @@ void Timeline::paste()
     eventModified = false;
     scalingEventsLeft = false;
     scalingEventsRight = false;
+    eventTimeExpansionRightMSec = 0;
+    eventTimeExpansionLeftMSec = 0;
+    eventTimeShiftMSec = 0;
 }
 
 
@@ -591,8 +630,8 @@ void Timeline::cut()
 
 void Timeline::unselect()
 {
-//    videoSelected = false;
-//    audioSelected = false;
+    videoSelected = false;
+    audioSelected = false;
 }
 
 

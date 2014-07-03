@@ -331,12 +331,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_Delete:
         Timeline::si->erase();
+        Timeline::si->unselect();
         break;
 
     case Qt::Key_X:
         if (event->modifiers().testFlag(Qt::ControlModifier))
         {
             Timeline::si->cut();
+            Timeline::si->unselect();
         }
         break;
 
@@ -344,13 +346,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if (event->modifiers().testFlag(Qt::ControlModifier))
         {
             Timeline::si->copy();
+            Timeline::si->unselect();
         }
         break;
 
     case Qt::Key_V:
         if (event->modifiers().testFlag(Qt::ControlModifier))
         {
+            Timeline::si->apply();
             Timeline::si->paste();
+            Timeline::si->unselect();
         }
         break;
 

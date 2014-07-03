@@ -12,6 +12,9 @@
 static int subeventToDrawIdx = 0;
 static QPointF cursorPos;
 
+class Event;
+static QVector<Event*> allEvents;
+
 class Event
 {
 public:
@@ -22,12 +25,17 @@ public:
     enum { STROKE_EVENT,
            POINTER_MOVEMENT_EVENT,
            CTRL_Z_EVENT,
-           SCROLL_EVENT};
+           SCROLL_EVENT };
 
     Event(int startT) :
         startTime(startT)
     {
+        allEvents.push_back(this);
+    }
 
+    Event()
+    {
+        allEvents.push_back(this);
     }
 
     static void setSubeventIndex(int idx)
@@ -40,6 +48,11 @@ public:
         return subeventToDrawIdx;
     }
 
+    static void deleteAllEvents()
+    {
+        qDeleteAll(allEvents);
+    }
+
     virtual QPointF getCursorPos(int time) {return QPointF(100,100);}
 
     virtual void timeShift(int time) {}
@@ -49,6 +62,8 @@ public:
     virtual void trimFrom(int time) {}
 
     virtual void trimUntil(int time) {}
+
+    virtual Event* clone() const {}
 
     virtual ~Event() {}
 };
@@ -61,7 +76,7 @@ public:
     float ptSize = 3;
 
     QMatrix4x4 transform;
-public:
+
     struct Subevent
     {
         int t,pbIdx; float x,y;
@@ -70,6 +85,8 @@ public:
     };
 
     QVector<Subevent> subevents;
+
+    ~PenStroke() {}
 
     PenStroke(int pbStart, int startT) :
         Event(startT),
@@ -80,6 +97,11 @@ public:
         b = MainWindow::si->activeColor.blueF();
 
         type = STROKE_EVENT;
+    }
+
+    virtual PenStroke* clone() const
+    {
+        return new PenStroke(*this);
     }
 
     void closeStrokeEvent(int endT)
@@ -266,10 +288,17 @@ public:
 
     QVector<Subevent> subevents;
 
+    ~PointerMovement() {}
+
     PointerMovement(int startT) :
         Event(startT)
     {
         type = POINTER_MOVEMENT_EVENT;
+    }
+
+    virtual PointerMovement* clone() const
+    {
+        return new PointerMovement(*this);
     }
 
     void scaleAndMove(float scale, int timeShiftMSec)
@@ -324,6 +353,7 @@ public:
 
 class ViewportScroll : public Event
 {
+    ~ViewportScroll() {}
 
     ViewportScroll(int t, float y) :
         Event(t)
@@ -338,6 +368,8 @@ class CtrlZ : public Event
 {
 public:
     QColor eventColor = QColor(70, 70, 70);
+
+    ~CtrlZ() {}
 
     CtrlZ(int t) :
         Event(t)

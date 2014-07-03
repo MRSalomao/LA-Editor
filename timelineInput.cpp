@@ -43,8 +43,8 @@ void Timeline::mousePressEvent(QMouseEvent *event)
         // Handle video event manipulation
         if (videoSelected || audioSelected)
         {
-            if ( handleSelectionPressed(videoSelectionRect, videoLeftScaleArrow, videoRightScaleArrow) )
-                return;
+            if ( handleSelectionPressed(videoSelectionRect, videoLeftScaleArrow, videoRightScaleArrow) ) return;
+            if ( handleSelectionPressed(audioSelectionRect, audioLeftScaleArrow, audioRightScaleArrow) ) return;
         }
 
         // Cancel modifications
@@ -444,10 +444,12 @@ void Timeline::ShowContextMenu(const QPoint& pos)
         {
             apply();
             paste();
+            unselect();
         }
         if (selectedItem->text() == "Erase")
         {
             erase();
+            unselect();
         }
         else if (selectedItem->text() == "Undo")
         {

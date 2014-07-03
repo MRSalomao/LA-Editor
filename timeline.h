@@ -123,13 +123,13 @@ class Timeline : public QWidget
     const int videoTimelineStart = 0;
     const int videoTimelineHeight = 34;
     const int audioTimelineStart = 40;
+    const int audioTimelineHeight = 34;
     const int audioPixmapHeight = 34;
     const int videoPixmapHeight = 1;
-    const int audioPixmapRealHeight = 34;
     const int timeRulerStart = audioTimelineStart + audioPixmapHeight;
 
     // Write wav header
-    bool writeWavHeader();
+    void writeWavHeader(QFile *audioFile);
 public:
 
     // Objects used for audio sampling
@@ -156,6 +156,9 @@ public:
     int accumulatedSamples=0;
     int barCursor=0;
     int lastAudioPixelX=0;
+    int audioSelectionStart=0;
+    int audioSelectionSize=0;
+    float audioScaling=1.0f;
 
     // Mouse Tracking
     QPoint mousePos;
@@ -198,6 +201,7 @@ public:
     void deleteAudio(int fromTime, int toTime);
     void scaleAndMoveSelectedVideo();
     void scaleAndMoveSelectedAudio();
+    void scaleAudio();
     bool shiftPressed = false;
     void selectVideo();
     void selectAudio();
@@ -257,6 +261,7 @@ public:
     void redo();
     void undo();
     void unselect();
+
 
 protected:
 

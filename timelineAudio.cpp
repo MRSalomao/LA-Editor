@@ -8,7 +8,7 @@ Timeline::Timeline(QWidget *parent) :
     si = this;
 
     // Create audio pixmap
-    audioPixmap = new QPixmap(pixmapLenght, audioPixmapRealHeight);
+    audioPixmap = new QPixmap(pixmapLenght, audioPixmapHeight);
     audioPixmap->fill(timelineColor);
 
     // Create video pixmap
@@ -25,11 +25,11 @@ Timeline::Timeline(QWidget *parent) :
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(ShowContextMenu(const QPoint&)));
 
     // Create and open audio file
-#ifndef Q_OS_MAC
+    #ifndef Q_OS_MAC
     rawAudioFile = new QFile("rawAudioFile.wav");
-#else
+    #else
     rawAudioFile = new QFile("./../../../rawAudioFile.raw");
-#endif
+    #endif
     rawAudioFile->open(QIODevice::ReadWrite | QIODevice::Truncate);
 
     initializeAudio();
@@ -39,21 +39,22 @@ Timeline::Timeline(QWidget *parent) :
 Timeline::~Timeline()
 {
     // Delete event objects
-//    qDeleteAll(events); //TODO
+    Event::deleteAllEvents();
 
     // Delete audio objects
     audioInput->stop();
     audioOutput->stop();
 
-    rawAudioFile->seek(0);
-    qDebug() << writeWavHeader();
+    writeWavHeader(rawAudioFile);
     rawAudioFile->close();
 
     QProcess *process = new QProcess(this);
-//    QString file = "soundstretch.exe";
-//    process->execute( file, QStringList({"rawAudioFile.wav", "output.wav", "-tempo=50"}) );
-    QString file = "opusenc.exe";
-    process->execute( file, QStringList({"--bitrate", "24", "rawAudioFile.wav", "output.opus"}) );
+    #ifdef Q_OS_UNIX
+    QString command = "opusenc";
+    #else
+    QString command = "opusenc.exe";
+    #endif
+    process->execute( command, QStringList({"--bitrate", "24", "rawAudioFile.wav", "FinalAudio.opus"}) );
 }
 
 
@@ -196,10 +197,10 @@ void Timeline::pauseRecording()
     if (rawAudioFile->pos() != rawAudioFile->size())
     {
         float x = barCursor * pixelsPerBar - 1;
-        QPixmap tmpPixmap = audioPixmap->copy(x, 0, 1, audioPixmapRealHeight);
+        QPixmap tmpPixmap = audioPixmap->copy(x, 0, 1, audioPixmapHeight);
 
         QPainter painter(audioPixmap);
-        painter.drawPixmap(x+1, 0, 2, audioPixmapRealHeight, tmpPixmap);
+        painter.drawPixmap(x+1, 0, 2, audioPixmapHeight, tmpPixmap);
     }
 }
 
@@ -256,7 +257,7 @@ void Timeline::readAudioFromMic()
     {
         int index = i * samplesPerBar - accumulatedSamples;
 
-        int barIntensity = abs( resultingData[index] * audioPixmapRealHeight / SHRT_MAX );
+        int barIntensity = abs( resultingData[index] * audioPixmapHeight / SHRT_MAX );
 
         float x = (i + barCursor) * pixelsPerBar;
         lastAudioPixelX = floor(x);
@@ -264,11 +265,11 @@ void Timeline::readAudioFromMic()
         if (x > lastAudioPixelX)
         {
             painter.setPen(QPen(timelineColor));
-            painter.drawLine(x+1, audioPixmapRealHeight, x+1, 0);
+            painter.drawLine(x+1, audioPixmapHeight, x+1, 0);
             painter.setPen(QPen(audioColor));
         }
 
-        painter.drawLine(x, audioPixmapRealHeight, x, audioPixmapRealHeight - barIntensity);
+        painter.drawLine(x, audioPixmapHeight, x, audioPixmapHeight - barIntensity);
     }
 
     barCursor += barsToAdd;
@@ -319,8 +320,71 @@ void PlayerThread::run()
 }
 
 
-bool Timeline::writeWavHeader()
+void Timeline::scaleAudio()
 {
+    // Calculate the tempo alteration
+    float tempo = (1.0f - audioScaling) * 100.0;
+    if (audioScaling > 0) tempo = 100.0f * (1.0f / audioScaling - 1.0f);
+
+    // Create an audio file for interfacing with SoundStretch (used as an external program so far)
+    QFile* tmpFileOut;
+    #ifndef Q_OS_MAC
+    tmpFileOut = new QFile("tmp.wav");
+    #else
+    tmpFileOut = new QFile("./../../../tmp.raw");
+    #endif
+    tmpFileOut->open(QIODevice::WriteOnly | QIODevice::Truncate);
+
+    // Write the audioClipboard content to the temporary file
+    int bytesToWrite = audioClipboard.size();
+    while (bytesToWrite != 0)
+    {
+        bytesToWrite -= tmpFileOut->write(audioClipboard);
+    }
+
+    // Write the temporary file's wave header and close it
+    qDebug() << tmpFileOut->size() << "SIZE";
+    writeWavHeader(tmpFileOut);
+    tmpFileOut->close();
+
+    // Use SoundStretch to compress or expand the audio
+    QProcess *process = new QProcess(this);
+    #ifdef Q_OS_UNIX
+    QString command = "soundstretch";
+    #else
+    QString command = "soundstretch.exe";
+    #endif
+    process->execute( command, QStringList({"tmp.wav", "tmpResult.wav", QString("-tempo=") + QString::number(tempo)}) );
+
+    // Open the results
+    QFile* tmpFileIn;
+    #ifndef Q_OS_MAC
+    tmpFileIn = new QFile("tmpResult.wav");
+    #else
+    tmpFileIn = new QFile("./../../../tmpResult.raw");
+    #endif
+    tmpFileIn->open(QIODevice::ReadOnly | QIODevice::Truncate);
+
+    // Read back the result
+    QByteArray tmpArray;
+    audioClipboard.clear();
+    int bytesToRead = tmpFileIn->size();
+    while (bytesToRead != 0)
+    {
+        tmpArray = tmpFileIn->read(bytesToRead);
+        bytesToRead -= tmpArray.size();
+        audioClipboard.append(tmpArray);
+    }
+
+    // Close it after reading
+    tmpFileIn->close();
+}
+
+
+void Timeline::writeWavHeader(QFile* audioFile)
+{
+    audioFile->seek(0);
+
     CombinedHeader header;
 
     const int HeaderLength = sizeof(CombinedHeader);
@@ -329,7 +393,7 @@ bool Timeline::writeWavHeader()
 
     // RIFF header
     memcpy(header.riff.descriptor.id,"RIFF",4);
-    qToLittleEndian<quint32>(quint32(rawAudioFile->size() - 8),
+    qToLittleEndian<quint32>(quint32(audioFile->size() - 8),
                              reinterpret_cast<unsigned char*>(&header.riff.descriptor.size));
     memcpy(header.riff.type, "WAVE",4);
 
@@ -352,8 +416,15 @@ bool Timeline::writeWavHeader()
 
     // DATA header
     memcpy(header.data.descriptor.id,"data",4);
-    qToLittleEndian<quint32>(quint32(rawAudioFile->size() - 44),
+    qToLittleEndian<quint32>(quint32(audioFile->size() - 44),
                              reinterpret_cast<unsigned char*>(&header.data.descriptor.size));
 
-    return (rawAudioFile->write(reinterpret_cast<const char *>(&header), HeaderLength) == HeaderLength);
+    if (audioFile->write(reinterpret_cast<const char *>(&header), HeaderLength) == HeaderLength)
+    {
+        qDebug() << "Wave header written sucessfully.";
+    }
+    else
+    {
+        qDebug() << "Error writting wave header.";
+    }
 }
