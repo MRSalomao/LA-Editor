@@ -186,12 +186,15 @@ void Timeline::startRecording()
 
 void Timeline::pauseRecording()
 {
-    addPointerEndEvent();
+    canvasHoverEnd();
 
     isRecording = false;
 
     // Update video upper limit
-    totalTimeRecorded = rawAudioFile->size() / sampleSize / samplingFrequency * 1000.0;
+    if (rawAudioFile->size() != 0)
+        totalTimeRecorded = rawAudioFile->size() / sampleSize / samplingFrequency * 1000.0;
+    else
+        totalTimeRecorded = timeCursorMSec;
 
     // Fill the 1-2 pixels gap after recording to the middle of an existing audio piece
     if (rawAudioFile->pos() != rawAudioFile->size())

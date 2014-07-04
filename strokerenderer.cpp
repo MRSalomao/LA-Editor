@@ -26,7 +26,10 @@ void StrokeRenderer::windowSizeChanged(int width, int height)
     scroll = viewportYStart * zoom * 2.0f;
 
     strokeShader.shaderProgram.bind();
-    strokeShader.shaderProgram.setUniformValue(zoomAndScrollLoc, zoom, scroll);
+    strokeShader.shaderProgram.setUniformValue(strokeZoomAndScrollLoc, zoom, scroll);
+
+    pickingShader.shaderProgram.bind();
+    pickingShader.shaderProgram.setUniformValue(pickingZoomAndScrollLoc, zoom, scroll);
 
     scrollBar->setPageStep(scrollBarSize / zoom);
     scrollBar->setRange(0, scrollBarSize - scrollBar->pageStep());
@@ -41,39 +44,56 @@ void StrokeRenderer::setViewportYStart(float value)
     scroll = viewportYStart * zoom * 2.0f;
 
     strokeShader.shaderProgram.bind();
-    strokeShader.shaderProgram.setUniformValue(zoomAndScrollLoc, zoom, scroll);
+    strokeShader.shaderProgram.setUniformValue(strokeZoomAndScrollLoc, zoom, scroll);
+
+    pickingShader.shaderProgram.bind();
+    pickingShader.shaderProgram.setUniformValue(pickingZoomAndScrollLoc, zoom, scroll);
 
     Canvas::si->redrawRequested = true;
 }
 
 void StrokeRenderer::init()
 {
+    // Start OpenGL
     INIT_OPENGL_FUNCTIONS();
 
-    strokeShader.init(QString("stroke"), {"inTexCoord"});
+    // Get a reference to the scrollBar widget - just for cleaner code
+    scrollBar = MainWindow::si->getCanvasScrollBar();
 
+
+    // Setup stroke vertex buffers
     glGenBuffers(1, &verticesId);
     glBindBuffer(GL_ARRAY_BUFFER, verticesId);
     glBufferData(GL_ARRAY_BUFFER, N_SPRITES, NULL, GL_STREAM_DRAW);
 
-    strokeShader.shaderProgram.bind();
-    strokeColorLoc = strokeShader.shaderProgram.uniformLocation("strokeColor");
-    zoomAndScrollLoc = strokeShader.shaderProgram.uniformLocation("zoomAndScroll");
-
-    strokeShader.shaderProgram.setUniformValue(strokeColorLoc, 0.0, 0.0, 0.0);
-
-    canvasShader.init(QString("canvas"), {});
-
+    // Setup canvas geometry
     glGenBuffers(1, &rectId);
     glBindBuffer(GL_ARRAY_BUFFER, rectId);
     glBufferData(GL_ARRAY_BUFFER, 4, NULL, GL_DYNAMIC_DRAW);
 
+
+    // Setup stroke shader
+    strokeShader.init(QString("stroke"), {"inTexCoord"});
+    strokeShader.shaderProgram.bind();
+    strokeColorLoc = strokeShader.shaderProgram.uniformLocation("strokeColor");
+    strokeZoomAndScrollLoc = strokeShader.shaderProgram.uniformLocation("zoomAndScroll");
+    strokeShader.shaderProgram.setUniformValue(strokeColorLoc, 0.0, 0.0, 0.0);
+
+    // Setup picking shader
+    pickingShader.init(QString("picking"), {"inTexCoord"});
+    pickingShader.shaderProgram.bind();
+    pickingColorLoc = pickingShader.shaderProgram.uniformLocation("strokeColor");
+    pickingZoomAndScrollLoc = pickingShader.shaderProgram.uniformLocation("zoomAndScroll");
+    pickingShader.shaderProgram.setUniformValue(pickingColorLoc, 0.0, 0.0, 0.0);
+
+    // Setup canvas shader
+    canvasShader.init(QString("canvas"), {});
     canvasShader.shaderProgram.bind();
     samplerRectLoc = canvasShader.shaderProgram.uniformLocation("sampler");
-
     canvasShader.shaderProgram.setUniformValue(samplerRectLoc, 0);
 
 
+    // Get cursor image
     QImage cursor = QGLWidget::convertToGLFormat( QImage(":/icons/icons/cursor32.png") );
 
     glGenTextures( 1, &cursorTexture );
@@ -82,8 +102,6 @@ void StrokeRenderer::init()
 
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
-
-    scrollBar = MainWindow::si->getCanvasScrollBar();
 }
 
 int StrokeRenderer::addStroke(const QLineF &strokeLine)
@@ -115,6 +133,34 @@ int StrokeRenderer::addPoint(const QPointF &strokePoint)
 }
 
 
+static void IDtoColor(float &r, float &g, const int &ID)
+{
+    r = ID % 255;
+    g = ID - r;
+
+    r /= 255.0f;
+    g /= 255.0f;
+}
+
+
+static int colorToId(int r, int g)
+{
+    return g * 255 + r;
+}
+
+
+void StrokeRenderer::processPicking()
+{
+    int x = Canvas::si->penIntPos.x();
+    int y = Canvas::si->h - Canvas::si->penIntPos.y();
+
+    GLubyte pickedPixel[4];
+    glReadPixels(x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, &pickedPixel);
+
+    qDebug() << pickedPixel[0] << pickedPixel[1] << pickedPixel[2] << x << y << colorToId(pickedPixel[0], pickedPixel[1]);
+}
+
+
 int StrokeRenderer::getCurrentSpriteCounter()
 {
     return spriteCounter;
@@ -136,19 +182,6 @@ void StrokeRenderer::addStrokeSprite(float x, float y)
     }
 }
 
-//void StrokeRenderer::drawStrokeSprites()
-//{
-//    glUseProgram(strokeShader.pId);
-
-//    glBindBuffer(GL_ARRAY_BUFFER, verticesId);
-//    glVertexAttribPointer(0, 2, GL_UNSIGNED_SHORT, true, VERTEX_COORD_SIZE, 0);
-
-//    glEnableVertexAttribArray(0);
-
-//    glDrawArrays(GL_POINTS, 0, spriteCounter);
-
-//    glDisableVertexAttribArray(0);
-//}
 
 void StrokeRenderer::drawCursor()
 {
@@ -160,45 +193,44 @@ void StrokeRenderer::drawCursor()
 }
 
 
-void StrokeRenderer::drawStrokeSpritesRange(int from, int to, float r, float g, float b, float ptSize, QMatrix4x4 transform)
+void StrokeRenderer::drawStrokeSpritesRange(int from, int to, float r, float g, float b, float ptSize, QMatrix4x4 transform, int ID)
 {
-    glPointSize(ptSize * (canvasSize.x() / 542.0f));
+    if (Canvas::si->pickingRequested/*MainWindow::si->activeTool == MainWindow::POINTER_TOOL*/) // Render for picking
+    {
+        IDtoColor(r, g, ID);
 
-    glUseProgram(strokeShader.pId);
-    strokeShader.shaderProgram.setUniformValue(strokeColorLoc, r, g, b);
+        glPointSize( (ptSize + pickingSizeAdjustment) * (canvasSize.x() * normalSizeAdjustment));
 
-    glBindBuffer(GL_ARRAY_BUFFER, verticesId);
-    glVertexAttribPointer(0, 2, GL_SHORT, true, VERTEX_COORD_SIZE, 0);
+        glUseProgram(pickingShader.pId);
+        pickingShader.shaderProgram.setUniformValue(pickingColorLoc, r, g, 0);
 
-    glEnableVertexAttribArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, verticesId);
+        glVertexAttribPointer(0, 2, GL_SHORT, true, VERTEX_COORD_SIZE, 0);
 
-    glDrawArrays(GL_POINTS, from, to - from);
+        glEnableVertexAttribArray(0);
 
-    glDisableVertexAttribArray(0);
+        glDrawArrays(GL_POINTS, from, to - from);
+
+        glDisableVertexAttribArray(0);
+    }
+    else // Render normally
+    {
+        glPointSize(ptSize * (canvasSize.x() * normalSizeAdjustment));
+
+        glUseProgram(strokeShader.pId);
+        strokeShader.shaderProgram.setUniformValue(strokeColorLoc, r, g, b);
+
+        glBindBuffer(GL_ARRAY_BUFFER, verticesId);
+        glVertexAttribPointer(0, 2, GL_SHORT, true, VERTEX_COORD_SIZE, 0);
+
+        glEnableVertexAttribArray(0);
+
+        glDrawArrays(GL_POINTS, from, to - from);
+
+        glDisableVertexAttribArray(0);
+    }
 }
 
-
-float StrokeRenderer::getStrokeSize() const
-{
-    return strokeSize;
-}
-
-void StrokeRenderer::setStrokeSize(float value)
-{
-    strokeSize = value;
-
-    glPointSize(strokeSize);
-}
-
-QColor StrokeRenderer::getActiveColor() const
-{
-    return activeColor;
-}
-
-void StrokeRenderer::setActiveColor(const QColor &value)
-{
-    activeColor = value;
-}
 
 void StrokeRenderer::drawTexturedRect(float x, float y, float w, float h)
 {

@@ -37,7 +37,6 @@ void Canvas::initializeGL()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_POINT_SPRITE);
-    glPointSize(3);
 
     int ib[1];
     glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE, ib);
@@ -50,6 +49,20 @@ void Canvas::paintGL()
 {
     clearScreen();
 
+    if (pickingRequested)
+    {
+        glBindFramebuffer(GL_FRAMEBUFFER, pickingFramebufferID);
+
+        clearScreen();
+
+        Timeline::si->redrawScreen();//add if(pickingRequested) cor = ID; -> criar colorToID() e IDtoColor()
+
+        strokeRenderer.processPicking();
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        pickingRequested = false;
+    }
     if (redrawRequested)
     {
         glBindFramebuffer(GL_FRAMEBUFFER, canvasFramebufferID);
@@ -91,6 +104,7 @@ void Canvas::paintGL()
 void Canvas::tabletEvent(QTabletEvent *event)
 {
     penPos = EVENT_POSF;
+    penIntPos = penPos.toPoint();
     rescalePenPos();
 
     int pbo;
@@ -101,16 +115,16 @@ void Canvas::tabletEvent(QTabletEvent *event)
             if (deviceDown) return;
             deviceDown = true;
             pbo = strokeRenderer.addPoint(penPos);
-            Timeline::si->addPointerEndEvent();
-            Timeline::si->addStrokeBeginEvent(penPos, strokeRenderer.getCurrentSpriteCounter(), pbo);
+            Timeline::si->canvasHoverEnd();
+            Timeline::si->canvasPressedStart(penPos, strokeRenderer.getCurrentSpriteCounter(), pbo);
             break;
 
 
         case QEvent::TabletRelease:
             if (!deviceDown) return;
             deviceDown = false;
-            Timeline::si->addStrokeEndEvent();
-            Timeline::si->addPointerBeginEvent(penPos);
+            Timeline::si->canvasPressedEnd();
+            Timeline::si->canvasHoverStart(penPos);
             break;
 
 
@@ -118,11 +132,11 @@ void Canvas::tabletEvent(QTabletEvent *event)
             if (deviceDown)
             {
                 pbo = strokeRenderer.addStroke(QLineF(lastPenPos, penPos));
-                Timeline::si->addStrokeMoveEvent(penPos, pbo);
+                Timeline::si->canvasPressedMove(penPos, pbo);
             }
             else
             {
-                Timeline::si->addPointerMoveEvent(penPos);
+                Timeline::si->canvasHoverMove(penPos);
             }
             break;
 
@@ -139,6 +153,7 @@ void Canvas::mousePressEvent(QMouseEvent *event)
     if (deviceDown) return;
 
     penPos = event->pos();
+    penIntPos = penPos.toPoint();
     rescalePenPos();
 
     deviceDown = true;
@@ -146,8 +161,8 @@ void Canvas::mousePressEvent(QMouseEvent *event)
     int pbo = strokeRenderer.addPoint(penPos);
     lastPenPos = penPos;
 
-    Timeline::si->addPointerEndEvent();
-    Timeline::si->addStrokeBeginEvent(penPos, strokeRenderer.getCurrentSpriteCounter(), pbo);
+    Timeline::si->canvasHoverEnd();
+    Timeline::si->canvasPressedStart(penPos, strokeRenderer.getCurrentSpriteCounter(), pbo);
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)
@@ -155,30 +170,32 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event)
     if (!deviceDown) return;
 
     penPos = event->pos();
+    penIntPos = penPos.toPoint();
     rescalePenPos();
 
     deviceDown = false;
 
     lastPenPos = penPos;
 
-    Timeline::si->addStrokeEndEvent();
-    Timeline::si->addPointerBeginEvent(penPos);
+    Timeline::si->canvasPressedEnd();
+    Timeline::si->canvasHoverStart(penPos);
 }
 
 void Canvas::mouseMoveEvent(QMouseEvent *event)
 {
     penPos = event->pos();
+    penIntPos = penPos.toPoint();
     rescalePenPos();
 
     if (deviceDown)
     {
         int pbo = strokeRenderer.addStroke(QLineF(lastPenPos, penPos));
 
-        Timeline::si->addStrokeMoveEvent(penPos, pbo);
+        Timeline::si->canvasPressedMove(penPos, pbo);
     }
     else
     {
-        Timeline::si->addPointerMoveEvent(penPos);
+        Timeline::si->canvasHoverMove(penPos);
     }
     lastPenPos = penPos;
 }
@@ -209,6 +226,7 @@ void Canvas::resizeGL(int w, int h)
 
     glViewport(0, 0, w, h);
 
+    // Create canvas Framebuffer and its texture
     if(canvasFramebufferID == -1)
     {
         glGenFramebuffers(1, &canvasFramebufferID);
@@ -236,6 +254,37 @@ void Canvas::resizeGL(int w, int h)
     glBindTexture(GL_TEXTURE_2D, 0);
 
     clearScreen();
+
+
+    // Create picking framebuffer and its texture
+    if(pickingFramebufferID == -1)
+    {
+        glGenFramebuffers(1, &pickingFramebufferID);
+    }
+    glBindFramebuffer(GL_FRAMEBUFFER, pickingFramebufferID);
+
+    if(pickingTextureID == -1)
+    {
+        glGenTextures(1, &pickingTextureID);
+    }
+    glBindTexture(GL_TEXTURE_2D, pickingTextureID);
+
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    // Create a layer for our canvas
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pickingTextureID, 0);
+
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    {
+        qDebug("Picking framebuffer not created.");
+    }
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    clearScreen();
+
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

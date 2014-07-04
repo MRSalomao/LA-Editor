@@ -27,6 +27,16 @@ class Canvas : public QGLWidget, protected OPENGL_FUNCTIONS
 {
     Q_OBJECT
 
+    QTimer fpsTimer;
+    QTime time;
+    int frames = 0;
+
+    bool deviceDown = false;
+
+    void updateFPS();
+
+    void rescalePenPos();
+
 public:
     Canvas(QWidget* parent);
     ~Canvas();
@@ -39,23 +49,17 @@ public:
 
     bool redrawRequested = false;
     bool incrementalDrawRequested = false;
+    bool pickingRequested = false;
 
     void clearScreen();
 
-private:
-    QTimer fpsTimer;
-    QTime time;
-    int frames = 0;
-
-    bool deviceDown = false;
+    GLuint canvasFramebufferID = -1;
+    GLuint pickingFramebufferID = -1;
+    GLuint canvasTextureID = -1;
+    GLuint pickingTextureID = -1;
 
     QPointF penPos, lastPenPos;
-    void updateFPS();
-
-    GLuint canvasFramebufferID = -1;
-    GLuint canvasTextureID = -1;
-
-    void rescalePenPos();
+    QPoint penIntPos;
 
 protected:
     void paintGL ();

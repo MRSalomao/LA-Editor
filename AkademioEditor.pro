@@ -32,11 +32,11 @@ SOURCES     +=  main.cpp\
                 shader.cpp \
                 timeline.cpp \
                 options.cpp \
-    newproject.cpp \
-    upload.cpp \
-    hotkeys.cpp \
-    timelineInput.cpp \
-    timelineAudio.cpp
+                newproject.cpp \
+                upload.cpp \
+                hotkeys.cpp \
+                timelineInput.cpp \
+                timelineAudio.cpp
 
 HEADERS     +=  mainwindow.h \
                 canvas.h \
@@ -46,15 +46,15 @@ HEADERS     +=  mainwindow.h \
                 timeline.h \
                 events.h \
                 options.h \
-    newproject.h \
-    upload.h \
-    hotkeys.h
+                newproject.h \
+                upload.h \
+                hotkeys.h
 
 FORMS       +=  mainwindow.ui \
                 options.ui \
-    newproject.ui \
-    upload.ui \
-    hotkeys.ui
+                newproject.ui \
+                upload.ui \
+                hotkeys.ui
 
 RESOURCES   +=  resources.qrc
 

@@ -201,7 +201,7 @@ background-color: rgba(150, 150, 150, 56);
                <enum>Qt::NoFocus</enum>
               </property>
               <property name="toolTip">
-               <string>Insert Image</string>
+               <string>Eraser</string>
               </property>
               <property name="text">
                <string/>
@@ -363,7 +363,7 @@ background-color: rgba(150, 150, 150, 56);
                <enum>Qt::NoFocus</enum>
               </property>
               <property name="toolTip">
-               <string>Insert Image</string>
+               <string>Select and manipulate</string>
               </property>
               <property name="text">
                <string/>
@@ -1424,8 +1424,6 @@ QScrollBar::add-page, QScrollBar::sub-page  {
       <property name="mouseTracking">
        <bool>true</bool>
       </property>
-      <zorder>canvasScrollBar</zorder>
-      <zorder>canvas</zorder>
      </widget>
     </item>
    </layout>

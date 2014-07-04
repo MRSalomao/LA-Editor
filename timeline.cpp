@@ -355,6 +355,8 @@ void Timeline::deleteVideo(int fromTime, int toTime)
     i = qUpperBound(events.begin(), events.end(), &value, endTimeLessThan);
 
     int deleteSelectionEndIdx = i - events.begin() - 1;
+
+//    if (deleteSelectionEndIdx < deleteSelectionStartIdx) return;
 //    if (deleteSelectionEndIdx == events.size() || deleteSelectionStartIdx > deleteSelectionEndIdx || deleteSelectionStartIdx == -1)
 //    {
 //        audioSelected = false;
@@ -365,10 +367,22 @@ void Timeline::deleteVideo(int fromTime, int toTime)
 
 
     // Trim if necessary
+    if (deleteSelectionStartIdx > 0 && deleteSelectionEndIdx < events.size() - 1)
+    {
+        if (fromTime > events[deleteSelectionStartIdx - 1]->startTime &&
+            fromTime < events[deleteSelectionStartIdx - 1]->endTime &&
+            toTime   > events[deleteSelectionEndIdx + 1]->startTime &&
+            toTime   < events[deleteSelectionEndIdx + 1]->endTime)
+        {
+            events[deleteSelectionStartIdx - 1]->trimRange(fromTime, toTime, deleteSelectionStartIdx, events);
+
+            return;
+        }
+    }
     if (deleteSelectionStartIdx > 0)
     {
-        if (selectionStartTime > events[deleteSelectionStartIdx - 1]->startTime &&
-            selectionStartTime < events[deleteSelectionStartIdx - 1]->endTime)
+        if (fromTime > events[deleteSelectionStartIdx - 1]->startTime &&
+            fromTime < events[deleteSelectionStartIdx - 1]->endTime)
         {
             events[deleteSelectionStartIdx - 1]->trimFrom(fromTime);
         }
@@ -376,8 +390,8 @@ void Timeline::deleteVideo(int fromTime, int toTime)
 
     if (deleteSelectionEndIdx < events.size() - 1)
     {
-        if (selectionEndTime > events[deleteSelectionEndIdx + 1]->startTime &&
-            selectionEndTime < events[deleteSelectionEndIdx + 1]->endTime)
+        if (toTime > events[deleteSelectionEndIdx + 1]->startTime &&
+            toTime < events[deleteSelectionEndIdx + 1]->endTime)
         {
             events[deleteSelectionStartIdx + 1]->trimUntil(toTime);
         }
@@ -441,7 +455,6 @@ void Timeline::scaleAndMoveSelectedVideo()
     {
         for (Event* ev : eventsClipboard)
         {
-            qDebug("No scale");
             ev->timeShift(timeShiftMSec);
         }
     }
@@ -449,8 +462,7 @@ void Timeline::scaleAndMoveSelectedVideo()
     {
         for (Event* ev : eventsClipboard)
         {
-            qDebug("Scaled");
-            ev->scaleAndMove(scale, timeShiftMSec);
+            ev->scaleAndMove(scale, timeShiftMSec, selectionStartTime);
         }
     }
 }
@@ -525,18 +537,24 @@ void Timeline::copyAudio()
 // Simply pastes the content of the clipboard to the startTime of its first event
 void Timeline::pasteVideo()
 {
-    // Open some space before pasting the video
+    int atTimeMSec;
+    int timeLength;
+
+    // Free some space before pasting the video
     if (eventModified)
     {
-        deleteVideo(selectionStartPos, selectionEndPos);
+        deleteVideo(selectionStartTime, selectionEndTime);
+
+        atTimeMSec = eventsClipboard.first()->startTime;
+        timeLength = eventsClipboard.last()->endTime - atTimeMSec;
     }
     else
     {
-        deleteVideo(timeCursorMSec, selectionEndPos - selectionStartPos);
-    }
+        deleteVideo(timeCursorMSec, timeCursorMSec + selectionEndTime - selectionStartTime);
 
-    int atTimeMSec = eventsClipboard.first()->startTime;
-    int timeLength = eventsClipboard.last()->endTime - atTimeMSec;
+        atTimeMSec = timeCursorMSec;
+        timeLength = selectionEndTime - selectionStartTime;
+    }
 
     Event value(atTimeMSec);
 
@@ -551,6 +569,8 @@ void Timeline::pasteVideo()
     events = events.mid(0, insertIdx) + eventsClipboard + events.mid(insertIdx); //TODO - improve performance
 
     Canvas::si->redrawRequested = true;
+
+    eventsClipboard.clear();
 }
 
 
@@ -568,17 +588,19 @@ void Timeline::pasteAudio()
     rawAudioFile->seek(selectionStart);
     while (pasteSizeBytes != 0) pasteSizeBytes -= rawAudioFile->write(audioClipboard);
     rawAudioFile->seek(oldSeekPos);
+
+    audioClipboard.clear();
 }
 
 
 void Timeline::paste()
 {
-    if (videoSelected)
+    if (!eventsClipboard.empty())
     {
         pasteVideo();
     }
 
-    if (audioSelected)
+    if (!audioClipboard.isEmpty())
     {
         pasteAudio();
     }
@@ -597,11 +619,11 @@ void Timeline::paste()
 
 void Timeline::apply()
 {
-    if (videoSelected)
+    if (/*videoSelected*/ !eventsClipboard.empty())
     {
         scaleAndMoveSelectedVideo();
     }
-    if (audioSelected)
+    if (/*audioSelected*/ !audioClipboard.isEmpty())
     {
         scaleAndMoveSelectedAudio();
     }

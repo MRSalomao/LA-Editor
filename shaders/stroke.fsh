@@ -15,5 +15,5 @@ void main()
 
 //    float alpha = sin(0.25 - min(dst2, 0.25)) * 2 * PI; // From 0, in the center, to 1, at the border. Linearly.
 
-    gl_FragColor = vec4(strokeColor , alpha);
+    gl_FragColor = vec4(strokeColor, alpha);
 }

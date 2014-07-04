@@ -18,13 +18,12 @@
 
 class StrokeRenderer : protected OPENGL_FUNCTIONS
 {
-    int strokeColorLoc, zoomAndScrollLoc;
+    int strokeColorLoc, strokeZoomAndScrollLoc;
+    int pickingColorLoc, pickingZoomAndScrollLoc;
     int samplerRectLoc;
 
     float extraDist = 0;
     int spriteCounter = 0;
-    float strokeSize;
-    QColor activeColor;
 
     float zoom, scroll;
 
@@ -32,11 +31,15 @@ class StrokeRenderer : protected OPENGL_FUNCTIONS
     GLuint rectId;
 
     Shader strokeShader;
+    Shader pickingShader;
     Shader canvasShader;
 
     QPointF canvasSize;
 
     GLuint cursorTexture;
+
+    float normalSizeAdjustment = 1.0f / 542.0f;
+    float pickingSizeAdjustment = 4.0f;
 
 public:
     StrokeRenderer();
@@ -50,25 +53,21 @@ public:
     int addStroke(const QLineF &strokeLine);
     int addPoint(const QPointF &strokePoint);
 
+    void processPicking();
+
     void addStrokeSprite(float x, float y);
 
-    const float canvasRatio = 2.0;
+    const float canvasRatio = 2.0f;
     const float canvasRatioSquared = canvasRatio * canvasRatio;
     float viewportYStart = 0;
 
-    const float spriteSpacing = 1.0 / 250.0;
+    const float spriteSpacing = 1.0f / 250.0f;
 
     float scrollBarSize = 100;
     QScrollBar* scrollBar;
 
-    //getters and setters
-    QColor getActiveColor() const;
-    void setActiveColor(const QColor &value);
-    float getStrokeSize() const;
-    void setStrokeSize(float value);
-
     int getCurrentSpriteCounter();
-    void drawStrokeSpritesRange(int from, int to, float r, float g, float b, float ptSize, QMatrix4x4 transform);
+    void drawStrokeSpritesRange(int from, int to, float r, float g, float b, float ptSize, QMatrix4x4 transform, int ID);
     void drawTexturedRect(float x, float y, float w, float h);
     void setViewportYStart(float value);
     void drawCursor();

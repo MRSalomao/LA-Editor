@@ -535,7 +535,7 @@ void Timeline::incrementalDraw()
 }
 
 
-void Timeline::addStrokeBeginEvent(QPointF penPos, int pboStart, int pbo)
+void Timeline::canvasPressedStart(QPointF penPos, int pboStart, int pbo)
 {
     int timestamp = getCurrentTime();
 
@@ -549,6 +549,10 @@ void Timeline::addStrokeBeginEvent(QPointF penPos, int pboStart, int pbo)
         events.append(new EraserStroke(pboStart, timestamp));
         break;
 
+    case MainWindow::POINTER_TOOL:
+        Canvas::si->pickingRequested = true;
+        return;
+
     default:
         break;
     }
@@ -561,8 +565,10 @@ void Timeline::addStrokeBeginEvent(QPointF penPos, int pboStart, int pbo)
 }
 
 
-void Timeline::addStrokeMoveEvent(QPointF penPos, int pbo)
+void Timeline::canvasPressedMove(QPointF penPos, int pbo)
 {
+    if (MainWindow::si->activeTool == MainWindow::POINTER_TOOL) return;
+
     int timestamp = getCurrentTime();
 
     ((PenStroke*)currentEvent)->addStrokeEvent(timestamp, penPos.x(), penPos.y(), pbo);
@@ -571,15 +577,17 @@ void Timeline::addStrokeMoveEvent(QPointF penPos, int pbo)
 }
 
 
-void Timeline::addStrokeEndEvent()
+void Timeline::canvasPressedEnd()
 {
+    if (MainWindow::si->activeTool == MainWindow::POINTER_TOOL) return;
+
     int timestamp = getCurrentTime();
 
     dynamic_cast<PenStroke*>(currentEvent)->closeStrokeEvent(timestamp);
 }
 
 
-void Timeline::addPointerBeginEvent(QPointF penPos)
+void Timeline::canvasHoverStart(QPointF penPos)
 {
     if (!isRecording) return;
 
@@ -593,7 +601,7 @@ void Timeline::addPointerBeginEvent(QPointF penPos)
 }
 
 
-void Timeline::addPointerMoveEvent(QPointF penPos)
+void Timeline::canvasHoverMove(QPointF penPos)
 {
     if (!isRecording) return;
 
@@ -601,11 +609,11 @@ void Timeline::addPointerMoveEvent(QPointF penPos)
 
     if (currentEvent == NULL)
     {
-        addPointerBeginEvent(penPos);
+        canvasHoverStart(penPos);
     }
     else if (currentEvent->type != Event::POINTER_MOVEMENT_EVENT)
     {
-        addPointerBeginEvent(penPos);
+        canvasHoverStart(penPos);
     }
     else
     {
@@ -614,7 +622,7 @@ void Timeline::addPointerMoveEvent(QPointF penPos)
 }
 
 
-void Timeline::addPointerEndEvent()
+void Timeline::canvasHoverEnd()
 {
     if (!isRecording) return;
 
@@ -622,7 +630,7 @@ void Timeline::addPointerEndEvent()
 
     if (currentEvent == NULL)
     {
-        addPointerBeginEvent(QPoint(0,0));
+        canvasHoverStart(QPoint(0,0));
     }
     else
     {

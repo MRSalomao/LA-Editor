@@ -18,24 +18,24 @@ static QVector<Event*> allEvents;
 class Event
 {
 public:
-    int startTime, endTime=-1;
+    int startTime = -1, endTime = -1;
 
-    int type = -1;
+    int type = -1, ID = -1;
 
     enum { STROKE_EVENT,
            POINTER_MOVEMENT_EVENT,
            CTRL_Z_EVENT,
            SCROLL_EVENT };
 
-    Event(int startT) :
-        startTime(startT)
+
+    Event(int startT) : startTime(startT)
     {
-        allEvents.push_back(this);
+        init();
     }
 
     Event()
     {
-        allEvents.push_back(this);
+        init();
     }
 
     static void setSubeventIndex(int idx)
@@ -57,15 +57,25 @@ public:
 
     virtual void timeShift(int time) {}
 
-    virtual void scaleAndMove(float scale, int timeShiftMSec) {}
+    virtual void scaleAndMove(float scale, int timeShiftMSec, int pivot) {}
 
-    virtual void trimFrom(int time) {}
+    virtual void trimRange(int from, int to, int insertIdx, QVector<Event*> &events) {}
 
-    virtual void trimUntil(int time) {}
+    virtual void trimFrom(int from) {}
+
+    virtual void trimUntil(int to) {}
 
     virtual Event* clone() const {}
 
     virtual ~Event() {}
+
+private:
+
+    void init()
+    {
+        ID = allEvents.size();
+        allEvents.push_back(this);
+    }
 };
 
 class PenStroke : public Event
@@ -114,16 +124,19 @@ public:
         subevents << Subevent(t, x, y, pbo);
     }
 
-    void scaleAndMove(float scale, int timeShiftMSec)
+    void scaleAndMove(float scale, int timeShiftMSec, int pivot)
     {
-        endTime = (endTime - startTime) * scale + startTime + timeShiftMSec;
+        startTime += timeShiftMSec;
+        startTime = (startTime - pivot) * scale + pivot;
 
         for (Subevent& se : subevents)
         {
-            se.t = (se.t - startTime) * scale + startTime + timeShiftMSec;
+            se.t += timeShiftMSec;
+            se.t = (se.t - pivot) * scale + pivot;
         }
 
-        startTime += timeShiftMSec;
+        endTime += timeShiftMSec;
+        endTime = (endTime - pivot) * scale + pivot ;
     }
 
     QPointF getCursorPos(int time)
@@ -147,9 +160,29 @@ public:
         return se1.t < se2.t;
     }
 
-    void trimFrom(int time)
+    void trimRange(int from, int to, int insertIdx, QVector<Event*> &events)
     {
-        Subevent value(time, 0, 0, 0);
+        Subevent valueFrom(from, 0, 0, 0);
+
+        QVector<Subevent>::iterator f =
+                qLowerBound(subevents.begin(), subevents.end(), valueFrom, timeLessThan);
+
+        Subevent valueTo(to, 0, 0, 0);
+
+        QVector<Subevent>::iterator t =
+                qLowerBound(subevents.begin(), subevents.end(), valueTo, timeLessThan) + 1;
+
+        if (t > subevents.end()) t--;
+
+        subevents.erase(f, t);
+
+        startTime = subevents.first().t;
+        endTime = subevents.last().t;
+    }
+
+    void trimFrom(int from)
+    {
+        Subevent value(from, 0, 0, 0);
 
         QVector<Subevent>::iterator i =
                 qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan);
@@ -159,12 +192,14 @@ public:
         endTime = subevents.last().t;
     }
 
-    void trimUntil(int time)
+    void trimUntil(int to)
     {
-        Subevent value(time, 0, 0, 0);
+        Subevent value(to, 0, 0, 0);
 
         QVector<Subevent>::iterator i =
-                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan);
+                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan) + 1;
+
+        if (i > subevents.end()) i--;
 
         subevents.erase(subevents.begin(), i);
 
@@ -197,7 +232,7 @@ public:
             }
         }
 
-        StrokeRenderer::si->drawStrokeSpritesRange(pbStart, to, r, g, b, ptSize, transform);
+        StrokeRenderer::si->drawStrokeSpritesRange(pbStart, to, r, g, b, ptSize, transform, ID);
 
         return reachedTimeCursor;
     }
@@ -256,7 +291,7 @@ public:
             }
         }
 
-        if ( !(to == from) ) StrokeRenderer::si->drawStrokeSpritesRange(from, to, r, g, b, ptSize, transform);
+        if ( !(to == from) ) StrokeRenderer::si->drawStrokeSpritesRange(from, to, r, g, b, ptSize, transform, ID);
 
         return reachedLimit;
     }
@@ -296,21 +331,97 @@ public:
         type = POINTER_MOVEMENT_EVENT;
     }
 
+    PointerMovement(int startT, int endT, QVector<Subevent> subevents) :
+        Event(startT)
+    {
+        endTime = endT;
+
+        this->subevents = subevents;
+
+        type = POINTER_MOVEMENT_EVENT;
+    }
+
     virtual PointerMovement* clone() const
     {
         return new PointerMovement(*this);
     }
 
-    void scaleAndMove(float scale, int timeShiftMSec)
+    static bool timeLessThan(const Subevent se1, const Subevent se2)
     {
-        endTime = (endTime - startTime) * scale + startTime + timeShiftMSec;
+        return se1.t < se2.t;
+    }
+
+    void trimRange(int from, int to, int insertIdx, QVector<Event*> &events)
+    {
+        Subevent valueFrom(from, 0, 0);
+        Subevent valueTo(to, 0, 0);
+
+        QVector<Subevent>::iterator f =
+                qLowerBound(subevents.begin(), subevents.end(), valueFrom, timeLessThan);
+        QVector<Subevent>::iterator t =
+                qLowerBound(subevents.begin(), subevents.end(), valueTo,   timeLessThan);
+
+        // From refers to after the subevents
+        if (f > subevents.end()-1) return;
+        //ou t >end : end é o fim -> trimFrom(from)
+        if (t > subevents.end()-1)
+        {
+            trimFrom(from);
+            return;
+        }
+
+        if ((*f).t == from) f++;
+        if ((*t).t == to  ) t--;
+
+        // Create new Subevent from t to end
+        events.insert( insertIdx, (Event*)(new PointerMovement( (*t).t, endTime, subevents.mid( t - subevents.begin() ) )) );
+
+        subevents.erase(f, subevents.end());
+
+        endTime   = subevents.last().t;
+
+        subevents.last().t--;
+    }
+
+    void trimFrom(int time)
+    {
+        Subevent value(time, 0, 0);
+
+        QVector<Subevent>::iterator i =
+                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan);
+
+        subevents.erase(i, subevents.end());
+
+        endTime = subevents.last().t;
+    }
+
+    void trimUntil(int time)
+    {
+        Subevent value(time, 0, 0);
+
+        QVector<Subevent>::iterator i =
+                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan) + 1;
+
+        if (i > subevents.end()-1) i--;
+
+        subevents.erase(subevents.begin(), i);
+
+        startTime = subevents.first().t;
+    }
+
+    void scaleAndMove(float scale, int timeShiftMSec, int pivot)
+    {
+        startTime += timeShiftMSec;
+        startTime = (startTime - pivot) * scale + pivot;
 
         for (Subevent& se : subevents)
         {
-            se.t = (se.t - startTime) * scale + startTime + timeShiftMSec;
+            se.t += timeShiftMSec;
+            se.t = (se.t - pivot) * scale + pivot;
         }
 
-        startTime += timeShiftMSec;
+        endTime += timeShiftMSec;
+        endTime = (endTime - pivot) * scale + pivot ;
     }
 
     void timeShift(int time)

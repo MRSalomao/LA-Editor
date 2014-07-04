@@ -232,15 +232,15 @@ public:
     // Singleton
     static Timeline* si;
 
-    // Handle stroke events
-    void addStrokeBeginEvent(QPointF penPos, int pboStart, int pbo);
-    void addStrokeMoveEvent(QPointF penPos, int pbo);
-    void addStrokeEndEvent();
+    // Handle stroke events and other
+    void canvasPressedStart(QPointF penPos, int pboStart, int pbo);
+    void canvasPressedMove(QPointF penPos, int pbo);
+    void canvasPressedEnd();
 
     // Handle pointer events
-    void addPointerBeginEvent(QPointF penPos);
-    void addPointerMoveEvent(QPointF penPos);
-    void addPointerEndEvent();
+    void canvasHoverStart(QPointF penPos);
+    void canvasHoverMove(QPointF penPos);
+    void canvasHoverEnd();
 
     // Redraw screen until time cursor position
     void redrawScreen();
