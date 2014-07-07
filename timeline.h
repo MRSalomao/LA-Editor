@@ -16,6 +16,8 @@
     #define setChannelCount(cc) setChannels(cc);
 #endif
 
+class Event;
+
 class PlayerThread : public QThread
 {
     Q_OBJECT

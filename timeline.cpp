@@ -170,7 +170,7 @@ void Timeline::paintEvent(QPaintEvent *event)
     if (!MainWindow::si->childWindowOpen) update();
 
     // Stop playing if end of file is reached
-    if (timeCursorMSec > totalTimeRecorded) MainWindow::si->stopPlaying();
+    if (timeCursorMSec > totalTimeRecorded && isPlaying) MainWindow::si->stopPlaying();
 }
 
 

@@ -3,24 +3,28 @@
 
 #include <QMatrix4x4>
 #include <QPixmap>
-#include "strokerenderer.h"
 #include <iostream>
 #include <QColor>
 #include <mainwindow.h>
+
 #include "timeline.h"
-
-static int subeventToDrawIdx = 0;
-static QPointF cursorPos;
-
-class Event;
-static QVector<Event*> allEvents;
+#include "strokerenderer.h"
 
 class Event
 {
 public:
+
+    static int subeventToDrawIdx;
+    static QPointF cursorPos;
+    static Event* activeEvent;
+    static QVector<Event*> allEvents;
+
     int startTime = -1, endTime = -1;
 
     int type = -1, ID = -1;
+
+    QRectF selectionRect;
+    QMatrix4x4 transform;
 
     enum { STROKE_EVENT,
            POINTER_MOVEMENT_EVENT,
@@ -28,30 +32,21 @@ public:
            SCROLL_EVENT };
 
 
-    Event(int startT) : startTime(startT)
-    {
-        init();
-    }
+    Event(int startT, bool isLocal=true);
 
-    Event()
-    {
-        init();
-    }
+    Event();
 
-    static void setSubeventIndex(int idx)
-    {
-        subeventToDrawIdx = idx;
-    }
+    static void setActiveID(int ID, QPointF pressPos);
 
-    static int getSubeventIndex()
-    {
-        return subeventToDrawIdx;
-    }
+    static void handleDrag(QPointF deltaPos);
 
-    static void deleteAllEvents()
-    {
-        qDeleteAll(allEvents);
-    }
+    static void setSubeventIndex(int idx);
+
+    static int getSubeventIndex();
+
+    static void deleteAllEvents();
+
+    virtual void mouseDragged(QPointF deltaPos) {}
 
     virtual QPointF getCursorPos(int time) {return QPointF(100,100);}
 
@@ -69,24 +64,20 @@ public:
 
     virtual ~Event() {}
 
-private:
-
-    void init()
+    virtual QRectF getSelectionRect()
     {
-        ID = allEvents.size();
-        allEvents.push_back(this);
+        QPointF corner1 = transform * selectionRect.topLeft();
+        QPointF corner2 = transform * selectionRect.bottomRight();
+
+        return QRectF(corner1, corner2);
     }
+
+    void init();
 };
 
 class PenStroke : public Event
 {
 public:
-    int pbStart;
-    float r=0, g=0, b=0;
-    float ptSize = 3;
-
-    QMatrix4x4 transform;
-
     struct Subevent
     {
         int t,pbIdx; float x,y;
@@ -94,12 +85,16 @@ public:
         Subevent(int t, float x, float y, int pbIdx) : t(t), x(x), y(y), pbIdx(pbIdx) {}
     };
 
+    int pbStart;
+    float r=0, g=0, b=0;
+    float ptSize = 3;
     QVector<Subevent> subevents;
+    float selectionSpacing = 10.0f;
 
     ~PenStroke() {}
 
     PenStroke(int pbStart, int startT) :
-        Event(startT),
+        Event(startT, false),
         pbStart(pbStart-1) // First event is always a point and pbStart is where the pbIdx is AFTER its been inserted in the pb
     {
         r = MainWindow::si->activeColor.redF();
@@ -109,10 +104,9 @@ public:
         type = STROKE_EVENT;
     }
 
-    virtual PenStroke* clone() const
-    {
-        return new PenStroke(*this);
-    }
+    virtual PenStroke* clone() const;
+
+    void mouseDragged(QPointF deltaPos);
 
     void closeStrokeEvent(int endT)
     {
@@ -122,179 +116,43 @@ public:
     void addStrokeEvent(int t, float x, float y, int pbo)
     {
         subevents << Subevent(t, x, y, pbo);
-    }
 
-    void scaleAndMove(float scale, int timeShiftMSec, int pivot)
-    {
-        startTime += timeShiftMSec;
-        startTime = (startTime - pivot) * scale + pivot;
-
-        for (Subevent& se : subevents)
+        if (subevents.size() == 1)
         {
-            se.t += timeShiftMSec;
-            se.t = (se.t - pivot) * scale + pivot;
+            selectionRect.setCoords(x,y,x,y);
         }
-
-        endTime += timeShiftMSec;
-        endTime = (endTime - pivot) * scale + pivot ;
+        else
+        {
+            if ( y > selectionRect.top()    ) selectionRect.setTop   (y);
+            if ( y < selectionRect.bottom() ) selectionRect.setBottom(y);
+            if ( x > selectionRect.right()  ) selectionRect.setRight (x);
+            if ( x < selectionRect.left()   ) selectionRect.setLeft  (x);
+        }
     }
+
+    void scaleAndMove(float scale, int timeShiftMSec, int pivot);
 
     QPointF getCursorPos(int time)
     {
         return cursorPos;
     }
 
-    void timeShift(int time)
-    {
-        startTime += time;
-        endTime += time;
-
-        for (Subevent& se : subevents)
-        {
-            se.t += time;
-        }
-    }
+    void timeShift(int time);
 
     static bool timeLessThan(const Subevent se1, const Subevent se2)
     {
         return se1.t < se2.t;
     }
 
-    void trimRange(int from, int to, int insertIdx, QVector<Event*> &events)
-    {
-        Subevent valueFrom(from, 0, 0, 0);
+    void trimRange(int from, int to, int insertIdx, QVector<Event*> &events);
 
-        QVector<Subevent>::iterator f =
-                qLowerBound(subevents.begin(), subevents.end(), valueFrom, timeLessThan);
+    void trimFrom(int from);
 
-        Subevent valueTo(to, 0, 0, 0);
+    void trimUntil(int to);
 
-        QVector<Subevent>::iterator t =
-                qLowerBound(subevents.begin(), subevents.end(), valueTo, timeLessThan) + 1;
+    bool drawUntil(int time);
 
-        if (t > subevents.end()) t--;
-
-        subevents.erase(f, t);
-
-        startTime = subevents.first().t;
-        endTime = subevents.last().t;
-    }
-
-    void trimFrom(int from)
-    {
-        Subevent value(from, 0, 0, 0);
-
-        QVector<Subevent>::iterator i =
-                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan);
-
-        subevents.erase(i, subevents.end());
-
-        endTime = subevents.last().t;
-    }
-
-    void trimUntil(int to)
-    {
-        Subevent value(to, 0, 0, 0);
-
-        QVector<Subevent>::iterator i =
-                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan) + 1;
-
-        if (i > subevents.end()) i--;
-
-        subevents.erase(subevents.begin(), i);
-
-        startTime = subevents.first().t;
-    }
-
-    bool drawUntil(int time)
-    {
-        bool reachedTimeCursor = false;
-        int to = subevents.back().pbIdx;
-
-        for (int i = 0; i < subevents.size(); i++)
-        {
-            if (subevents[i].t > time)
-            {
-                if (i==0)
-                {
-                    to = pbStart;
-                    subeventToDrawIdx = 0;
-                }
-                else
-                {
-                    to = subevents[i-1].pbIdx;
-                    subeventToDrawIdx = i;
-                }
-
-                reachedTimeCursor = true;
-
-                break;
-            }
-        }
-
-        StrokeRenderer::si->drawStrokeSpritesRange(pbStart, to, r, g, b, ptSize, transform, ID);
-
-        return reachedTimeCursor;
-    }
-
-    bool drawFromIndexUntil(int limitTime)
-    {
-        bool reachedLimit = false;
-
-        // Draw from the index before where we stopped or from the start index, if refering to the first index
-        int from = subeventToDrawIdx == 0 ? pbStart : subevents[subeventToDrawIdx-1].pbIdx;
-
-        // Starting off, we don't draw anything
-        int to = from;
-
-        // From the current subevent and on...
-        for (; subeventToDrawIdx < subevents.size(); subeventToDrawIdx++)
-        {
-            // If the subevent's timestamp goes over the limitTime
-            if (subevents[subeventToDrawIdx].t <= limitTime)
-            {
-                // Decrease the index, as we want the subevent right before going over the limitTime and get its pointBuffer index
-                to = subevents[subeventToDrawIdx].pbIdx;
-
-                // Update the cursor pos
-                cursorPos = QPointF(subevents[subeventToDrawIdx].x, subevents[subeventToDrawIdx].y);
-            }
-            else
-            {
-                // timeLimit was reached
-                reachedLimit = true;
-
-                // Stop looking
-                break;
-            }
-        }
-
-        // If last index limit has been reached
-        if (subeventToDrawIdx == subevents.size())
-        {
-            // If this event is closed (complete) and we reached the last index
-            if (endTime >= 0)
-            {
-                // Reset subeventIndex
-                subeventToDrawIdx = 0;
-
-                // Finish drawing the whole event
-                to = subevents.back().pbIdx;
-
-                // Update the cursor pos
-                cursorPos = QPointF(subevents.back().x, subevents.back().y);
-            }
-            else
-            {
-                // Else, it's still being drawn, and therefore we hit the timecursor
-                reachedLimit = true;
-            }
-        }
-
-        if ( !(to == from) ) StrokeRenderer::si->drawStrokeSpritesRange(from, to, r, g, b, ptSize, transform, ID);
-
-        return reachedLimit;
-    }
+    bool drawFromIndexUntil(int limitTime);
 };
 
 class EraserStroke : public PenStroke
@@ -326,13 +184,13 @@ public:
     ~PointerMovement() {}
 
     PointerMovement(int startT) :
-        Event(startT)
+        Event(startT, false)
     {
         type = POINTER_MOVEMENT_EVENT;
     }
 
     PointerMovement(int startT, int endT, QVector<Subevent> subevents) :
-        Event(startT)
+        Event(startT, false)
     {
         endTime = endT;
 
@@ -351,100 +209,17 @@ public:
         return se1.t < se2.t;
     }
 
-    void trimRange(int from, int to, int insertIdx, QVector<Event*> &events)
-    {
-        Subevent valueFrom(from, 0, 0);
-        Subevent valueTo(to, 0, 0);
+    void trimRange(int from, int to, int insertIdx, QVector<Event*> &events);
 
-        QVector<Subevent>::iterator f =
-                qLowerBound(subevents.begin(), subevents.end(), valueFrom, timeLessThan);
-        QVector<Subevent>::iterator t =
-                qLowerBound(subevents.begin(), subevents.end(), valueTo,   timeLessThan);
+    void trimFrom(int time);
 
-        // From refers to after the subevents
-        if (f > subevents.end()-1) return;
-        //ou t >end : end é o fim -> trimFrom(from)
-        if (t > subevents.end()-1)
-        {
-            trimFrom(from);
-            return;
-        }
+    void trimUntil(int time);
 
-        if ((*f).t == from) f++;
-        if ((*t).t == to  ) t--;
+    void scaleAndMove(float scale, int timeShiftMSec, int pivot);
 
-        // Create new Subevent from t to end
-        events.insert( insertIdx, (Event*)(new PointerMovement( (*t).t, endTime, subevents.mid( t - subevents.begin() ) )) );
+    void timeShift(int time);
 
-        subevents.erase(f, subevents.end());
-
-        endTime   = subevents.last().t;
-
-        subevents.last().t--;
-    }
-
-    void trimFrom(int time)
-    {
-        Subevent value(time, 0, 0);
-
-        QVector<Subevent>::iterator i =
-                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan);
-
-        subevents.erase(i, subevents.end());
-
-        endTime = subevents.last().t;
-    }
-
-    void trimUntil(int time)
-    {
-        Subevent value(time, 0, 0);
-
-        QVector<Subevent>::iterator i =
-                qLowerBound(subevents.begin(), subevents.end(), value, timeLessThan) + 1;
-
-        if (i > subevents.end()-1) i--;
-
-        subevents.erase(subevents.begin(), i);
-
-        startTime = subevents.first().t;
-    }
-
-    void scaleAndMove(float scale, int timeShiftMSec, int pivot)
-    {
-        startTime += timeShiftMSec;
-        startTime = (startTime - pivot) * scale + pivot;
-
-        for (Subevent& se : subevents)
-        {
-            se.t += timeShiftMSec;
-            se.t = (se.t - pivot) * scale + pivot;
-        }
-
-        endTime += timeShiftMSec;
-        endTime = (endTime - pivot) * scale + pivot ;
-    }
-
-    void timeShift(int time)
-    {
-        startTime += time;
-        endTime += time;
-
-        for (Subevent& se : subevents)
-        {
-            se.t += time;
-        }
-    }
-
-    QPointF getCursorPos(int time)
-    {
-        for (int i = subevents.size()-1; i >= 0; i--)
-        {
-            if (subevents[i].t <= time)
-            {
-                return QPointF(subevents[i].x, subevents[i].y);
-            }
-        }
-    }
+    QPointF getCursorPos(int time);
 
     void addPointerEvent(int t, float x, float y)
     {
@@ -454,11 +229,6 @@ public:
     void closePointerEvent(int endT)
     {
         endTime = endT;
-    }
-
-    void resizeTo(int sizeMSecs)
-    {
-
     }
 };
 

@@ -55,13 +55,14 @@ void Canvas::paintGL()
 
         clearScreen();
 
-        Timeline::si->redrawScreen();//add if(pickingRequested) cor = ID; -> criar colorToID() e IDtoColor()
+        Timeline::si->redrawScreen();
 
         strokeRenderer.processPicking();
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         pickingRequested = false;
+        redrawRequested = true;
     }
     if (redrawRequested)
     {
@@ -70,6 +71,11 @@ void Canvas::paintGL()
         clearScreen();
 
         Timeline::si->redrawScreen();
+
+        if (MainWindow::si->activeTool == MainWindow::si->POINTER_TOOL && Event::activeEvent)
+        {
+            strokeRenderer.renderSelectionRect(Event::activeEvent->getSelectionRect());
+        }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 

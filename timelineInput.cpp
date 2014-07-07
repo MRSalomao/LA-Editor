@@ -567,7 +567,14 @@ void Timeline::canvasPressedStart(QPointF penPos, int pboStart, int pbo)
 
 void Timeline::canvasPressedMove(QPointF penPos, int pbo)
 {
-    if (MainWindow::si->activeTool == MainWindow::POINTER_TOOL) return;
+    if (MainWindow::si->activeTool == MainWindow::POINTER_TOOL)
+    {
+        Event::handleDrag(penPos - Canvas::si->lastPenPos);
+
+        Canvas::si->redrawRequested = true;
+
+        return;
+    }
 
     int timestamp = getCurrentTime();
 

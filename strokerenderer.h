@@ -18,8 +18,9 @@
 
 class StrokeRenderer : protected OPENGL_FUNCTIONS
 {
-    int strokeColorLoc, strokeZoomAndScrollLoc;
-    int pickingColorLoc, pickingZoomAndScrollLoc;
+    int strokeColorLoc, strokeZoomAndScrollLoc, strokeMatrix;
+    int pickingColorLoc, pickingZoomAndScrollLoc, pickingMatrix;
+    int rectZoomAndScrollLoc;
     int samplerRectLoc;
 
     float extraDist = 0;
@@ -32,6 +33,7 @@ class StrokeRenderer : protected OPENGL_FUNCTIONS
 
     Shader strokeShader;
     Shader pickingShader;
+    Shader selectionRectShader;
     Shader canvasShader;
 
     QPointF canvasSize;
@@ -39,7 +41,7 @@ class StrokeRenderer : protected OPENGL_FUNCTIONS
     GLuint cursorTexture;
 
     float normalSizeAdjustment = 1.0f / 542.0f;
-    float pickingSizeAdjustment = 4.0f;
+    float pickingSizeAdjustment = 5.0f;
 
 public:
     StrokeRenderer();
@@ -54,6 +56,8 @@ public:
     int addPoint(const QPointF &strokePoint);
 
     void processPicking();
+
+    void renderSelectionRect(QRectF rect);
 
     void addStrokeSprite(float x, float y);
 
