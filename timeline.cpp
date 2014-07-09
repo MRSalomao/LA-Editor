@@ -76,9 +76,12 @@ void Timeline::paintEvent(QPaintEvent *event)
             painter.drawPixmap(target, tmpVideo, tmpVideo.rect());
         }
 
-        painter.setPen(QPen(Qt::transparent));
-        painter.setBrush(QBrush(selectionColor));
-        painter.drawRect(videoSelectionRect);
+        if (selectionStartPos != selectionEndPos)
+        {
+            painter.setPen(QPen(Qt::transparent));
+            painter.setBrush(QBrush(selectionColor));
+            painter.drawRect(videoSelectionRect);
+        }
 
         if (!isSelecting)
         {
@@ -121,9 +124,12 @@ void Timeline::paintEvent(QPaintEvent *event)
             painter.drawPixmap(target, tmpAudio, tmpAudio.rect());
         }
 
-        painter.setPen(QPen(Qt::transparent));
-        painter.setBrush(QBrush(selectionColor));
-        painter.drawRect(audioSelectionRect);
+        if (selectionStartPos != selectionEndPos)
+        {
+            painter.setPen(QPen(Qt::transparent));
+            painter.setBrush(QBrush(selectionColor));
+            painter.drawRect(audioSelectionRect);
+        }
 
         if (!isSelecting)
         {

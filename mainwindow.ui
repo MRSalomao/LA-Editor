@@ -129,7 +129,7 @@ background-color: rgba(150, 150, 150, 56);
         <item>
          <layout class="QVBoxLayout" name="drawingTools">
           <property name="spacing">
-           <number>0</number>
+           <number>5</number>
           </property>
           <item>
            <layout class="QHBoxLayout" name="firstRow">
