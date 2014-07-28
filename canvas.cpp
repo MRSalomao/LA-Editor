@@ -152,6 +152,7 @@ void Canvas::tabletEvent(QTabletEvent *event)
     event->accept();
 
     lastPenPos = penPos;
+    lastPenIntPos = penIntPos;
 }
 
 void Canvas::mousePressEvent(QMouseEvent *event)
@@ -166,6 +167,7 @@ void Canvas::mousePressEvent(QMouseEvent *event)
 
     int pbo = strokeRenderer.addPoint(penPos);
     lastPenPos = penPos;
+    lastPenIntPos = penIntPos;
 
     Timeline::si->canvasHoverEnd();
     Timeline::si->canvasPressedStart(penPos, strokeRenderer.getCurrentSpriteCounter(), pbo);
@@ -182,6 +184,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event)
     deviceDown = false;
 
     lastPenPos = penPos;
+    lastPenIntPos = penIntPos;
 
     Timeline::si->canvasPressedEnd();
     Timeline::si->canvasHoverStart(penPos);
@@ -204,12 +207,13 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         Timeline::si->canvasHoverMove(penPos);
     }
     lastPenPos = penPos;
+    lastPenIntPos = penIntPos;
 }
 
 void Canvas::rescalePenPos()
 {
-    penPos.setX(penPos.x() / w * 2.0f - 1.0f);
-    penPos.setY( (penPos.y() / totalH + strokeRenderer.viewportYStart) * -2.0f + 1.0f);
+    penPos.setX((penPos.x() / w * 2.0f - 1.0f)  * SHRT_MAX);
+    penPos.setY( ((penPos.y() / totalH + strokeRenderer.viewportYStart) * -2.0f + 1.0f)  * SHRT_MAX);
 }
 
 #define scrollSensitivity 40

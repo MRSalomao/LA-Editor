@@ -509,7 +509,7 @@ void Timeline::incrementalDraw()
             // Stop incrementing (break the loop) the event index for now, if the timecursor was hit
             if (hitLimit)
             {
-                if (isPlaying) cursorPosition = eventToDraw->getCursorPos(timeCursorMSec);
+                if (isPlaying) cursorPosition = (eventToDraw->transform * SHRT_MAX) * eventToDraw->getCursorPos(timeCursorMSec);
 
                 break;
             }
@@ -526,7 +526,8 @@ void Timeline::incrementalDraw()
 
             if (ev->type == Event::STROKE_EVENT || ev->type == Event::POINTER_MOVEMENT_EVENT)
             {
-                cursorPosition = ev->getCursorPos(timeCursorMSec);
+                cursorPosition = QPointF(eventToDraw->transform(0,3) * SHRT_MAX * ev->getCursorPos(timeCursorMSec).x()
+                                         , eventToDraw->transform(1,3) * SHRT_MAX * ev->getCursorPos(timeCursorMSec).y()) ;
 
                 break;
             }
@@ -569,7 +570,7 @@ void Timeline::canvasPressedMove(QPointF penPos, int pbo)
 {
     if (MainWindow::si->activeTool == MainWindow::POINTER_TOOL)
     {
-        Event::handleDrag(penPos - Canvas::si->lastPenPos);
+        Event::handleDrag(Canvas::si->penPos - Canvas::si->lastPenPos);
 
         Canvas::si->redrawRequested = true;
 
@@ -643,4 +644,43 @@ void Timeline::canvasHoverEnd()
     {
         dynamic_cast<PointerMovement*>(currentEvent)->closePointerEvent(timestamp);
     }
+}
+
+
+void Timeline::exportVideo()
+{
+    // Create and open video file
+    #ifndef Q_OS_MAC
+    QFile videoFile("video.vvf");
+    #else
+    QFile videoFile("./../../../video.vvf");
+    #endif
+    videoFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
+
+    QDataStream out(&videoFile);
+
+    out << (qint16) 0; // Video File version number - to prevent compatibility issues
+//    out << videoNameSize; //TODO
+//    out << "videoName";
+
+    int lastInstant;
+
+    for (Event* ev : events)
+    {
+        switch (ev->type)
+        {
+        case Event::STROKE_EVENT:
+            ((PenStroke*) ev)->writeToStream(out);
+            break;
+
+        case Event::POINTER_MOVEMENT_EVENT:
+            ((PointerMovement*) ev)->writeToStream(out);
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    videoFile.close();
 }

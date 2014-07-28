@@ -59,7 +59,7 @@ public:
     GLuint pickingTextureID = -1;
 
     QPointF penPos, lastPenPos;
-    QPoint penIntPos;
+    QPoint penIntPos, lastPenIntPos;
 
 protected:
     void paintGL ();

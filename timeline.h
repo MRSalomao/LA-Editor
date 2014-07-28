@@ -130,8 +130,6 @@ class Timeline : public QWidget
     const int videoPixmapHeight = 1;
     const int timeRulerStart = audioTimelineStart + audioPixmapHeight;
 
-    // Write wav header
-    void writeWavHeader(QFile *audioFile);
 public:
 
     // Objects used for audio sampling
@@ -264,6 +262,12 @@ public:
     void undo();
     void unselect();
 
+    void exportVideo();
+
+    void startMic();
+
+    // Write wav header
+    void writeWavHeader(QFile *audioFile);
 
 protected:
 

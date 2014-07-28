@@ -6,6 +6,7 @@
 #include <iostream>
 #include <QColor>
 #include <mainwindow.h>
+#include <QDataStream>
 
 #include "timeline.h"
 #include "strokerenderer.h"
@@ -27,9 +28,13 @@ public:
     QMatrix4x4 transform;
 
     enum { STROKE_EVENT,
+           STROKE_START,
+           STROKE_END,
            POINTER_MOVEMENT_EVENT,
+           POINTER_MOVEMENT_START,
+           POINTER_MOVEMENT_END,
            CTRL_Z_EVENT,
-           SCROLL_EVENT };
+           SCROLL_EVENT};
 
 
     Event(int startT, bool isLocal=true);
@@ -105,6 +110,8 @@ public:
     }
 
     virtual PenStroke* clone() const;
+
+    void writeToStream(QDataStream &out);
 
     void mouseDragged(QPointF deltaPos);
 
@@ -198,6 +205,8 @@ public:
 
         type = POINTER_MOVEMENT_EVENT;
     }
+
+    void writeToStream(QDataStream &out);
 
     virtual PointerMovement* clone() const
     {

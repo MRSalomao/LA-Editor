@@ -397,7 +397,8 @@ void Timeline::deleteVideo(int fromTime, int toTime)
     if (deleteSelectionEndIdx < events.size() - 1)
     {
         if (toTime > events[deleteSelectionEndIdx + 1]->startTime &&
-            toTime < events[deleteSelectionEndIdx + 1]->endTime)
+            toTime < events[deleteSelectionEndIdx + 1]->endTime &&
+            deleteSelectionStartIdx + 1 < events.size())
         {
             events[deleteSelectionStartIdx + 1]->trimUntil(toTime);
         }
@@ -519,7 +520,9 @@ void Timeline::copyAudio()
     audioClipboard.clear();
 
     int bytesToRead = sampleSize * samplingFrequency * (selectionEndTime - selectionStartTime) / 1000.0;
+    bytesToRead = (bytesToRead % 2 == 0) ? bytesToRead : bytesToRead - 1;
     int selectionStart = sampleSize * samplingFrequency * selectionStartTime / 1000.0;
+    selectionStart = (selectionStart % 2 == 0) ? selectionStart : selectionStart - 1;
     QByteArray tmpArray;
 
     // Fill audioClipboard with selection

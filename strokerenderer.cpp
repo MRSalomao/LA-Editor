@@ -206,11 +206,11 @@ int StrokeRenderer::getCurrentSpriteCounter()
 
 void StrokeRenderer::addStrokeSprite(float x, float y)
 {
-    if (x < -1.0 || x > 1.0 || y < -1.0 || y > 1.0) return;
+    if (x < SHRT_MIN || x > SHRT_MAX || y < SHRT_MIN || y > SHRT_MAX) return;
 
     if(spriteCounter < N_SPRITES)
     {
-        GLshort posArray[] = {(GLshort)(x * SHRT_MAX), (GLshort)(y * SHRT_MAX)};
+        GLshort posArray[] = {(GLshort)x, (GLshort)y};
 
         glBindBuffer(GL_ARRAY_BUFFER, verticesId);
         glBufferSubData(GL_ARRAY_BUFFER, spriteCounter*VERTEX_COORD_SIZE, VERTEX_COORD_SIZE, posArray);
@@ -223,10 +223,10 @@ void StrokeRenderer::addStrokeSprite(float x, float y)
 void StrokeRenderer::drawCursor()
 {
     glBindTexture(GL_TEXTURE_2D, cursorTexture);
-    drawTexturedRect( Timeline::si->cursorPosition.x() - 32 / canvasSize.x(),
-                     (Timeline::si->cursorPosition.y() * zoom - zoom + 1.0 + scroll) - 32 / canvasSize.y(),
-                     64.0 / canvasSize.x(),
-                     64.0 / canvasSize.y() );
+    drawTexturedRect( Timeline::si->cursorPosition.x() / SHRT_MAX - 32.0f / canvasSize.x(),
+                     (Timeline::si->cursorPosition.y() / SHRT_MAX * zoom - zoom + 1.0f + scroll) - 32.0f / canvasSize.y(),
+                      64.0f / canvasSize.x(),
+                      64.0f / canvasSize.y() );
 }
 
 

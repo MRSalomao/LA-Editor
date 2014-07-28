@@ -65,7 +65,7 @@ public:
     const float canvasRatioSquared = canvasRatio * canvasRatio;
     float viewportYStart = 0;
 
-    const float spriteSpacing = 1.0f / 250.0f;
+    const float spriteSpacing = SHRT_MAX / 250.0f;
 
     float scrollBarSize = 100;
     QScrollBar* scrollBar;

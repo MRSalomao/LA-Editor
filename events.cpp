@@ -69,9 +69,30 @@ PenStroke* PenStroke::clone() const
     return ret;
 }
 
+void PenStroke::writeToStream(QDataStream& out)
+{
+    out << (qint32)startTime;
+    out << (qint8)(STROKE_START);
+    out << (quint8)(r * 255.0f);
+    out << (quint8)(g * 255.0f);
+    out << (quint8)(b * 255.0f);
+    qDebug() << (quint8)(r * 255.0f)<< (quint8)(g * 255.0f)<< (quint8)(b * 255.0f);
+
+    for (Subevent se : subevents)
+    {
+        out << (qint32)se.t;
+        out << (qint8)(STROKE_EVENT);
+        out << (qint16)se.x;
+        out << (qint16)se.y;
+    }
+
+    out << (qint32)endTime;
+    out << (qint8)(STROKE_END);
+}
+
 void PenStroke::mouseDragged(QPointF deltaPos)
 {
-    transform.translate(deltaPos.x(), deltaPos.y(), 0);
+    transform.translate(deltaPos.x()/SHRT_MAX, deltaPos.y()/SHRT_MAX);
 }
 
 
@@ -232,6 +253,23 @@ bool PenStroke::drawFromIndexUntil(int limitTime)
 }
 
 
+void PointerMovement::writeToStream(QDataStream &out)
+{
+    out << (qint32)startTime;
+    out << (qint8)(POINTER_MOVEMENT_START);
+
+    for (Subevent se : subevents)
+    {
+        out << (qint32)se.t;
+        out << (qint8)(POINTER_MOVEMENT_EVENT);
+        out << (qint16)se.x;
+        out << (qint16)se.y;
+    }
+
+    out << (qint32)endTime;
+    out << (qint8)(POINTER_MOVEMENT_END);
+}
+
 void PointerMovement::trimRange(int from, int to, int insertIdx, QVector<Event *> &events)
 {
     Subevent valueFrom(from, 0, 0);
@@ -327,7 +365,7 @@ QPointF PointerMovement::getCursorPos(int time)
     {
         if (subevents[i].t <= time)
         {
-            return QPointF(subevents[i].x, subevents[i].y);
+            return QPointF(subevents[i].x * transform(0,3) * SHRT_MAX, subevents[i].y * transform(1,3) * SHRT_MAX);
         }
     }
 }

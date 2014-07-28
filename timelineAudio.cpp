@@ -38,23 +38,54 @@ Timeline::Timeline(QWidget *parent) :
 
 Timeline::~Timeline()
 {
+    // Export video
+    exportVideo();
+
+    // Export audio
+    writeWavHeader(rawAudioFile);
+    rawAudioFile->close();
+
+    QProcess *process = new QProcess(this);
+
+    bool noiseRecorded = false;
+    #ifndef Q_OS_MAC
+    if ( QFile::exists("noise.wav") ) noiseRecorded = true;
+    #else
+    if ( QFile::exists("./../../../noise.raw") ) noiseRecorded = true;
+    #endif
+
+    // Remove background noise if requested by the user
+    if (noiseRecorded)
+    {
+        #ifdef Q_OS_UNIX
+        QString command = "sox";
+        #else
+        QString command = "sox.exe";
+        #endif
+        process->execute( command, QStringList({"noise.wav", "-n", "noiseprof", "noise.prof"}) );
+        process->execute( command, QStringList({"rawAudioFile.wav", "cleanAudio.wav", "noisered", "noise.prof", "0.21"}) );
+    }
+
+    // Convert to Opus
+    #ifdef Q_OS_UNIX
+    QString command = "opusenc";
+    #else
+    QString command = "opusenc.exe";
+    #endif
+    if (noiseRecorded)
+    {
+        process->execute( command, QStringList({"--bitrate", "24", "cleanAudio.wav", "FinalAudio.opus"}) );
+    }
+    else
+    {
+        process->execute( command, QStringList({"--bitrate", "24", "rawAudioFile.wav", "FinalAudio.opus"}) );
+    }
     // Delete event objects
     Event::deleteAllEvents();
 
     // Delete audio objects
     audioInput->stop();
     audioOutput->stop();
-
-    writeWavHeader(rawAudioFile);
-    rawAudioFile->close();
-
-    QProcess *process = new QProcess(this);
-    #ifdef Q_OS_UNIX
-    QString command = "opusenc";
-    #else
-    QString command = "opusenc.exe";
-    #endif
-    process->execute( command, QStringList({"--bitrate", "24", "rawAudioFile.wav", "FinalAudio.opus"}) );
 }
 
 
@@ -152,8 +183,13 @@ void Timeline::initializeAudio()
     barsPerMSec = samplingFrequency / (samplesPerBar * 1000.0);
     pixelsPerBar = samplesPerBar * samplingInterval * pixelsPerSecond;
 
-
     // Start audio capture device and connect to apropriate SLOTs
+    startMic();
+}
+
+
+void Timeline::startMic()
+{
     inputDevice = audioInput->start();
     connect(inputDevice, SIGNAL(readyRead()), this, SLOT(readAudioFromMic()));
     connect(audioInput, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
@@ -221,7 +257,9 @@ void Timeline::startPlaying()
     }
     else
     {
-        rawAudioFile->seek( sampleSize * samplingFrequency * timeCursorMSec / 1000.0 );
+        int seekPos = sampleSize * samplingFrequency * timeCursorMSec / 1000.0;
+        seekPos = (seekPos % 2 == 0) ? seekPos : seekPos - 1;
+        rawAudioFile->seek(seekPos);
         lastRecordStartLocalTime = timeCursorMSec;
     }
 
@@ -371,7 +409,8 @@ void Timeline::scaleAudio()
     // Read back the result
     QByteArray tmpArray;
     audioClipboard.clear();
-    int bytesToRead = tmpFileIn->size();
+    int bytesToRead = tmpFileIn->size() - 44;
+    tmpFileIn->seek(44);
     while (bytesToRead != 0)
     {
         tmpArray = tmpFileIn->read(bytesToRead);
