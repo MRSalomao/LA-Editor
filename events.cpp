@@ -157,6 +157,8 @@ void PenStroke::trimUntil(int to)
 
     subevents.erase(subevents.begin(), i);
 
+    if (subevents.size() == 0) return; //TODO
+
     startTime = subevents.first().t;
 }
 
@@ -327,6 +329,8 @@ void PointerMovement::trimUntil(int time)
 
     subevents.erase(subevents.begin(), i);
 
+    if (subevents.size() == 0) return; //TODO
+
     startTime = subevents.first().t;
 }
 
@@ -365,7 +369,7 @@ QPointF PointerMovement::getCursorPos(int time)
     {
         if (subevents[i].t <= time)
         {
-            return QPointF(subevents[i].x * transform(0,3) * SHRT_MAX, subevents[i].y * transform(1,3) * SHRT_MAX);
+            return QPointF(subevents[i].x, subevents[i].y);
         }
     }
 }

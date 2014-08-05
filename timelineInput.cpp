@@ -526,8 +526,9 @@ void Timeline::incrementalDraw()
 
             if (ev->type == Event::STROKE_EVENT || ev->type == Event::POINTER_MOVEMENT_EVENT)
             {
-                cursorPosition = QPointF(eventToDraw->transform(0,3) * SHRT_MAX * ev->getCursorPos(timeCursorMSec).x()
-                                         , eventToDraw->transform(1,3) * SHRT_MAX * ev->getCursorPos(timeCursorMSec).y()) ;
+                cursorPosition = (ev->transform * SHRT_MAX) * ev->getCursorPos(timeCursorMSec);
+
+                qDebug()<<cursorPosition;
 
                 break;
             }
